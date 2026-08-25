@@ -515,22 +515,6 @@
   @media (max-width:520px){.jury-grid{grid-template-columns:1fr;}}
   .jury-note{margin-top:clamp(28px,3.4vw,36px);font-family:var(--font-mono);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);}
 
-  /* ================= PROCESS ================= */
-  .process{padding-block:clamp(90px,12vw,140px);}
-  .process-list{display:grid;gap:0;border-top:1px solid var(--border);}
-  .process-item{
-    display:grid;grid-template-columns:90px 1.1fr 1.4fr;gap:24px;align-items:start;
-    padding-block:clamp(26px,3vw,36px);border-bottom:1px solid var(--border);
-  }
-  .process-item .step{font-family:var(--font-mono);font-size:.8rem;color:var(--red);padding-top:4px;}
-  .process-item h4{font-family:var(--font-display);font-weight:600;font-size:1.3rem;line-height:1.25;}
-  .process-item p{color:var(--muted);font-size:.94rem;line-height:1.55;padding-top:5px;}
-  .process-item .tag-ey{
-    display:inline-block;margin-top:10px;font-family:var(--font-mono);font-size:.65rem;letter-spacing:.08em;
-    text-transform:uppercase;color:var(--blue);border:1px solid currentColor;padding:3px 8px;border-radius:2px;
-  }
-  @media (max-width:720px){.process-item{grid-template-columns:44px 1fr;}.process-item p{grid-column:2;}}
-
   /* ================= PARTNERS =================
      Search + filter + alphabetical accordion, modeled on weforum.org/partners. We only have one
      confirmed partner (EY) so far, so the taxonomy and A–Z shell are real and functional, but
@@ -705,7 +689,6 @@
   <a href="#matter" data-target="matter"><span class="scroll-dot-label">About</span><span class="scroll-dot"></span></a>
   <a href="#categories" data-target="categories"><span class="scroll-dot-label">Categories</span><span class="scroll-dot"></span></a>
   <a href="#jury" data-target="jury"><span class="scroll-dot-label">Jury</span><span class="scroll-dot"></span></a>
-  <a href="#process" data-target="process"><span class="scroll-dot-label">Process</span><span class="scroll-dot"></span></a>
   <a href="#partners" data-target="partners"><span class="scroll-dot-label">Partners</span><span class="scroll-dot"></span></a>
   <a href="#contact" data-target="contact"><span class="scroll-dot-label">Contact</span><span class="scroll-dot"></span></a>
 </nav>
@@ -988,43 +971,6 @@
       </div>
     </div>
     <div class="wrap"><div class="jury-note">Jury panel tentative, subject to confirmation</div></div>
-  </section>
-
-  <section class="process" id="process">
-    <div class="wrap">
-      <div class="section-head" data-reveal>
-        <div class="eyebrow section-kicker">Selection Process</div>
-        <h2 class="section-title balance">A rigorous, credible selection process.</h2>
-      </div>
-      <div class="process-list" data-reveal-group>
-        <div class="process-item">
-          <span class="step">01</span>
-          <h4>Leadership &amp; Governance Benchmarking</h4>
-          <p>Evaluating decision-making quality, ethical conduct and organisational governance standards.</p>
-        </div>
-        <div class="process-item">
-          <span class="step">02</span>
-          <h4>Innovation &amp; Sustainability Metrics</h4>
-          <p>Assessing forward-looking practices and long-term value creation.</p>
-        </div>
-        <div class="process-item">
-          <span class="step">03</span>
-          <h4>Business Performance Analysis</h4>
-          <p>Detailed financials and operating metrics.<span class="tag-ey">Shortlisted by Knowledge Partner · EY</span></p>
-        </div>
-        <div class="process-item">
-          <span class="step">04</span>
-          <h4>Impact Assessment</h4>
-          <p>Measuring tangible impact on employees, customers and communities.</p>
-        </div>
-      </div>
-      <div class="section-foot">
-        <a class="btn ghost" href="/criteria">
-          See Full Judging Criteria
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
-        </a>
-      </div>
-    </div>
   </section>
 
   <section class="partners" id="partners">
