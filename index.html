@@ -275,34 +275,39 @@
   .menu-overlay-foot a:hover{color:var(--overlay-ink);}
 
   /* ================= SCROLL SECTION INDICATOR =================
-     Commits to the same "dark stage-lit world" as the hero/menu-overlay/footer (--overlay-*
-     tokens) so it stays legible regardless of which section — light or dark — sits behind it. */
+     No background shape — plain floating dots. A soft dark halo (drop-shadow, not a box) keeps
+     the white dots/labels legible over both light and dark sections without boxing them in. */
   .scroll-dots{
-    position:fixed;right:20px;top:50%;transform:translateY(-50%);z-index:40;
-    display:flex;flex-direction:column;align-items:stretch;gap:13px;
-    padding:16px 14px;border-radius:100px;
-    background:var(--overlay-bg);border:1px solid var(--overlay-line);
-    box-shadow:0 10px 30px rgba(0,0,0,.3);
+    position:fixed;right:22px;top:50%;transform:translateY(-50%);z-index:40;
+    display:flex;flex-direction:column;align-items:flex-end;gap:15px;
   }
   .scroll-dots a{
     display:flex;align-items:center;justify-content:flex-end;gap:10px;
-    text-decoration:none;
+    text-decoration:none;width:100%;
   }
   .scroll-dot{
     width:7px;height:7px;border-radius:50%;flex:none;
-    background:color-mix(in srgb, var(--overlay-ink) 32%, transparent);
-    transition:background-color .3s ease, transform .3s ease;
+    background:rgba(255,255,255,.9);
+    box-shadow:0 0 0 1.5px rgba(0,0,0,.35), 0 1px 4px rgba(0,0,0,.35);
+    transition:background-color .3s ease, transform .3s ease, box-shadow .3s ease;
   }
   .scroll-dot-label{
     font-family:var(--font-mono);font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;
-    color:color-mix(in srgb, var(--overlay-ink) 60%, transparent);white-space:nowrap;
+    color:#fff;white-space:nowrap;
+    text-shadow:0 1px 3px rgba(0,0,0,.55), 0 0 10px rgba(0,0,0,.4);
     opacity:0;transform:translateX(6px);
     transition:opacity .25s ease, transform .25s ease, color .25s ease;
   }
-  .scroll-dots a:hover .scroll-dot{background:var(--overlay-ink);}
-  .scroll-dots a:hover .scroll-dot-label{opacity:1;transform:translateX(0);color:var(--overlay-ink);}
-  .scroll-dots a.active .scroll-dot{background:var(--red);transform:scale(1.6);}
-  .scroll-dots a.active .scroll-dot-label{opacity:1;transform:translateX(0);color:var(--red);font-weight:700;}
+  .scroll-dots a:hover .scroll-dot{background:#fff;box-shadow:0 0 0 1.5px rgba(0,0,0,.45), 0 1px 5px rgba(0,0,0,.4);}
+  .scroll-dots a:hover .scroll-dot-label{opacity:1;transform:translateX(0);}
+  .scroll-dots a.active .scroll-dot{
+    background:var(--red);transform:scale(1.6);
+    box-shadow:0 0 0 1.5px rgba(0,0,0,.35), 0 1px 6px rgba(0,0,0,.4);
+  }
+  .scroll-dots a.active .scroll-dot-label{
+    opacity:1;transform:translateX(0);color:var(--red);font-weight:700;
+    text-shadow:0 1px 3px rgba(0,0,0,.6), 0 0 10px rgba(0,0,0,.4);
+  }
   @media (max-width:1080px){.scroll-dots{display:none;}}
 
   /* ================= HERO =================
