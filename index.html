@@ -274,26 +274,35 @@
   .menu-overlay-foot a{color:inherit;text-decoration:none;}
   .menu-overlay-foot a:hover{color:var(--overlay-ink);}
 
-  /* ================= SCROLL SECTION INDICATOR ================= */
+  /* ================= SCROLL SECTION INDICATOR =================
+     Commits to the same "dark stage-lit world" as the hero/menu-overlay/footer (--overlay-*
+     tokens) so it stays legible regardless of which section — light or dark — sits behind it. */
   .scroll-dots{
-    position:fixed;right:28px;top:50%;transform:translateY(-50%);z-index:40;
-    display:flex;flex-direction:column;gap:16px;align-items:flex-end;
+    position:fixed;right:20px;top:50%;transform:translateY(-50%);z-index:40;
+    display:flex;flex-direction:column;align-items:stretch;gap:13px;
+    padding:16px 14px;border-radius:100px;
+    background:var(--overlay-bg);border:1px solid var(--overlay-line);
+    box-shadow:0 10px 30px rgba(0,0,0,.3);
   }
-  .scroll-dots a{display:flex;align-items:center;gap:10px;text-decoration:none;padding:4px 0;}
+  .scroll-dots a{
+    display:flex;align-items:center;justify-content:flex-end;gap:10px;
+    text-decoration:none;
+  }
   .scroll-dot{
-    width:7px;height:7px;border-radius:50%;background:var(--border-strong);flex:none;
+    width:7px;height:7px;border-radius:50%;flex:none;
+    background:color-mix(in srgb, var(--overlay-ink) 32%, transparent);
     transition:background-color .3s ease, transform .3s ease;
   }
   .scroll-dot-label{
     font-family:var(--font-mono);font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;
-    color:var(--muted);white-space:nowrap;
+    color:color-mix(in srgb, var(--overlay-ink) 60%, transparent);white-space:nowrap;
     opacity:0;transform:translateX(6px);
     transition:opacity .25s ease, transform .25s ease, color .25s ease;
   }
-  .scroll-dots a:hover .scroll-dot{background:var(--ink);}
-  .scroll-dots a:hover .scroll-dot-label{opacity:1;transform:translateX(0);}
-  .scroll-dots a.active .scroll-dot{background:var(--red);transform:scale(1.5);}
-  .scroll-dots a.active .scroll-dot-label{opacity:1;transform:translateX(0);color:var(--ink);font-weight:700;}
+  .scroll-dots a:hover .scroll-dot{background:var(--overlay-ink);}
+  .scroll-dots a:hover .scroll-dot-label{opacity:1;transform:translateX(0);color:var(--overlay-ink);}
+  .scroll-dots a.active .scroll-dot{background:var(--red);transform:scale(1.6);}
+  .scroll-dots a.active .scroll-dot-label{opacity:1;transform:translateX(0);color:var(--red);font-weight:700;}
   @media (max-width:1080px){.scroll-dots{display:none;}}
 
   /* ================= HERO =================
@@ -704,13 +713,13 @@
 </div>
 
 <nav class="scroll-dots" aria-label="Page sections">
-  <a href="#hero" data-target="hero"><span class="scroll-dot"></span><span class="scroll-dot-label">Home</span></a>
-  <a href="#matter" data-target="matter"><span class="scroll-dot"></span><span class="scroll-dot-label">About</span></a>
-  <a href="#categories" data-target="categories"><span class="scroll-dot"></span><span class="scroll-dot-label">Categories</span></a>
-  <a href="#jury" data-target="jury"><span class="scroll-dot"></span><span class="scroll-dot-label">Jury</span></a>
-  <a href="#process" data-target="process"><span class="scroll-dot"></span><span class="scroll-dot-label">Process</span></a>
-  <a href="#partners" data-target="partners"><span class="scroll-dot"></span><span class="scroll-dot-label">Partners</span></a>
-  <a href="#contact" data-target="contact"><span class="scroll-dot"></span><span class="scroll-dot-label">Contact</span></a>
+  <a href="#hero" data-target="hero"><span class="scroll-dot-label">Home</span><span class="scroll-dot"></span></a>
+  <a href="#matter" data-target="matter"><span class="scroll-dot-label">About</span><span class="scroll-dot"></span></a>
+  <a href="#categories" data-target="categories"><span class="scroll-dot-label">Categories</span><span class="scroll-dot"></span></a>
+  <a href="#jury" data-target="jury"><span class="scroll-dot-label">Jury</span><span class="scroll-dot"></span></a>
+  <a href="#process" data-target="process"><span class="scroll-dot-label">Process</span><span class="scroll-dot"></span></a>
+  <a href="#partners" data-target="partners"><span class="scroll-dot-label">Partners</span><span class="scroll-dot"></span></a>
+  <a href="#contact" data-target="contact"><span class="scroll-dot-label">Contact</span><span class="scroll-dot"></span></a>
 </nav>
 
 <main id="top">
