@@ -81,21 +81,11 @@
     font-family:var(--font-body);font-weight:600;font-size:.92rem;color:var(--ink);
     text-decoration:none;position:relative;padding-block:4px;
   }
-  .nav-links a:not(.nav-cta)::after{
+  .nav-links a::after{
     content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--red);
     transform:scaleX(0);transform-origin:left;transition:transform .3s cubic-bezier(.16,.8,.24,1);
   }
-  .nav-links a:not(.nav-cta):hover::after{transform:scaleX(1);}
-  .nav-links a.nav-cta{
-    font-family:var(--font-mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;
-    background:var(--red);color:#fff;padding:12px 22px;border-radius:2px;
-    transition:background-color .3s ease;
-  }
-  .nav-links a.nav-cta:hover{background:var(--ink);}
-  @media (min-width:1020px){
-    .nav-links{display:flex;}
-    .menu-trigger{display:none;}
-  }
+  .nav-links a:hover::after{transform:scaleX(1);}
 
   /* menu trigger — mobile-only fallback once the inline links no longer fit */
   .menu-trigger{
@@ -109,6 +99,10 @@
   .menu-trigger .dots span{width:4px;height:4px;border-radius:50%;background:var(--red);display:block;transition:background-color .3s ease;}
   .menu-trigger:hover{background:var(--ink);color:var(--bg);border-color:var(--ink);}
   .menu-trigger:hover .dots span{background:var(--bg);}
+  @media (min-width:1020px){
+    .nav-links{display:flex;}
+    .menu-trigger{display:none;}
+  }
 
   /* full-screen mobile menu overlay, same pattern as the homepage's */
   .menu-overlay{
@@ -267,7 +261,6 @@
     <a href="/#jury">Jury</a>
     <a href="/criteria">Criteria</a>
     <a href="/#partners">Event Partners</a>
-    <a class="nav-cta" href="/#contact">Register Now</a>
   </nav>
 
   <button class="menu-trigger" id="menuTrigger" aria-haspopup="true" aria-expanded="false" aria-controls="menuOverlay">
