@@ -211,6 +211,11 @@
   }
   .btn:hover{transform:translateY(-2px);}
   footer{background:var(--overlay-bg);color:var(--overlay-ink);padding-block:clamp(56px,7vw,84px) clamp(28px,4vw,40px);}
+  footer.footer--sticky{
+    position:fixed;left:0;right:0;bottom:0;width:100%;z-index:-1;
+    transform-origin:bottom center;will-change:opacity,transform;
+  }
+  @media (prefers-reduced-motion: reduce){footer.footer--sticky{position:static;opacity:1;transform:none;}}
   .footer-grid{display:grid;grid-template-columns:1.3fr repeat(3,1fr);gap:clamp(36px,5vw,56px);}
   .footer-brand img{height:76px;width:auto;display:block;margin-bottom:18px;}
   .footer-tagline{
@@ -349,7 +354,8 @@
   </div>
 </section>
 
-<footer>
+<div class="footer-spacer" id="footerSpacer"></div>
+<footer id="siteFooter">
   <div class="wrap">
     <div class="footer-grid">
       <div class="footer-brand">
@@ -436,5 +442,39 @@
     });
   }, {threshold:.12, rootMargin:'0px 0px -6% 0px'});
   els.forEach(function(el){ io.observe(el); });
+  // sticky reveal footer — footer sits fixed at the viewport bottom and fades/scales
+  // in as the page scrolls into the spacer reserved for it, so it feels uncovered
+  // rather than just appearing.
+  var stickyFooter = document.getElementById('siteFooter');
+  var footerSpacer = document.getElementById('footerSpacer');
+  if(stickyFooter && footerSpacer && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    var footerHeight = stickyFooter.offsetHeight;
+    footerSpacer.style.height = footerHeight + 'px';
+    stickyFooter.classList.add('footer--sticky');
+
+    var updateFooterReveal = function(){
+      var rect = footerSpacer.getBoundingClientRect();
+      var progress = (window.innerHeight - rect.top) / footerHeight;
+      progress = Math.max(0, Math.min(1, progress));
+      stickyFooter.style.opacity = progress;
+      stickyFooter.style.transform = 'scale(' + (0.94 + 0.06 * progress) + ')';
+      stickyFooter.style.pointerEvents = progress > 0.98 ? 'auto' : 'none';
+    };
+    updateFooterReveal();
+
+    var footerTicking = false;
+    window.addEventListener('scroll', function(){
+      if(!footerTicking){
+        window.requestAnimationFrame(function(){ updateFooterReveal(); footerTicking = false; });
+        footerTicking = true;
+      }
+    }, {passive:true});
+    window.addEventListener('resize', function(){
+      footerHeight = stickyFooter.offsetHeight;
+      footerSpacer.style.height = footerHeight + 'px';
+      updateFooterReveal();
+    });
+  }
+
 })();
 </script>
