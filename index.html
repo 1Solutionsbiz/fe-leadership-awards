@@ -416,54 +416,67 @@
   }
 
 
-  /* ================= CATEGORIES ================= */
+  /* ================= CATEGORIES =================
+     Was ten full-height stacked sections (one per category) below the jump grid — several
+     thousand px of scroll for content that's really just a name + a paragraph + three tags.
+     Folded into the grid itself: each card expands in place on click, taking on that
+     category's brand-gradient (previously the full-section background) only once open. */
   .categories{padding-block:clamp(90px,12vw,140px);}
-  .cat-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;}
+  .cat-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;align-items:start;}
   @media (max-width:960px){.cat-grid{grid-template-columns:repeat(3,1fr);}}
   @media (max-width:600px){.cat-grid{grid-template-columns:repeat(2,1fr);}}
   @media (max-width:400px){.cat-grid{grid-template-columns:1fr;}}
   .cat-card{
-    background:var(--bg);padding:26px 24px;min-height:150px;
-    display:flex;flex-direction:column;justify-content:space-between;gap:20px;
-    position:relative;overflow:hidden;text-decoration:none;
-    border:1px solid var(--border);border-radius:2px;
+    border:1px solid var(--border);border-radius:2px;overflow:hidden;
+    transition:border-color .3s ease;
   }
-  .cat-card::before{
+  .cat-card.open{border-color:transparent;}
+  .cat-card.pal-1.open{background:linear-gradient(160deg, color-mix(in srgb, var(--red) 30%, var(--overlay-bg)), var(--overlay-bg));}
+  .cat-card.pal-2.open{background:linear-gradient(160deg, color-mix(in srgb, var(--blue) 30%, var(--overlay-bg)), var(--overlay-bg));}
+  .cat-card.pal-3.open{background:linear-gradient(160deg, color-mix(in srgb, var(--gold) 26%, var(--overlay-bg)), var(--overlay-bg));}
+  .cat-card.pal-4.open{background:var(--overlay-bg);}
+  .cat-card-head{
+    width:100%;background:var(--bg);border:0;cursor:pointer;text-align:left;position:relative;overflow:hidden;
+    display:flex;flex-direction:column;justify-content:space-between;gap:20px;min-height:150px;padding:26px 24px;
+  }
+  .cat-card.open .cat-card-head{background:none;}
+  .cat-card-head::before{
     content:"";position:absolute;inset:0;background:var(--ink);transform:translateY(101%);
     transition:transform .45s cubic-bezier(.16,.8,.24,1);z-index:0;
   }
-  .cat-card:hover::before{transform:translateY(0);}
-  .cat-card-arrow{
-    position:absolute;top:22px;right:22px;width:18px;height:18px;z-index:1;
-    color:var(--bg);opacity:0;transform:translate(-5px,5px);
-    transition:opacity .3s ease, transform .3s ease;
-  }
-  .cat-card:hover .cat-card-arrow{opacity:1;transform:translate(0,0);}
-  .cat-card .code{
+  .cat-card:not(.open) .cat-card-head:hover::before{transform:translateY(0);}
+  .cat-card-head .code{
     font-family:var(--font-mono);font-size:.7rem;letter-spacing:.08em;color:var(--red);position:relative;z-index:1;
-  }
-  .cat-card .name{
-    font-family:var(--font-display);font-weight:600;font-size:1.16rem;line-height:1.22;position:relative;z-index:1;
     transition:color .3s ease;
   }
-  .cat-card:hover .name,.cat-card:hover .code{color:var(--bg);}
-  .jump-label{font-size:.94rem;color:var(--muted);margin-top:14px;}
-
-  /* ---- category detail blocks ---- */
-  .cat-detail{padding-block:clamp(64px,9vw,100px);color:var(--overlay-ink);scroll-margin-top:130px;}
-  .cat-detail.pal-1{background:linear-gradient(160deg, color-mix(in srgb, var(--red) 30%, var(--overlay-bg)), var(--overlay-bg));}
-  .cat-detail.pal-2{background:linear-gradient(160deg, color-mix(in srgb, var(--blue) 30%, var(--overlay-bg)), var(--overlay-bg));}
-  .cat-detail.pal-3{background:linear-gradient(160deg, color-mix(in srgb, var(--gold) 26%, var(--overlay-bg)), var(--overlay-bg));}
-  .cat-detail.pal-4{background:var(--overlay-bg);}
-  .cat-index{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.1em;color:var(--red);margin-bottom:16px;}
-  .cat-detail h2{font-family:var(--font-display);font-weight:600;font-size:clamp(2rem,4.4vw,3.2rem);line-height:1.05;margin-bottom:22px;max-width:14ch;}
-  .cat-detail p{font-size:clamp(1rem,1.6vw,1.15rem);line-height:1.6;color:color-mix(in srgb, var(--overlay-ink) 85%, transparent);max-width:56ch;margin-bottom:28px;}
-  .cat-tags{display:flex;flex-wrap:wrap;gap:10px;}
+  .cat-card.open .cat-card-head .code{color:color-mix(in srgb, var(--overlay-ink) 70%, transparent);}
+  .cat-card-head .name{
+    font-family:var(--font-display);font-weight:600;font-size:1.16rem;line-height:1.22;color:var(--ink);
+    position:relative;z-index:1;transition:color .3s ease;
+  }
+  .cat-card:not(.open) .cat-card-head:hover .name,.cat-card:not(.open) .cat-card-head:hover .code{color:var(--bg);}
+  .cat-card.open .cat-card-head .name{color:var(--overlay-ink);}
+  .cat-card-head .chev{
+    position:absolute;top:22px;right:22px;width:18px;height:18px;z-index:1;
+    stroke:var(--ink);transition:transform .3s ease, stroke .3s ease;
+  }
+  .cat-card:not(.open) .cat-card-head:hover .chev{stroke:var(--bg);}
+  .cat-card.open .cat-card-head .chev{stroke:var(--overlay-ink);transform:rotate(180deg);}
+  .cat-card-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .4s cubic-bezier(.16,.8,.24,1);}
+  .cat-card.open .cat-card-body{grid-template-rows:1fr;}
+  .cat-card-body > div{overflow:hidden;}
+  .cat-index{
+    display:block;font-family:var(--font-mono);font-size:.68rem;letter-spacing:.1em;
+    color:color-mix(in srgb, var(--overlay-ink) 60%, transparent);padding:20px 24px 0;
+  }
+  .cat-desc{font-size:.92rem;line-height:1.55;color:color-mix(in srgb, var(--overlay-ink) 88%, transparent);padding:10px 24px 0;}
+  .cat-tags{display:flex;flex-wrap:wrap;gap:8px;padding:16px 24px 24px;}
   .cat-tags span{
-    font-family:var(--font-mono);font-size:.72rem;letter-spacing:.04em;
-    border:1px solid var(--overlay-line);padding:8px 14px;border-radius:100px;
+    font-family:var(--font-mono);font-size:.66rem;letter-spacing:.03em;
+    border:1px solid var(--overlay-line);padding:5px 10px;border-radius:100px;
     color:color-mix(in srgb, var(--overlay-ink) 80%, transparent);
   }
+  .jump-label{font-size:.94rem;color:var(--muted);margin-top:14px;}
 
   /* ================= JURY =================
      Card format follows the Cannes Lions jury pages: a portrait panel with a category/role
@@ -746,115 +759,134 @@
       <div class="section-head" data-reveal>
         <div class="eyebrow section-kicker">Award Categories</div>
         <h2 class="section-title balance">The awards reflect the evolving demands of modern leadership.</h2>
-        <p class="jump-label">Use the boxes below to jump to a specific award category.</p>
+        <p class="jump-label">Tap a category to see what it's judging.</p>
       </div>
     </div>
     <div class="wrap" style="padding:0;">
       <div class="cat-grid" data-reveal-group>
-        <a class="cat-card" href="#lifetime-achievement"><span class="code">FELA · LTA</span><span class="name">Lifetime Achievement</span><svg class="cat-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
-        <a class="cat-card" href="#ceo-of-the-year"><span class="code">FELA · CEO</span><span class="name">CEO of the Year</span><svg class="cat-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
-        <a class="cat-card" href="#cfo-of-the-year"><span class="code">FELA · CFO</span><span class="name">CFO of the Year</span><svg class="cat-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
-        <a class="cat-card" href="#mnc-of-the-year"><span class="code">FELA · MNC</span><span class="name">MNC of the Year</span><svg class="cat-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
-        <a class="cat-card" href="#msme-company-of-the-year"><span class="code">FELA · MSME</span><span class="name">MSME Company of the Year</span><svg class="cat-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
-        <a class="cat-card" href="#start-up-of-the-year"><span class="code">FELA · STU</span><span class="name">Start-up of the Year</span><svg class="cat-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
-        <a class="cat-card" href="#young-turks"><span class="code">FELA · YNG</span><span class="name">Young Turks</span><svg class="cat-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
-        <a class="cat-card" href="#emerging-entrepreneur"><span class="code">FELA · ENT</span><span class="name">Emerging Entrepreneur of the Year</span><svg class="cat-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
-        <a class="cat-card" href="#innovation-of-the-year"><span class="code">FELA · INV</span><span class="name">Innovation of the Year</span><svg class="cat-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
-        <a class="cat-card" href="#sustainability-leader"><span class="code">FELA · SUS</span><span class="name">Sustainability Leader / Company</span><svg class="cat-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
+        <div class="cat-card pal-1">
+          <button class="cat-card-head" aria-expanded="false">
+            <span class="code">FELA · LTA</span>
+            <span class="name">Lifetime Achievement</span>
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="cat-card-body"><div>
+            <span class="cat-index">01 / 10</span>
+            <p class="cat-desc">Honouring a leader whose body of work, spanning decades, has shaped an industry and set the standard for the leaders who followed.</p>
+            <div class="cat-tags"><span>Decades of Impact</span><span>Industry Stewardship</span><span>Enduring Legacy</span></div>
+          </div></div>
+        </div>
+        <div class="cat-card pal-2">
+          <button class="cat-card-head" aria-expanded="false">
+            <span class="code">FELA · CEO</span>
+            <span class="name">CEO of the Year</span>
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="cat-card-body"><div>
+            <span class="cat-index">02 / 10</span>
+            <p class="cat-desc">Recognising the chief executive who combined bold strategic clarity with consistent execution to deliver standout performance this year.</p>
+            <div class="cat-tags"><span>Strategic Clarity</span><span>Consistent Execution</span><span>Stakeholder Value</span></div>
+          </div></div>
+        </div>
+        <div class="cat-card pal-3">
+          <button class="cat-card-head" aria-expanded="false">
+            <span class="code">FELA · CFO</span>
+            <span class="name">CFO of the Year</span>
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="cat-card-body"><div>
+            <span class="cat-index">03 / 10</span>
+            <p class="cat-desc">Recognising the finance leader whose stewardship of capital, risk and strategy strengthened the business well beyond the balance sheet.</p>
+            <div class="cat-tags"><span>Capital Stewardship</span><span>Risk Discipline</span><span>Strategic Finance</span></div>
+          </div></div>
+        </div>
+        <div class="cat-card pal-4">
+          <button class="cat-card-head" aria-expanded="false">
+            <span class="code">FELA · MNC</span>
+            <span class="name">MNC of the Year</span>
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="cat-card-body"><div>
+            <span class="cat-index">04 / 10</span>
+            <p class="cat-desc">For a multinational that combined global scale with genuine impact on the ground in India.</p>
+            <div class="cat-tags"><span>Global Scale</span><span>Local Impact</span><span>India Commitment</span></div>
+          </div></div>
+        </div>
+        <div class="cat-card pal-1">
+          <button class="cat-card-head" aria-expanded="false">
+            <span class="code">FELA · MSME</span>
+            <span class="name">MSME Company of the Year</span>
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="cat-card-body"><div>
+            <span class="cat-index">05 / 10</span>
+            <p class="cat-desc">For a micro, small or medium enterprise that punched above its size, building resilience and value in a fiercely competitive market.</p>
+            <div class="cat-tags"><span>Resilience</span><span>Efficiency</span><span>Market Grit</span></div>
+          </div></div>
+        </div>
+        <div class="cat-card pal-2">
+          <button class="cat-card-head" aria-expanded="false">
+            <span class="code">FELA · STU</span>
+            <span class="name">Start-up of the Year</span>
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="cat-card-body"><div>
+            <span class="cat-index">06 / 10</span>
+            <p class="cat-desc">Celebrating a young company that turned a sharp idea into real traction, disciplined growth and a credible path to scale.</p>
+            <div class="cat-tags"><span>Sharp Execution</span><span>Real Traction</span><span>Scalable Model</span></div>
+          </div></div>
+        </div>
+        <div class="cat-card pal-3">
+          <button class="cat-card-head" aria-expanded="false">
+            <span class="code">FELA · YNG</span>
+            <span class="name">Young Turks</span>
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="cat-card-body"><div>
+            <span class="cat-index">07 / 10</span>
+            <p class="cat-desc">Spotlighting the next generation of leaders under 40 who are already reshaping how their organisations think and compete.</p>
+            <div class="cat-tags"><span>Under 40</span><span>Bold Vision</span><span>Early Impact</span></div>
+          </div></div>
+        </div>
+        <div class="cat-card pal-4">
+          <button class="cat-card-head" aria-expanded="false">
+            <span class="code">FELA · ENT</span>
+            <span class="name">Emerging Entrepreneur of the Year</span>
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="cat-card-body"><div>
+            <span class="cat-index">08 / 10</span>
+            <p class="cat-desc">For a founder in the early stages of the journey already showing the ambition and discipline to build something lasting.</p>
+            <div class="cat-tags"><span>Founding Ambition</span><span>Early Discipline</span><span>Growth Potential</span></div>
+          </div></div>
+        </div>
+        <div class="cat-card pal-1">
+          <button class="cat-card-head" aria-expanded="false">
+            <span class="code">FELA · INV</span>
+            <span class="name">Innovation of the Year</span>
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="cat-card-body"><div>
+            <span class="cat-index">09 / 10</span>
+            <p class="cat-desc">Honouring a product, process or business model that changed the rules of the game and set a new benchmark for what's possible.</p>
+            <div class="cat-tags"><span>New Benchmarks</span><span>Bold Bets</span><span>Category Creation</span></div>
+          </div></div>
+        </div>
+        <div class="cat-card pal-2">
+          <button class="cat-card-head" aria-expanded="false">
+            <span class="code">FELA · SUS</span>
+            <span class="name">Sustainability Leader / Company</span>
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="cat-card-body"><div>
+            <span class="cat-index">10 / 10</span>
+            <p class="cat-desc">Recognising a leader or organisation embedding environmental and social responsibility into the core of how they do business.</p>
+            <div class="cat-tags"><span>ESG Integration</span><span>Long-Term Value</span><span>Responsible Growth</span></div>
+          </div></div>
+        </div>
       </div>
     </div>
   </section>
-
-  <section class="cat-detail pal-1" id="lifetime-achievement">
-    <div class="wrap" data-reveal>
-      <div class="cat-index">01 / 10</div>
-      <h2 class="balance">Lifetime Achievement</h2>
-      <p>Honouring a leader whose body of work, spanning decades, has shaped an industry and set the standard for the leaders who followed.</p>
-      <div class="cat-tags"><span>Decades of Impact</span><span>Industry Stewardship</span><span>Enduring Legacy</span></div>
-    </div>
-  </section>
-
-  <section class="cat-detail pal-2" id="ceo-of-the-year">
-    <div class="wrap" data-reveal>
-      <div class="cat-index">02 / 10</div>
-      <h2 class="balance">CEO of the Year</h2>
-      <p>Recognising the chief executive who combined bold strategic clarity with consistent execution to deliver standout performance this year.</p>
-      <div class="cat-tags"><span>Strategic Clarity</span><span>Consistent Execution</span><span>Stakeholder Value</span></div>
-    </div>
-  </section>
-
-  <section class="cat-detail pal-3" id="cfo-of-the-year">
-    <div class="wrap" data-reveal>
-      <div class="cat-index">03 / 10</div>
-      <h2 class="balance">CFO of the Year</h2>
-      <p>Recognising the finance leader whose stewardship of capital, risk and strategy strengthened the business well beyond the balance sheet.</p>
-      <div class="cat-tags"><span>Capital Stewardship</span><span>Risk Discipline</span><span>Strategic Finance</span></div>
-    </div>
-  </section>
-
-  <section class="cat-detail pal-4" id="mnc-of-the-year">
-    <div class="wrap" data-reveal>
-      <div class="cat-index">04 / 10</div>
-      <h2 class="balance">MNC of the Year</h2>
-      <p>For a multinational that combined global scale with genuine impact on the ground in India.</p>
-      <div class="cat-tags"><span>Global Scale</span><span>Local Impact</span><span>India Commitment</span></div>
-    </div>
-  </section>
-
-  <section class="cat-detail pal-1" id="msme-company-of-the-year">
-    <div class="wrap" data-reveal>
-      <div class="cat-index">05 / 10</div>
-      <h2 class="balance">MSME Company of the Year</h2>
-      <p>For a micro, small or medium enterprise that punched above its size, building resilience and value in a fiercely competitive market.</p>
-      <div class="cat-tags"><span>Resilience</span><span>Efficiency</span><span>Market Grit</span></div>
-    </div>
-  </section>
-
-  <section class="cat-detail pal-2" id="start-up-of-the-year">
-    <div class="wrap" data-reveal>
-      <div class="cat-index">06 / 10</div>
-      <h2 class="balance">Start-up of the Year</h2>
-      <p>Celebrating a young company that turned a sharp idea into real traction, disciplined growth and a credible path to scale.</p>
-      <div class="cat-tags"><span>Sharp Execution</span><span>Real Traction</span><span>Scalable Model</span></div>
-    </div>
-  </section>
-
-  <section class="cat-detail pal-3" id="young-turks">
-    <div class="wrap" data-reveal>
-      <div class="cat-index">07 / 10</div>
-      <h2 class="balance">Young Turks</h2>
-      <p>Spotlighting the next generation of leaders under 40 who are already reshaping how their organisations think and compete.</p>
-      <div class="cat-tags"><span>Under 40</span><span>Bold Vision</span><span>Early Impact</span></div>
-    </div>
-  </section>
-
-  <section class="cat-detail pal-4" id="emerging-entrepreneur">
-    <div class="wrap" data-reveal>
-      <div class="cat-index">08 / 10</div>
-      <h2 class="balance">Emerging Entrepreneur of the Year</h2>
-      <p>For a founder in the early stages of the journey already showing the ambition and discipline to build something lasting.</p>
-      <div class="cat-tags"><span>Founding Ambition</span><span>Early Discipline</span><span>Growth Potential</span></div>
-    </div>
-  </section>
-
-  <section class="cat-detail pal-1" id="innovation-of-the-year">
-    <div class="wrap" data-reveal>
-      <div class="cat-index">09 / 10</div>
-      <h2 class="balance">Innovation of the Year</h2>
-      <p>Honouring a product, process or business model that changed the rules of the game and set a new benchmark for what's possible.</p>
-      <div class="cat-tags"><span>New Benchmarks</span><span>Bold Bets</span><span>Category Creation</span></div>
-    </div>
-  </section>
-
-  <section class="cat-detail pal-2" id="sustainability-leader">
-    <div class="wrap" data-reveal>
-      <div class="cat-index">10 / 10</div>
-      <h2 class="balance">Sustainability Leader / Company</h2>
-      <p>Recognising a leader or organisation embedding environmental and social responsibility into the core of how they do business.</p>
-      <div class="cat-tags"><span>ESG Integration</span><span>Long-Term Value</span><span>Responsible Growth</span></div>
-    </div>
-  </section>
-
   <section class="jury" id="jury">
     <div class="wrap">
       <div class="section-head" data-reveal>
@@ -1291,6 +1323,25 @@
   menuClose.addEventListener('click', closeMenu);
   menuOverlay.querySelectorAll('.menu-list a').forEach(function(a){ a.addEventListener('click', closeMenu); });
   document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeMenu(); });
+
+  // award categories: expand-in-place, one card open at a time
+  var catGrid = document.getElementById('categories');
+  if(catGrid){
+    catGrid.querySelectorAll('.cat-card-head').forEach(function(head){
+      head.addEventListener('click', function(){
+        var card = head.closest('.cat-card');
+        var willOpen = !card.classList.contains('open');
+        catGrid.querySelectorAll('.cat-card.open').forEach(function(open){
+          open.classList.remove('open');
+          open.querySelector('.cat-card-head').setAttribute('aria-expanded', 'false');
+        });
+        if(willOpen){
+          card.classList.add('open');
+          head.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+  }
 
   // partners: type filter + per-card expand, curated logo-wall style
   var partnerFilters = document.getElementById('partnerFilters');
