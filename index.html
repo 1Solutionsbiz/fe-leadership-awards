@@ -509,33 +509,18 @@
   .jury-note{margin-top:clamp(28px,3.4vw,36px);font-family:var(--font-mono);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);}
 
   /* ================= PARTNERS =================
-     Search + filter + alphabetical accordion, modeled on weforum.org/partners. We only have one
-     confirmed partner (EY) so far, so the taxonomy and A–Z shell are real and functional, but
-     only genuinely populated — no placeholder logos or invented sponsor names. */
+     Reworked as a curated logo wall rather than the full A-Z directory: fewer partners shown
+     at a glance, each with a placeholder monogram mark (no real logo art yet) that expands in
+     place on click to reveal a one-line description and a link. EY is the one confirmed
+     partner so far; the rest are placeholder names pending confirmation. */
   .partners{padding-block:clamp(90px,12vw,140px);background:#02608f;color:var(--overlay-ink);}
   .partners-head{
     display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:20px;
-    margin-bottom:clamp(40px,5.5vw,60px);
+    margin-bottom:clamp(28px,3.6vw,36px);
   }
-  .partners-search{
-    display:flex;align-items:center;gap:10px;
-    background:color-mix(in srgb, var(--overlay-ink) 8%, transparent);
-    border:1px solid var(--overlay-line);border-radius:100px;padding:12px 20px;min-width:260px;
-  }
-  .partners-search svg{width:16px;height:16px;stroke:color-mix(in srgb, var(--overlay-ink) 55%, transparent);flex:none;}
-  .partners-search input{
-    background:none;border:0;outline:0;color:var(--overlay-ink);font-family:var(--font-body);font-size:.9rem;width:100%;
-  }
-  .partners-search input::placeholder{color:color-mix(in srgb, var(--overlay-ink) 45%, transparent);}
-
-  .partners-body{display:grid;grid-template-columns:260px 1fr;gap:clamp(30px,4vw,56px);align-items:start;}
-  .partners-filter-label{
-    font-size:1.1rem;color:var(--overlay-ink);padding-bottom:12px;margin-bottom:16px;
-    border-bottom:1px solid var(--overlay-line);
-  }
-  .partners-filter-list{display:flex;flex-direction:column;gap:14px;}
+  .partners-filter-list{display:flex;flex-wrap:wrap;gap:10px 22px;margin-bottom:clamp(36px,5vw,52px);}
   .filter-chip{
-    background:none;border:0;padding:0;text-align:left;cursor:pointer;
+    background:none;border:0;padding:0;cursor:pointer;
     font-family:var(--font-body);font-weight:700;font-size:.78rem;letter-spacing:.03em;text-transform:uppercase;
     color:color-mix(in srgb, var(--overlay-ink) 60%, transparent);
     transition:color .25s ease;
@@ -543,32 +528,51 @@
   .filter-chip:hover{color:var(--overlay-ink);}
   .filter-chip.active{color:var(--red);}
 
-  .partner-group{border-top:1px solid var(--overlay-line);}
-  .partner-group:last-child{border-bottom:1px solid var(--overlay-line);}
-  .partner-group-head{
-    width:100%;background:none;border:0;cursor:pointer;
-    display:flex;align-items:center;justify-content:space-between;
-    padding:18px 4px;color:var(--overlay-ink);
+  .partners-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;align-items:start;}
+  .partner-card{
+    border:1px solid var(--overlay-line);border-radius:4px;overflow:hidden;
+    background:color-mix(in srgb, var(--overlay-ink) 4%, transparent);
+    transition:border-color .25s ease, background-color .25s ease;
   }
-  .partner-letter{font-family:var(--font-body);font-weight:600;font-size:clamp(1.6rem,3vw,2.2rem);}
-  .partner-group-head .chev{width:18px;height:18px;stroke:var(--overlay-ink);transition:transform .3s ease;flex:none;}
-  .partner-group.open .chev{transform:rotate(180deg);}
-  .partner-group-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .35s cubic-bezier(.16,.8,.24,1);}
-  .partner-group.open .partner-group-body{grid-template-rows:1fr;}
-  .partner-group-body > div{overflow:hidden;}
-  .partner-row{
-    display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;
-    padding:14px 4px 22px;
+  .partner-card:hover{border-color:color-mix(in srgb, var(--overlay-ink) 40%, transparent);}
+  .partner-card-head{
+    width:100%;background:none;border:0;cursor:pointer;text-align:left;
+    display:flex;align-items:center;gap:14px;padding:18px;color:var(--overlay-ink);
   }
-  .partner-name{font-family:var(--font-body);font-weight:700;font-size:1.05rem;color:var(--overlay-ink);}
-  .partner-type{
-    font-family:var(--font-mono);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;
+  .partner-mark{
+    flex:none;width:44px;height:44px;border-radius:3px;display:flex;align-items:center;justify-content:center;
+    font-family:var(--font-display);font-weight:600;font-size:.98rem;color:#fff;
+  }
+  .partner-mark.pal-1{background:linear-gradient(155deg, color-mix(in srgb, var(--red) 60%, #16171c), #0c0d10);}
+  .partner-mark.pal-2{background:linear-gradient(155deg, color-mix(in srgb, var(--blue) 60%, #16171c), #0c0d10);}
+  .partner-mark.pal-3{background:linear-gradient(155deg, color-mix(in srgb, var(--gold) 56%, #16171c), #0c0d10);}
+  .partner-mark.pal-4{background:linear-gradient(155deg, #3a3b44, #0c0d10);}
+  .partner-card-meta{flex:1;min-width:0;}
+  .partner-card-name{display:block;font-family:var(--font-body);font-weight:700;font-size:.98rem;color:var(--overlay-ink);}
+  .partner-card-type{
+    display:block;margin-top:2px;font-family:var(--font-mono);font-size:.66rem;letter-spacing:.05em;text-transform:uppercase;
     color:color-mix(in srgb, var(--overlay-ink) 55%, transparent);
   }
-  .partners-empty{
-    padding:32px 4px;font-size:.92rem;color:color-mix(in srgb, var(--overlay-ink) 55%, transparent);
+  .partner-card-head .chev{width:16px;height:16px;stroke:color-mix(in srgb, var(--overlay-ink) 55%, transparent);transition:transform .3s ease;flex:none;}
+  .partner-card.open .chev{transform:rotate(180deg);}
+  .partner-card-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .35s cubic-bezier(.16,.8,.24,1);}
+  .partner-card.open .partner-card-body{grid-template-rows:1fr;}
+  .partner-card-body > div{overflow:hidden;}
+  .partner-card-desc{
+    padding:0 18px 18px 76px;font-size:.86rem;line-height:1.5;
+    color:color-mix(in srgb, var(--overlay-ink) 78%, transparent);
   }
-  @media (max-width:760px){.partners-body{grid-template-columns:1fr;}.partners-filter-list{flex-direction:row;flex-wrap:wrap;gap:18px;}}
+  .partner-card-link{
+    display:inline-flex;align-items:center;gap:6px;margin-top:10px;
+    font-family:var(--font-mono);font-size:.7rem;letter-spacing:.04em;text-transform:uppercase;
+    color:var(--overlay-ink);text-decoration:none;border-bottom:1px solid color-mix(in srgb, var(--overlay-ink) 45%, transparent);
+    padding-bottom:2px;
+  }
+  .partner-card-link:hover{border-color:var(--overlay-ink);}
+  .partner-card-link svg{width:12px;height:12px;flex:none;}
+  @media (max-width:900px){.partners-grid{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:520px){.partners-grid{grid-template-columns:1fr;}.partner-card-desc{padding-left:18px;}}
+
 
   /* ================= CLOSING / FOOTER ================= */
   .closing{padding-block:clamp(90px,14vw,150px);text-align:left;}
@@ -973,292 +977,233 @@
     <div class="wrap">
       <div class="partners-head" data-reveal>
         <h2 class="section-title">Event Partners</h2>
-        <div class="partners-search">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          <input type="text" id="partnerSearch" placeholder="Find a partner" aria-label="Find a partner">
-        </div>
       </div>
 
-      <div class="partners-body">
-        <aside>
-          <div class="partners-filter-label">Filter by partner type</div>
-          <div class="partners-filter-list" id="partnerFilters">
-            <button class="filter-chip active" data-type="all">All Partners</button>
-            <button class="filter-chip" data-type="knowledge">Knowledge Partner</button>
-            <button class="filter-chip" data-type="media">Media Partner</button>
-            <button class="filter-chip" data-type="event">Event Partner</button>
-            <button class="filter-chip" data-type="sponsor">Sponsor</button>
-          </div>
-        </aside>
+      <div class="partners-filter-list" id="partnerFilters" data-reveal>
+        <button class="filter-chip active" data-type="all">All Partners</button>
+        <button class="filter-chip" data-type="knowledge">Knowledge Partner</button>
+        <button class="filter-chip" data-type="media">Media Partner</button>
+        <button class="filter-chip" data-type="event">Event Partner</button>
+        <button class="filter-chip" data-type="sponsor">Sponsor</button>
+      </div>
 
-        <div>
-          <div class="partners-list" id="partnersList">
-            <div class="partner-group open" data-letter="A">
-              <button class="partner-group-head" aria-expanded="true">
-                <span class="partner-letter">A</span>
+      <div class="partners-grid" id="partnersGrid" data-reveal-group>
+            <div class="partner-card" data-type="knowledge">
+              <button class="partner-card-head" aria-expanded="false">
+                <span class="partner-mark pal-1">EY</span>
+                <span class="partner-card-meta">
+                  <span class="partner-card-name">EY</span>
+                  <span class="partner-card-type">Knowledge Partner</span>
+                </span>
                 <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
               </button>
-              <div class="partner-group-body"><div>
-                <div class="partner-row" data-type="knowledge" data-name="ashford strategy">
-                  <span class="partner-name">Ashford Strategy</span>
-                  <span class="partner-type">Knowledge Partner</span>
-                </div>
+              <div class="partner-card-body"><div>
+                <p class="partner-card-desc">Shortlists nominee financials and business performance metrics ahead of jury review.
+                  <a class="partner-card-link" href="https://www.ey.com" target="_blank" rel="noopener">
+                    Visit Website
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+                  </a>
+                </p>
               </div></div>
             </div>
-            <div class="partner-group" data-letter="B">
-              <button class="partner-group-head" aria-expanded="false">
-                <span class="partner-letter">B</span>
+            <div class="partner-card" data-type="knowledge">
+              <button class="partner-card-head" aria-expanded="false">
+                <span class="partner-mark pal-2">NC</span>
+                <span class="partner-card-meta">
+                  <span class="partner-card-name">Northgate Consulting</span>
+                  <span class="partner-card-type">Knowledge Partner</span>
+                </span>
                 <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
               </button>
-              <div class="partner-group-body"><div>
-                <div class="partner-row" data-type="knowledge" data-name="bellridge research">
-                  <span class="partner-name">Bellridge Research</span>
-                  <span class="partner-type">Knowledge Partner</span>
-                </div>
-                <div class="partner-row" data-type="sponsor" data-name="bluepeak ventures">
-                  <span class="partner-name">Bluepeak Ventures</span>
-                  <span class="partner-type">Sponsor</span>
-                </div>
+              <div class="partner-card-body"><div>
+                <p class="partner-card-desc">Strategy and management consulting across financial services and industrials.
+                  <a class="partner-card-link" href="https://www.northgateconsulting.example" target="_blank" rel="noopener">
+                    Visit Website
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+                  </a>
+                </p>
               </div></div>
             </div>
-            <div class="partner-group" data-letter="C">
-              <button class="partner-group-head" aria-expanded="false">
-                <span class="partner-letter">C</span>
+            <div class="partner-card" data-type="knowledge">
+              <button class="partner-card-head" aria-expanded="false">
+                <span class="partner-mark pal-3">VI</span>
+                <span class="partner-card-meta">
+                  <span class="partner-card-name">Vantage Insights</span>
+                  <span class="partner-card-type">Knowledge Partner</span>
+                </span>
                 <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
               </button>
-              <div class="partner-group-body"><div>
-                <div class="partner-row" data-type="event" data-name="cobalt productions">
-                  <span class="partner-name">Cobalt Productions</span>
-                  <span class="partner-type">Event Partner</span>
-                </div>
-                <div class="partner-row" data-type="knowledge" data-name="crestwood analytics">
-                  <span class="partner-name">Crestwood Analytics</span>
-                  <span class="partner-type">Knowledge Partner</span>
-                </div>
+              <div class="partner-card-body"><div>
+                <p class="partner-card-desc">Independent research and benchmarking for India's business leadership landscape.
+                  <a class="partner-card-link" href="https://www.vantageinsights.example" target="_blank" rel="noopener">
+                    Visit Website
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+                  </a>
+                </p>
               </div></div>
             </div>
-            <div class="partner-group" data-letter="E">
-              <button class="partner-group-head" aria-expanded="false">
-                <span class="partner-letter">E</span>
+            <div class="partner-card" data-type="media">
+              <button class="partner-card-head" aria-expanded="false">
+                <span class="partner-mark pal-4">PP</span>
+                <span class="partner-card-meta">
+                  <span class="partner-card-name">Pinnacle Press</span>
+                  <span class="partner-card-type">Media Partner</span>
+                </span>
                 <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
               </button>
-              <div class="partner-group-body"><div>
-                <div class="partner-row" data-type="knowledge" data-name="ey">
-                  <span class="partner-name">EY</span>
-                  <span class="partner-type">Knowledge Partner</span>
-                </div>
+              <div class="partner-card-body"><div>
+                <p class="partner-card-desc">Business print and digital publishing reaching senior decision-makers across India.
+                  <a class="partner-card-link" href="https://www.pinnaclepress.example" target="_blank" rel="noopener">
+                    Visit Website
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+                  </a>
+                </p>
               </div></div>
             </div>
-            <div class="partner-group" data-letter="F">
-              <button class="partner-group-head" aria-expanded="false">
-                <span class="partner-letter">F</span>
+            <div class="partner-card" data-type="media">
+              <button class="partner-card-head" aria-expanded="false">
+                <span class="partner-mark pal-1">SM</span>
+                <span class="partner-card-meta">
+                  <span class="partner-card-name">Skyline Media Group</span>
+                  <span class="partner-card-type">Media Partner</span>
+                </span>
                 <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
               </button>
-              <div class="partner-group-body"><div>
-                <div class="partner-row" data-type="media" data-name="falcon news network">
-                  <span class="partner-name">Falcon News Network</span>
-                  <span class="partner-type">Media Partner</span>
-                </div>
+              <div class="partner-card-body"><div>
+                <p class="partner-card-desc">Multi-platform broadcast and digital media network.
+                  <a class="partner-card-link" href="https://www.skylinemediagroup.example" target="_blank" rel="noopener">
+                    Visit Website
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+                  </a>
+                </p>
               </div></div>
             </div>
-            <div class="partner-group" data-letter="H">
-              <button class="partner-group-head" aria-expanded="false">
-                <span class="partner-letter">H</span>
+            <div class="partner-card" data-type="media">
+              <button class="partner-card-head" aria-expanded="false">
+                <span class="partner-mark pal-2">FN</span>
+                <span class="partner-card-meta">
+                  <span class="partner-card-name">Falcon News Network</span>
+                  <span class="partner-card-type">Media Partner</span>
+                </span>
                 <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
               </button>
-              <div class="partner-group-body"><div>
-                <div class="partner-row" data-type="media" data-name="horizon broadcast network">
-                  <span class="partner-name">Horizon Broadcast Network</span>
-                  <span class="partner-type">Media Partner</span>
-                </div>
+              <div class="partner-card-body"><div>
+                <p class="partner-card-desc">24-hour business news channel covering markets, policy and enterprise.
+                  <a class="partner-card-link" href="https://www.falconnewsnetwork.example" target="_blank" rel="noopener">
+                    Visit Website
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+                  </a>
+                </p>
               </div></div>
             </div>
-            <div class="partner-group" data-letter="I">
-              <button class="partner-group-head" aria-expanded="false">
-                <span class="partner-letter">I</span>
+            <div class="partner-card" data-type="event">
+              <button class="partner-card-head" aria-expanded="false">
+                <span class="partner-mark pal-3">OE</span>
+                <span class="partner-card-meta">
+                  <span class="partner-card-name">Orbit Experiences</span>
+                  <span class="partner-card-type">Event Partner</span>
+                </span>
                 <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
               </button>
-              <div class="partner-group-body"><div>
-                <div class="partner-row" data-type="sponsor" data-name="ironclad capital">
-                  <span class="partner-name">Ironclad Capital</span>
-                  <span class="partner-type">Sponsor</span>
-                </div>
+              <div class="partner-card-body"><div>
+                <p class="partner-card-desc">Event design and production for large-scale corporate and awards programming.
+                  <a class="partner-card-link" href="https://www.orbitexperiences.example" target="_blank" rel="noopener">
+                    Visit Website
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+                  </a>
+                </p>
               </div></div>
             </div>
-            <div class="partner-group" data-letter="L">
-              <button class="partner-group-head" aria-expanded="false">
-                <span class="partner-letter">L</span>
+            <div class="partner-card" data-type="event">
+              <button class="partner-card-head" aria-expanded="false">
+                <span class="partner-mark pal-4">TL</span>
+                <span class="partner-card-meta">
+                  <span class="partner-card-name">Trailhead Logistics</span>
+                  <span class="partner-card-type">Event Partner</span>
+                </span>
                 <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
               </button>
-              <div class="partner-group-body"><div>
-                <div class="partner-row" data-type="media" data-name="lumen media house">
-                  <span class="partner-name">Lumen Media House</span>
-                  <span class="partner-type">Media Partner</span>
-                </div>
+              <div class="partner-card-body"><div>
+                <p class="partner-card-desc">Venue, travel and on-ground logistics partner for the ceremony.
+                  <a class="partner-card-link" href="https://www.trailheadlogistics.example" target="_blank" rel="noopener">
+                    Visit Website
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+                  </a>
+                </p>
               </div></div>
             </div>
-            <div class="partner-group" data-letter="M">
-              <button class="partner-group-head" aria-expanded="false">
-                <span class="partner-letter">M</span>
+            <div class="partner-card" data-type="event">
+              <button class="partner-card-head" aria-expanded="false">
+                <span class="partner-mark pal-1">ZE</span>
+                <span class="partner-card-meta">
+                  <span class="partner-card-name">Zenith Events</span>
+                  <span class="partner-card-type">Event Partner</span>
+                </span>
                 <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
               </button>
-              <div class="partner-group-body"><div>
-                <div class="partner-row" data-type="event" data-name="meadowlark hospitality">
-                  <span class="partner-name">Meadowlark Hospitality</span>
-                  <span class="partner-type">Event Partner</span>
-                </div>
-                <div class="partner-row" data-type="knowledge" data-name="meridian advisory">
-                  <span class="partner-name">Meridian Advisory</span>
-                  <span class="partner-type">Knowledge Partner</span>
-                </div>
+              <div class="partner-card-body"><div>
+                <p class="partner-card-desc">Experiential event management and stage production.
+                  <a class="partner-card-link" href="https://www.zenithevents.example" target="_blank" rel="noopener">
+                    Visit Website
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+                  </a>
+                </p>
               </div></div>
             </div>
-            <div class="partner-group" data-letter="N">
-              <button class="partner-group-head" aria-expanded="false">
-                <span class="partner-letter">N</span>
+            <div class="partner-card" data-type="sponsor">
+              <button class="partner-card-head" aria-expanded="false">
+                <span class="partner-mark pal-2">IC</span>
+                <span class="partner-card-meta">
+                  <span class="partner-card-name">Ironclad Capital</span>
+                  <span class="partner-card-type">Sponsor</span>
+                </span>
                 <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
               </button>
-              <div class="partner-group-body"><div>
-                <div class="partner-row" data-type="knowledge" data-name="northgate consulting">
-                  <span class="partner-name">Northgate Consulting</span>
-                  <span class="partner-type">Knowledge Partner</span>
-                </div>
-                <div class="partner-row" data-type="sponsor" data-name="novaline financial">
-                  <span class="partner-name">Novaline Financial</span>
-                  <span class="partner-type">Sponsor</span>
-                </div>
+              <div class="partner-card-body"><div>
+                <p class="partner-card-desc">Private equity and growth capital investor backing India's next generation of companies.
+                  <a class="partner-card-link" href="https://www.ironcladcapital.example" target="_blank" rel="noopener">
+                    Visit Website
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+                  </a>
+                </p>
               </div></div>
             </div>
-            <div class="partner-group" data-letter="O">
-              <button class="partner-group-head" aria-expanded="false">
-                <span class="partner-letter">O</span>
+            <div class="partner-card" data-type="sponsor">
+              <button class="partner-card-head" aria-expanded="false">
+                <span class="partner-mark pal-3">QH</span>
+                <span class="partner-card-meta">
+                  <span class="partner-card-name">Quantum Holdings</span>
+                  <span class="partner-card-type">Sponsor</span>
+                </span>
                 <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
               </button>
-              <div class="partner-group-body"><div>
-                <div class="partner-row" data-type="event" data-name="orbit experiences">
-                  <span class="partner-name">Orbit Experiences</span>
-                  <span class="partner-type">Event Partner</span>
-                </div>
+              <div class="partner-card-body"><div>
+                <p class="partner-card-desc">Diversified investment holding group across financial services and infrastructure.
+                  <a class="partner-card-link" href="https://www.quantumholdings.example" target="_blank" rel="noopener">
+                    Visit Website
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+                  </a>
+                </p>
               </div></div>
             </div>
-            <div class="partner-group" data-letter="P">
-              <button class="partner-group-head" aria-expanded="false">
-                <span class="partner-letter">P</span>
+            <div class="partner-card" data-type="sponsor">
+              <button class="partner-card-head" aria-expanded="false">
+                <span class="partner-mark pal-4">SI</span>
+                <span class="partner-card-meta">
+                  <span class="partner-card-name">Sundial Insurance</span>
+                  <span class="partner-card-type">Sponsor</span>
+                </span>
                 <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
               </button>
-              <div class="partner-group-body"><div>
-                <div class="partner-row" data-type="media" data-name="pinnacle press">
-                  <span class="partner-name">Pinnacle Press</span>
-                  <span class="partner-type">Media Partner</span>
-                </div>
+              <div class="partner-card-body"><div>
+                <p class="partner-card-desc">Corporate and commercial insurance solutions.
+                  <a class="partner-card-link" href="https://www.sundialinsurance.example" target="_blank" rel="noopener">
+                    Visit Website
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+                  </a>
+                </p>
               </div></div>
             </div>
-            <div class="partner-group" data-letter="Q">
-              <button class="partner-group-head" aria-expanded="false">
-                <span class="partner-letter">Q</span>
-                <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-              </button>
-              <div class="partner-group-body"><div>
-                <div class="partner-row" data-type="sponsor" data-name="quantum holdings">
-                  <span class="partner-name">Quantum Holdings</span>
-                  <span class="partner-type">Sponsor</span>
-                </div>
-              </div></div>
-            </div>
-            <div class="partner-group" data-letter="R">
-              <button class="partner-group-head" aria-expanded="false">
-                <span class="partner-letter">R</span>
-                <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-              </button>
-              <div class="partner-group-body"><div>
-                <div class="partner-row" data-type="sponsor" data-name="ridgeline partners">
-                  <span class="partner-name">Ridgeline Partners</span>
-                  <span class="partner-type">Sponsor</span>
-                </div>
-              </div></div>
-            </div>
-            <div class="partner-group" data-letter="S">
-              <button class="partner-group-head" aria-expanded="false">
-                <span class="partner-letter">S</span>
-                <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-              </button>
-              <div class="partner-group-body"><div>
-                <div class="partner-row" data-type="media" data-name="skyline media group">
-                  <span class="partner-name">Skyline Media Group</span>
-                  <span class="partner-type">Media Partner</span>
-                </div>
-                <div class="partner-row" data-type="sponsor" data-name="sundial insurance">
-                  <span class="partner-name">Sundial Insurance</span>
-                  <span class="partner-type">Sponsor</span>
-                </div>
-              </div></div>
-            </div>
-            <div class="partner-group" data-letter="T">
-              <button class="partner-group-head" aria-expanded="false">
-                <span class="partner-letter">T</span>
-                <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-              </button>
-              <div class="partner-group-body"><div>
-                <div class="partner-row" data-type="event" data-name="trailhead logistics">
-                  <span class="partner-name">Trailhead Logistics</span>
-                  <span class="partner-type">Event Partner</span>
-                </div>
-              </div></div>
-            </div>
-            <div class="partner-group" data-letter="U">
-              <button class="partner-group-head" aria-expanded="false">
-                <span class="partner-letter">U</span>
-                <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-              </button>
-              <div class="partner-group-body"><div>
-                <div class="partner-row" data-type="media" data-name="union digital media">
-                  <span class="partner-name">Union Digital Media</span>
-                  <span class="partner-type">Media Partner</span>
-                </div>
-              </div></div>
-            </div>
-            <div class="partner-group" data-letter="V">
-              <button class="partner-group-head" aria-expanded="false">
-                <span class="partner-letter">V</span>
-                <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-              </button>
-              <div class="partner-group-body"><div>
-                <div class="partner-row" data-type="knowledge" data-name="vantage insights">
-                  <span class="partner-name">Vantage Insights</span>
-                  <span class="partner-type">Knowledge Partner</span>
-                </div>
-              </div></div>
-            </div>
-            <div class="partner-group" data-letter="W">
-              <button class="partner-group-head" aria-expanded="false">
-                <span class="partner-letter">W</span>
-                <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-              </button>
-              <div class="partner-group-body"><div>
-                <div class="partner-row" data-type="event" data-name="windmere venues">
-                  <span class="partner-name">Windmere Venues</span>
-                  <span class="partner-type">Event Partner</span>
-                </div>
-              </div></div>
-            </div>
-            <div class="partner-group" data-letter="Z">
-              <button class="partner-group-head" aria-expanded="false">
-                <span class="partner-letter">Z</span>
-                <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-              </button>
-              <div class="partner-group-body"><div>
-                <div class="partner-row" data-type="event" data-name="zenith events">
-                  <span class="partner-name">Zenith Events</span>
-                  <span class="partner-type">Event Partner</span>
-                </div>
-              </div></div>
-            </div>
-          </div>
-              </div></div>
-            </div>
-          </div>
-          <div class="partners-empty" id="partnersEmpty" hidden></div>
-        </div>
       </div>
     </div>
   </section>
@@ -1347,54 +1292,34 @@
   menuOverlay.querySelectorAll('.menu-list a').forEach(function(a){ a.addEventListener('click', closeMenu); });
   document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeMenu(); });
 
-  // partners: search + type filter + accordion, weforum.org/partners style
-  var partnerSearch = document.getElementById('partnerSearch');
+  // partners: type filter + per-card expand, curated logo-wall style
   var partnerFilters = document.getElementById('partnerFilters');
-  var partnersList = document.getElementById('partnersList');
-  var partnersEmpty = document.getElementById('partnersEmpty');
-  if(partnersList){
+  var partnersGrid = document.getElementById('partnersGrid');
+  if(partnersGrid){
     var activeType = 'all';
-    function applyPartnerFilters(){
-      var q = partnerSearch.value.trim().toLowerCase();
-      var visibleCount = 0;
-      partnersList.querySelectorAll('.partner-group').forEach(function(group){
-        var groupHasMatch = false;
-        group.querySelectorAll('.partner-row').forEach(function(row){
-          var matchesType = activeType === 'all' || row.getAttribute('data-type') === activeType;
-          var matchesQuery = !q || row.getAttribute('data-name').indexOf(q) !== -1;
-          var show = matchesType && matchesQuery;
-          row.style.display = show ? '' : 'none';
-          if(show){ groupHasMatch = true; visibleCount++; }
-        });
-        group.style.display = groupHasMatch ? '' : 'none';
-        if(q || activeType !== 'all'){ group.classList.toggle('open', groupHasMatch); }
+    function applyPartnerFilter(){
+      partnersGrid.querySelectorAll('.partner-card').forEach(function(card){
+        var show = activeType === 'all' || card.getAttribute('data-type') === activeType;
+        card.style.display = show ? '' : 'none';
       });
-      if(visibleCount === 0){
-        partnersEmpty.hidden = false;
-        partnersEmpty.textContent = q
-          ? 'No partners match "' + partnerSearch.value.trim() + '".'
-          : 'No partners announced in this category yet — check back soon.';
-      } else {
-        partnersEmpty.hidden = true;
-      }
     }
-    partnerSearch.addEventListener('input', applyPartnerFilters);
     partnerFilters.querySelectorAll('.filter-chip').forEach(function(chip){
       chip.addEventListener('click', function(){
         partnerFilters.querySelectorAll('.filter-chip').forEach(function(c){ c.classList.remove('active'); });
         chip.classList.add('active');
         activeType = chip.getAttribute('data-type');
-        applyPartnerFilters();
+        applyPartnerFilter();
       });
     });
-    partnersList.querySelectorAll('.partner-group-head').forEach(function(head){
+    partnersGrid.querySelectorAll('.partner-card-head').forEach(function(head){
       head.addEventListener('click', function(){
-        var group = head.closest('.partner-group');
-        var open = group.classList.toggle('open');
+        var card = head.closest('.partner-card');
+        var open = card.classList.toggle('open');
         head.setAttribute('aria-expanded', open ? 'true' : 'false');
       });
     });
   }
+
 
   // footer share button — native share sheet where available, else copy the link
   var shareBtn = document.getElementById('shareBtn');
