@@ -448,8 +448,14 @@
      fills in with the category's own accent colour on hover, a one-line hook stays visible
      at rest, and the row expands in place to reveal the description, tags, and a big faint
      watermark of the category's icon. Only one row open at a time. */
-  .categories{padding-block:clamp(90px,12vw,140px);position:relative;overflow:hidden;}
+  .categories{
+    padding-block:clamp(90px,12vw,140px);position:relative;overflow:hidden;
+    background:linear-gradient(180deg, var(--blue) 0%, #fff 34%);
+  }
   .categories > .wrap{position:relative;z-index:1;}
+  .categories .section-head .eyebrow{color:rgba(255,255,255,.8);}
+  .categories h2.section-title{color:#fff;}
+  .categories .jump-label{color:rgba(255,255,255,.78);}
 
   /* Magic UI's LightRays, reimplemented in vanilla CSS (static build, not React): one soft
      wash of the brand blue pooling down from above the section, breathing gently — not a
