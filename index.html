@@ -571,7 +571,24 @@
   @media (max-width:960px){.partners-grid{grid-template-columns:repeat(2,1fr);}}
   @media (max-width:520px){.partners-grid{grid-template-columns:1fr;}}
 
-  .partner-card{perspective:1200px;}
+  /* Magic UI's ShineBorder, reimplemented in vanilla CSS (this is a static build, not React)
+     and re-themed to the brand red/blue instead of the demo's purple/pink/peach: a thin
+     gradient traced along each card's edge (via mask-composite:exclude, so only the border
+     strip itself is visible) with its position slowly animating for a subtle shimmer. */
+  .partner-card{perspective:1200px;position:relative;}
+  .partner-card::before{
+    content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
+    border-radius:12px;padding:1.5px;
+    background:linear-gradient(120deg, var(--red), var(--blue), var(--red));
+    background-size:300% 300%;
+    -webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite:xor;
+    mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite:exclude;
+    animation:shine-border 8s linear infinite;
+  }
+  @keyframes shine-border{to{background-position:300% 0%;}}
+  @media (prefers-reduced-motion: reduce){.partner-card::before{animation:none;}}
   .partner-card-inner{
     position:relative;height:190px;transition:transform .6s cubic-bezier(.16,.8,.24,1);
     transform-style:preserve-3d;
