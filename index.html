@@ -329,17 +329,17 @@
     background-repeat:no-repeat;opacity:0;filter:grayscale(100%);transform:scale(1.12);
     transition:opacity .5s ease, filter .7s ease, transform .7s cubic-bezier(.16,.8,.24,1);
   }
-  .hero-pixel-cell.revealed{opacity:.92;filter:grayscale(0%);transform:scale(1);}
+  .hero-pixel-cell.revealed{opacity:1;filter:grayscale(0%);transform:scale(1);}
   @media (prefers-reduced-motion: reduce){
-    .hero-pixel-cell{transition:none;opacity:.92;filter:none;transform:none;}
+    .hero-pixel-cell{transition:none;opacity:1;filter:none;transform:none;}
   }
   /* dark pool centered on the text column plus a uniform wash, so the trophy stays visible on
      the right while the copy on the left/center keeps full contrast regardless of viewport width */
   .hero-atmos{
     position:absolute;inset:0;z-index:0;pointer-events:none;
     background:
-      radial-gradient(58% 70% at 34% 48%, rgba(6,7,10,.82), rgba(6,7,10,.42) 60%, transparent 88%),
-      linear-gradient(rgba(6,7,10,.5), rgba(6,7,10,.6)),
+      radial-gradient(58% 70% at 34% 48%, rgba(6,7,10,.66), rgba(6,7,10,.28) 60%, transparent 88%),
+      linear-gradient(rgba(6,7,10,.28), rgba(6,7,10,.38)),
       radial-gradient(900px 640px at var(--mx,34%) var(--my,40%), color-mix(in srgb, var(--red) 10%, transparent), transparent 62%);
     animation:driftGlow 14s ease-in-out infinite alternate;
   }
@@ -402,7 +402,7 @@
   }
 
   /* ================= ABOUT (matter) ================= */
-  .matter{padding-block:clamp(90px,12vw,140px);}
+  .matter{padding-block:clamp(90px,12vw,140px);background:linear-gradient(160deg, #fedee1, var(--bg) 65%);}
   .about-layout{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,80px);align-items:center;}
   .about-copy{display:flex;flex-direction:column;gap:22px;max-width:520px;}
   .about-copy .section-title{margin:0;}
