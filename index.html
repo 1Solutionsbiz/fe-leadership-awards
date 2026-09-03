@@ -737,7 +737,7 @@
 
   /* footer commits to the same dark world as the hero/menu overlay — modeled on monocle.com's
      own footer: big wordmark + tagline + two CTAs on the left, link columns, thin rule, credit line */
-  footer{background:#02608f;color:var(--overlay-ink);padding-block:clamp(56px,7vw,84px) 0;position:relative;overflow:hidden;}
+  footer{background:linear-gradient(180deg, #02608f 0%, #050b1c 100%);color:var(--overlay-ink);padding-block:clamp(56px,7vw,84px) 0;position:relative;overflow:hidden;}
   footer.footer--sticky{
     position:fixed;left:0;right:0;bottom:0;width:100%;z-index:-1;
     transform-origin:bottom center;will-change:opacity,transform;
@@ -773,33 +773,30 @@
   }
   .footer-bottom .footer-legal{font-family:var(--font-mono);font-size:.7rem;color:color-mix(in srgb, var(--overlay-ink) 55%, transparent);}
 
-  /* giant wordmark, half-buried in its own near-black band beneath the main footer — à la
-     the client-referenced revuze.it footer: a visibly darker strip with rounded top corners,
-     a short fixed height so only the bottom half of the letterforms show (the tops get
-     clipped by the container), and a hand-drawn accent line tracing through it. Purely
-     decorative, so it's hidden from assistive tech and never intercepts clicks. */
+  /* giant wordmark sinking into the footer's own gradient as it deepens toward near-black —
+     à la the client-referenced revuze.it footer: full letterforms (not clipped), low-opacity,
+     with a gently drawn accent line tracing through. Purely decorative, so it's hidden from
+     assistive tech and never intercepts clicks. */
   .footer-wordmark-band{
-    position:relative;margin-top:clamp(30px,6vw,64px);padding-bottom:clamp(10px,1.6vw,18px);
-    background:#050b1c;border-radius:clamp(18px,3vw,32px) clamp(18px,3vw,32px) 0 0;
+    position:relative;margin-top:clamp(30px,6vw,64px);
+    padding-block:clamp(18px,3vw,32px) clamp(26px,4vw,44px);
     overflow:hidden;
   }
   .footer-wordmark{
-    position:relative;height:clamp(50px,8.4vw,120px);
-    display:flex;align-items:flex-end;justify-content:center;
-    overflow:hidden;pointer-events:none;
+    position:relative;text-align:center;overflow:hidden;pointer-events:none;line-height:.82;
   }
   .footer-wordmark span{
     display:inline-block;white-space:nowrap;
     font-family:var(--font-shout);font-weight:800;text-transform:uppercase;
-    font-size:clamp(5.5rem,19vw,15.5rem);line-height:.78;letter-spacing:-.01em;
-    color:color-mix(in srgb, #fff 13%, transparent);
+    font-size:clamp(3.4rem,13vw,10.5rem);letter-spacing:-.01em;
+    color:color-mix(in srgb, #fff 14%, transparent);
   }
   .footer-wave{
-    position:absolute;left:0;top:38%;width:200%;height:auto;
-    stroke:var(--gold);opacity:.55;pointer-events:none;
-    animation:footerWaveDrift 16s linear infinite;
+    position:absolute;left:0;top:22%;width:220%;height:56%;
+    stroke:var(--gold);opacity:.5;pointer-events:none;
+    animation:footerWaveDrift 20s linear infinite;
   }
-  @keyframes footerWaveDrift{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+  @keyframes footerWaveDrift{from{transform:translateX(0);}to{transform:translateX(-45%);}}
   @media (prefers-reduced-motion: reduce){.footer-wave{animation:none;}}
 
   @media (max-width:880px){
@@ -1550,8 +1547,8 @@
     </div>
   </div>
   <div class="footer-wordmark-band" aria-hidden="true">
-    <svg class="footer-wave" viewBox="0 0 800 60" preserveAspectRatio="none" fill="none">
-      <path d="M0 30 Q 25 5, 50 30 T 100 30 T 150 30 T 200 30 Q 225 55, 250 30 T 300 30 T 350 30 T 400 30 Q 425 5, 450 30 T 500 30 T 550 30 T 600 30 Q 625 55, 650 30 T 700 30 T 750 30 T 800 30" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+    <svg class="footer-wave" viewBox="0 0 800 100" preserveAspectRatio="none" fill="none">
+      <path d="M0 58 C 70 22, 150 14, 220 52 C 290 90, 360 96, 420 58 C 480 22, 550 16, 620 50 C 680 78, 740 82, 800 58" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
     </svg>
     <div class="footer-wordmark"><span>Leadership Awards</span></div>
   </div>
