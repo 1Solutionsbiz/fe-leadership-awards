@@ -723,7 +723,7 @@
 
   /* footer commits to the same dark world as the hero/menu overlay — modeled on monocle.com's
      own footer: big wordmark + tagline + two CTAs on the left, link columns, thin rule, credit line */
-  footer{background:#02608f;color:var(--overlay-ink);padding-block:clamp(56px,7vw,84px) clamp(28px,4vw,40px);}
+  footer{background:#02608f;color:var(--overlay-ink);padding-block:clamp(56px,7vw,84px) 0;position:relative;overflow:hidden;}
   footer.footer--sticky{
     position:fixed;left:0;right:0;bottom:0;width:100%;z-index:-1;
     transform-origin:bottom center;will-change:opacity,transform;
@@ -758,6 +758,19 @@
     margin-top:clamp(44px,6vw,64px);padding-top:22px;border-top:1px solid var(--overlay-line);
   }
   .footer-bottom .footer-legal{font-family:var(--font-mono);font-size:.7rem;color:color-mix(in srgb, var(--overlay-ink) 55%, transparent);}
+
+  /* giant faded wordmark bleeding off the footer's edges, à la monocle/revuze-style footers —
+     purely decorative, so it's hidden from assistive tech and never intercepts clicks */
+  .footer-wordmark{
+    margin-top:clamp(30px,6vw,64px);padding-bottom:clamp(14px,2.4vw,28px);
+    text-align:center;overflow:hidden;pointer-events:none;line-height:.8;
+  }
+  .footer-wordmark span{
+    display:inline-block;white-space:nowrap;
+    font-family:var(--font-shout);font-weight:800;text-transform:uppercase;
+    font-size:clamp(3.6rem,13.5vw,11.5rem);letter-spacing:-.01em;
+    color:color-mix(in srgb, var(--overlay-ink) 12%, transparent);
+  }
 
   @media (max-width:880px){
     .footer-grid{grid-template-columns:1fr 1fr;}
@@ -1505,6 +1518,7 @@
       <span class="footer-legal">Mumbai · 15th September 2026</span>
     </div>
   </div>
+  <div class="footer-wordmark" aria-hidden="true"><span>Leadership Awards</span></div>
 </footer>
 
 <script>
