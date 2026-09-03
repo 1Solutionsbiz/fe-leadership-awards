@@ -451,23 +451,18 @@
   .categories{padding-block:clamp(90px,12vw,140px);position:relative;overflow:hidden;}
   .categories > .wrap{position:relative;z-index:1;}
 
-  /* Magic UI's LightRays, reimplemented in vanilla CSS (static build, not React): a fan of
-     blurred beams anchored to one point above the section, tinted in the brand's three
-     accent colours, drifting gently in opacity for an ambient-glow feel behind the content. */
-  .cat-light-rays{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
-  .cat-ray{
-    position:absolute;top:-14%;left:50%;width:70px;margin-left:-35px;height:165%;
-    transform-origin:top center;filter:blur(24px);opacity:.24;
-    animation:catRayDrift 9s ease-in-out infinite alternate;
+  /* Magic UI's LightRays, reimplemented in vanilla CSS (static build, not React): one soft
+     wash of the brand blue pooling down from above the section, breathing gently — not a
+     set of discrete beams. */
+  .cat-light-rays{
+    position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;
+    background:
+      radial-gradient(60% 60% at 50% -12%, color-mix(in srgb, var(--blue) 20%, transparent), transparent 72%),
+      radial-gradient(30% 45% at 50% -6%, color-mix(in srgb, var(--blue) 22%, transparent), transparent 78%);
+    animation:catGlowBreathe 8s ease-in-out infinite alternate;
   }
-  .cat-ray:nth-child(1){transform:rotate(-32deg);background:linear-gradient(to bottom, color-mix(in srgb, var(--gold) 60%, transparent), transparent 74%);animation-delay:0s;}
-  .cat-ray:nth-child(2){transform:rotate(-19deg);background:linear-gradient(to bottom, color-mix(in srgb, var(--red) 45%, transparent), transparent 74%);animation-delay:.7s;}
-  .cat-ray:nth-child(3){transform:rotate(-6deg);background:linear-gradient(to bottom, color-mix(in srgb, var(--gold) 60%, transparent), transparent 74%);animation-delay:1.4s;}
-  .cat-ray:nth-child(4){transform:rotate(7deg);background:linear-gradient(to bottom, color-mix(in srgb, var(--blue) 45%, transparent), transparent 74%);animation-delay:.35s;}
-  .cat-ray:nth-child(5){transform:rotate(20deg);background:linear-gradient(to bottom, color-mix(in srgb, var(--gold) 60%, transparent), transparent 74%);animation-delay:1s;}
-  .cat-ray:nth-child(6){transform:rotate(33deg);background:linear-gradient(to bottom, color-mix(in srgb, var(--red) 45%, transparent), transparent 74%);animation-delay:1.7s;}
-  @keyframes catRayDrift{from{opacity:.16;}to{opacity:.34;}}
-  @media (prefers-reduced-motion: reduce){.cat-ray{animation:none;opacity:.22;}}
+  @keyframes catGlowBreathe{from{opacity:.75;}to{opacity:1;}}
+  @media (prefers-reduced-motion: reduce){.cat-light-rays{animation:none;}}
   .cat-list{border-top:1px solid var(--border);}
   .cat-card{--cat-accent:var(--ink);position:relative;border-bottom:1px solid var(--border);}
   .cat-card.pal-1{--cat-accent:var(--red);}
@@ -778,18 +773,34 @@
   }
   .footer-bottom .footer-legal{font-family:var(--font-mono);font-size:.7rem;color:color-mix(in srgb, var(--overlay-ink) 55%, transparent);}
 
-  /* giant faded wordmark bleeding off the footer's edges, à la monocle/revuze-style footers —
-     purely decorative, so it's hidden from assistive tech and never intercepts clicks */
+  /* giant wordmark, half-buried in its own near-black band beneath the main footer — à la
+     the client-referenced revuze.it footer: a visibly darker strip with rounded top corners,
+     a short fixed height so only the bottom half of the letterforms show (the tops get
+     clipped by the container), and a hand-drawn accent line tracing through it. Purely
+     decorative, so it's hidden from assistive tech and never intercepts clicks. */
+  .footer-wordmark-band{
+    position:relative;margin-top:clamp(30px,6vw,64px);padding-bottom:clamp(10px,1.6vw,18px);
+    background:#050b1c;border-radius:clamp(18px,3vw,32px) clamp(18px,3vw,32px) 0 0;
+    overflow:hidden;
+  }
   .footer-wordmark{
-    margin-top:clamp(30px,6vw,64px);padding-bottom:clamp(14px,2.4vw,28px);
-    text-align:center;overflow:hidden;pointer-events:none;line-height:.8;
+    position:relative;height:clamp(50px,8.4vw,120px);
+    display:flex;align-items:flex-end;justify-content:center;
+    overflow:hidden;pointer-events:none;
   }
   .footer-wordmark span{
     display:inline-block;white-space:nowrap;
     font-family:var(--font-shout);font-weight:800;text-transform:uppercase;
-    font-size:clamp(3.6rem,13.5vw,11.5rem);letter-spacing:-.01em;
-    color:color-mix(in srgb, var(--overlay-ink) 12%, transparent);
+    font-size:clamp(5.5rem,19vw,15.5rem);line-height:.78;letter-spacing:-.01em;
+    color:color-mix(in srgb, #fff 13%, transparent);
   }
+  .footer-wave{
+    position:absolute;left:0;top:38%;width:200%;height:auto;
+    stroke:var(--gold);opacity:.55;pointer-events:none;
+    animation:footerWaveDrift 16s linear infinite;
+  }
+  @keyframes footerWaveDrift{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+  @media (prefers-reduced-motion: reduce){.footer-wave{animation:none;}}
 
   @media (max-width:880px){
     .footer-grid{grid-template-columns:1fr 1fr;}
@@ -903,10 +914,7 @@
   </section>
 
   <section class="categories" id="categories">
-    <div class="cat-light-rays" aria-hidden="true">
-      <div class="cat-ray"></div><div class="cat-ray"></div><div class="cat-ray"></div>
-      <div class="cat-ray"></div><div class="cat-ray"></div><div class="cat-ray"></div>
-    </div>
+    <div class="cat-light-rays" aria-hidden="true"></div>
     <div class="wrap">
       <div class="section-head" data-reveal>
         <div class="eyebrow section-kicker">Award Categories</div>
@@ -1541,7 +1549,12 @@
       <span class="footer-legal">Mumbai · 15th September 2026</span>
     </div>
   </div>
-  <div class="footer-wordmark" aria-hidden="true"><span>Leadership Awards</span></div>
+  <div class="footer-wordmark-band" aria-hidden="true">
+    <svg class="footer-wave" viewBox="0 0 800 60" preserveAspectRatio="none" fill="none">
+      <path d="M0 30 Q 25 5, 50 30 T 100 30 T 150 30 T 200 30 Q 225 55, 250 30 T 300 30 T 350 30 T 400 30 Q 425 5, 450 30 T 500 30 T 550 30 T 600 30 Q 625 55, 650 30 T 700 30 T 750 30 T 800 30" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+    </svg>
+    <div class="footer-wordmark"><span>Leadership Awards</span></div>
+  </div>
 </footer>
 
 <script>
