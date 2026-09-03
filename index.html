@@ -314,7 +314,22 @@
     color:var(--overlay-ink);
     position:relative;overflow:hidden;
     padding-top:120px;padding-bottom:60px;
-    background:var(--overlay-bg) var(--trophy-img) 78% center/cover no-repeat;
+    background:var(--overlay-bg);
+  }
+  /* pixel-reveal grid (Magic UI's PixelImage effect, reimplemented in vanilla JS/CSS since this
+     isn't a React build): the trophy photo used to just be .hero's own background; now it's
+     split into a grid of tiles that fade in from grayscale, in shuffled order, on page load.
+     Each tile shows the same full image at one shared scale/position (computed in JS to match
+     the original background:78% center/cover crop) offset per-cell so the tiles line up into
+     the same photo when fully revealed. */
+  .hero-pixel-grid{position:absolute;inset:0;z-index:0;display:grid;}
+  .hero-pixel-cell{
+    background-repeat:no-repeat;opacity:0;filter:grayscale(100%);transform:scale(1.12);
+    transition:opacity .5s ease, filter .7s ease, transform .7s cubic-bezier(.16,.8,.24,1);
+  }
+  .hero-pixel-cell.revealed{opacity:1;filter:grayscale(0%);transform:scale(1);}
+  @media (prefers-reduced-motion: reduce){
+    .hero-pixel-cell{transition:none;opacity:1;filter:none;transform:none;}
   }
   /* dark pool centered on the text column plus a uniform wash, so the trophy stays visible on
      the right while the copy on the left/center keeps full contrast regardless of viewport width */
@@ -752,6 +767,7 @@
 <main id="top">
 
   <section class="hero" id="hero">
+    <div class="hero-pixel-grid" id="heroPixelGrid" aria-hidden="true"></div>
     <div class="hero-atmos" id="heroAtmos"></div>
 
     <div class="hero-center">
@@ -1585,6 +1601,72 @@
       atmos.style.setProperty('--mx', x);
       atmos.style.setProperty('--my', y);
     });
+  }
+
+  // hero pixel-reveal grid — splits the trophy photo into a tile grid that fades in from
+  // grayscale, in shuffled order, on load (Magic UI's PixelImage effect, reimplemented since
+  // this is a static build). Reduced motion just shows the tiles instantly, no shuffle/fade.
+  var pixelGrid = document.getElementById('heroPixelGrid');
+  if(pixelGrid){
+    var PG_ROWS = 5, PG_COLS = 9;
+    var PG_POS_X = 0.78, PG_POS_Y = 0.5; // matches the hero's original background-position: 78% center
+    var pgSrcRaw = getComputedStyle(document.documentElement).getPropertyValue('--trophy-img').trim();
+    var pgMatch = pgSrcRaw.match(/^url\((.*)\)$/);
+    var pgSrc = (pgMatch ? pgMatch[1] : pgSrcRaw).replace(/^["']|["']$/g, '');
+
+    var pgCells = [];
+    pixelGrid.style.gridTemplateColumns = 'repeat(' + PG_COLS + ', 1fr)';
+    pixelGrid.style.gridTemplateRows = 'repeat(' + PG_ROWS + ', 1fr)';
+    for(var pgI = 0; pgI < PG_ROWS * PG_COLS; pgI++){
+      var pgCell = document.createElement('div');
+      pgCell.className = 'hero-pixel-cell';
+      pgCell.style.backgroundImage = 'url(' + pgSrc + ')';
+      pixelGrid.appendChild(pgCell);
+      pgCells.push(pgCell);
+    }
+
+    function pgLayout(naturalW, naturalH){
+      var rect = pixelGrid.getBoundingClientRect();
+      var W = rect.width, H = rect.height;
+      if(!W || !H) return;
+      var scale = Math.max(W / naturalW, H / naturalH);
+      var scaledW = naturalW * scale, scaledH = naturalH * scale;
+      var offsetX = (W - scaledW) * PG_POS_X;
+      var offsetY = (H - scaledH) * PG_POS_Y;
+      var cw = W / PG_COLS, ch = H / PG_ROWS;
+      var i = 0;
+      for(var r = 0; r < PG_ROWS; r++){
+        for(var c = 0; c < PG_COLS; c++){
+          var cell = pgCells[i++];
+          cell.style.backgroundSize = scaledW + 'px ' + scaledH + 'px';
+          cell.style.backgroundPosition = (offsetX - c*cw) + 'px ' + (offsetY - r*ch) + 'px';
+        }
+      }
+    }
+
+    var pgProbe = new Image();
+    pgProbe.onload = function(){
+      var naturalW = pgProbe.naturalWidth, naturalH = pgProbe.naturalHeight;
+      pgLayout(naturalW, naturalH);
+      if(reduceMotion){
+        pgCells.forEach(function(cell){ cell.classList.add('revealed'); });
+      } else {
+        var order = pgCells.map(function(_, idx){ return idx; });
+        for(var s = order.length - 1; s > 0; s--){
+          var j = Math.floor(Math.random() * (s + 1));
+          var tmp = order[s]; order[s] = order[j]; order[j] = tmp;
+        }
+        order.forEach(function(cellIdx, seq){
+          setTimeout(function(){ pgCells[cellIdx].classList.add('revealed'); }, seq * (900 / pgCells.length) + 80);
+        });
+      }
+      var pgResizeTimer;
+      window.addEventListener('resize', function(){
+        clearTimeout(pgResizeTimer);
+        pgResizeTimer = setTimeout(function(){ pgLayout(naturalW, naturalH); }, 150);
+      });
+    };
+    pgProbe.src = pgSrc;
   }
 
   // reveal on scroll
