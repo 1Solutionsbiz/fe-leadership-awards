@@ -202,7 +202,7 @@
   }
   :root[data-theme="dark"] .brand .logo-light{display:none;}
   :root[data-theme="dark"] .brand .logo-dark{display:block;}
-  .menu-overlay-top .brand img{height:26px;}
+  .menu-overlay-top .brand img{height:clamp(40px,6vw,58px);}
 
   /* menu trigger — a small bordered pill, the tab whose tap opens the full-screen overlay below */
   .menu-trigger{
@@ -250,17 +250,17 @@
   }
   .menu-close:hover{background:var(--red);border-color:var(--red);transform:rotate(90deg);}
   .menu-overlay-body{flex:1;display:flex;flex-direction:column;justify-content:center;padding-inline:clamp(20px,4vw,56px);overflow-y:auto;}
-  .menu-list{display:flex;flex-direction:column;list-style:none;margin:0;padding:0;}
-  .menu-list li{display:flex;align-items:center;gap:14px;border-top:1px solid var(--overlay-line);padding-block:clamp(3px,.9vw,7px);}
+  .menu-list{display:flex;flex-direction:column;list-style:none;margin:0 0 0 auto;padding:0;width:100%;max-width:760px;}
+  .menu-list li{display:flex;align-items:center;justify-content:flex-end;gap:14px;border-top:1px solid var(--overlay-line);padding-block:clamp(3px,.9vw,7px);}
   .menu-list li:last-child{border-bottom:1px solid var(--overlay-line);}
-  .menu-list .idx{font-family:var(--font-mono);font-size:.68rem;color:var(--red);min-width:2.4ch;}
+  .menu-list .idx{font-family:var(--font-mono);font-size:.68rem;color:var(--red);min-width:2.4ch;text-align:right;}
   .menu-list a{
     font-family:var(--font-shout);font-weight:800;text-transform:uppercase;
     font-size:clamp(1.5rem,4.6vw,3.15rem);line-height:1;letter-spacing:.005em;
     color:var(--overlay-ink);text-decoration:none;display:inline-block;
     transition:color .3s ease, transform .35s cubic-bezier(.16,.8,.24,1);
   }
-  .menu-list a:hover{color:var(--red);transform:translateX(14px);}
+  .menu-list a:hover{color:var(--red);transform:translateX(-14px);}
   .menu-overlay-foot{
     display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-between;
     padding:20px clamp(20px,4vw,56px);border-top:1px solid var(--overlay-line);
