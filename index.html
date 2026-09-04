@@ -198,7 +198,11 @@
   /* brand lockup uses the real logo artwork (traced from FE Leadership Awards Logo Description.pdf)
      rather than a typeset approximation — swapped per theme since the mark is print-registered
      in a light and a reverse (white) version, not a single color that inverts cleanly. */
-  .brand{display:flex;align-items:center;text-decoration:none;}
+  .brand{
+    display:flex;align-items:center;text-decoration:none;
+    opacity:var(--nav-progress,0);
+    transform:translateY(calc((1 - var(--nav-progress,0)) * -10px)) scale(calc(.94 + var(--nav-progress,0) * .06));
+  }
   .brand img{height:90px;width:auto;display:block;}
   .brand .logo-dark{display:none;}
   @media (prefers-color-scheme: dark){
@@ -227,7 +231,7 @@
      to the theme-aware light/dark rules once .scrolled puts it over the page's own background */
   header.site-nav:not(.scrolled) .brand .logo-light{display:none;}
   header.site-nav:not(.scrolled) .brand .logo-dark{display:block;}
-  header.site-nav:not(.scrolled) .brand{opacity:0;pointer-events:none;transition:opacity .3s ease;}
+  header.site-nav:not(.scrolled) .brand{pointer-events:none;}
   header.site-nav:not(.scrolled) .menu-trigger{color:var(--overlay-ink);border-color:var(--overlay-line);}
   header.site-nav:not(.scrolled) .menu-trigger:hover{background:var(--overlay-ink);color:var(--overlay-bg);border-color:var(--overlay-ink);}
   header.site-nav:not(.scrolled) .menu-trigger:hover .dots span{background:var(--overlay-bg);}
@@ -1591,10 +1595,16 @@
 
 <script>
 (function(){
-  // nav scroll state
+  // nav scroll state — the brand mark's fade/settle from the hero into the header is tied
+  // continuously to scroll position (not a hard threshold), so it reads as one smooth drift
+  // rather than a pop once .scrolled flips (which still gates link colors, bg, etc.)
   var nav = document.getElementById('siteNav');
+  var NAV_FADE_DISTANCE = 220;
   var onScroll = function(){
-    if(window.scrollY > 30){ nav.classList.add('scrolled'); } else { nav.classList.remove('scrolled'); }
+    var y = window.scrollY;
+    var progress = Math.min(1, Math.max(0, y / NAV_FADE_DISTANCE));
+    nav.style.setProperty('--nav-progress', progress);
+    if(y > 30){ nav.classList.add('scrolled'); } else { nav.classList.remove('scrolled'); }
   };
   document.addEventListener('scroll', onScroll, {passive:true});
   onScroll();
