@@ -42,9 +42,9 @@
   }
 
   // links to "/" while already on the home page would reload it — scroll to the top instead
-  var isHome = location.pathname === '/' || location.pathname === '/index.html' || location.pathname === '/index';
+  var isHome = /\/(?:index(?:\.html)?|fe-leadership-awards)?\/?$/i.test(location.pathname) || location.pathname === '/';
   if(isHome){
-    document.querySelectorAll('a[href="/"]').forEach(function(a){
+    document.querySelectorAll('a[href="/"], a[href="./"], a[href="./index.html"], a[href="index.html"]').forEach(function(a){
       a.addEventListener('click', function(e){
         e.preventDefault();
         window.scrollTo({top:0, behavior:'smooth'});
