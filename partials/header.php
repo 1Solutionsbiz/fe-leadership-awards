@@ -1,0 +1,20 @@
+<header {{NAV_ATTRS}}>
+  <a class="brand" href="./" aria-label="Financial Express Leadership Awards — home">
+    <img class="logo-light" src="./assets/logo-light.png" alt="Financial Express Leadership Awards">
+    <img class="logo-dark" src="./assets/logo-dark.png" alt="Financial Express Leadership Awards">
+  </a>
+  <nav class="nav-links" aria-label="Primary">
+    <a href="./">Home</a>
+    <a href="./#about">About</a>
+    <a href="./#categories">Award Categories</a>
+    <a href="./#jury">Jury</a>
+    <a href="./#criteria">Criteria</a>
+    <a href="./#partners">Event Partners</a>
+  </nav>
+
+  <img class="nav-group-logo" src="./assets/group-logo.png" alt="Indian Express Group">
+
+  <button class="menu-trigger" id="menuTrigger" aria-haspopup="true" aria-expanded="false" aria-controls="menuOverlay">
+    <span class="dots"><span></span><span></span></span> Menu
+  </button>
+</header>
