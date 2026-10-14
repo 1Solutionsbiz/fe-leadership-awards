@@ -2,196 +2,491 @@
  Page-specific styles stay inline in each page. */
 
 /* ================= NAV ================= */
-header.site-nav{
-  position:fixed;inset:0 0 auto 0;z-index:50;
-  padding:10px clamp(20px,4vw,56px);
-  display:flex;align-items:center;justify-content:space-between;
-  background:transparent;
-  transition:background-color .4s ease, padding .4s ease, border-color .4s ease, box-shadow .4s ease;
-  border-bottom:1px solid transparent;
-  box-shadow:0 10px 10px rgba(0,0,0,0);
+header.site-nav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 50;
+  padding: 10px clamp(20px, 4vw, 56px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: transparent;
+  transition:
+    background-color 0.4s ease,
+    padding 0.4s ease,
+    border-color 0.4s ease,
+    box-shadow 0.4s ease;
+  border-bottom: 1px solid transparent;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0);
 }
-header.site-nav.scrolled{
-  padding-block:6px;
-  background:var(--bg);
-  box-shadow:0 10px 10px rgba(0,0,0,.1);
-  border-bottom-color:transparent;
+header.site-nav.scrolled {
+  padding-block: 6px;
+  background: var(--bg);
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+  border-bottom-color: transparent;
 }
 
 /* inline nav — hidden over the hero, swapped in for the Menu trigger once scrolled on
    desktop, à la Fortune MPW's persistent link row + CTA button */
-.nav-links{display:none;align-items:center;gap:clamp(18px,2vw,30px);}
-.nav-links a{
-  font-family:var(--font-body);font-weight:600;font-size:.92rem;color:var(--ink);
-  text-decoration:none;position:relative;padding-block:4px;
+.nav-links {
+  display: none;
+  align-items: center;
+  gap: clamp(18px, 2vw, 30px);
 }
-.nav-links a::after{
-  content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--red);
-  transform:scaleX(0);transform-origin:left;transition:transform .3s cubic-bezier(.16,.8,.24,1);
+.nav-links a {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: var(--ink);
+  text-decoration: none;
+  position: relative;
+  padding-block: 4px;
 }
-.nav-links a:hover::after{transform:scaleX(1);}
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: var(--red);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s cubic-bezier(0.16, 0.8, 0.24, 1);
+}
+.nav-links a:hover::after {
+  transform: scaleX(1);
+}
 
 /* group logo sits at the far right once the inline nav appears; nav-links takes flex:1 so
    it centers itself between the brand mark on the left and this logo on the right */
-.nav-group-logo{display:none;height:clamp(48px,5.6vw,72px);width:auto;}
-@media (min-width:1140px){
-  header.site-nav.scrolled .nav-links{display:flex;flex:1;justify-content:center;}
-  header.site-nav.scrolled .menu-trigger{display:none;}
-  header.site-nav.scrolled .nav-group-logo{display:block;}
+.nav-group-logo {
+  display: none;
+  height: clamp(48px, 5.6vw, 72px);
+  width: auto;
+}
+@media (min-width: 1140px) {
+  header.site-nav.scrolled .nav-links {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+  }
+  header.site-nav.scrolled .menu-trigger {
+    display: none;
+  }
+  header.site-nav.scrolled .nav-group-logo {
+    display: block;
+  }
 }
 /* brand lockup uses the real logo artwork (traced from FE Leadership Awards Logo Description.pdf)
    rather than a typeset approximation — swapped per theme since the mark is print-registered
    in a light and a reverse (white) version, not a single color that inverts cleanly. */
-.brand{
-  display:flex;align-items:center;text-decoration:none;
-  opacity:var(--nav-progress,0);
-  transform:translateY(calc((1 - var(--nav-progress,0)) * -10px)) scale(calc(.94 + var(--nav-progress,0) * .06));
+.brand {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  opacity: var(--nav-progress, 0);
+  transform: translateY(calc((1 - var(--nav-progress, 0)) * -10px))
+    scale(calc(0.94 + var(--nav-progress, 0) * 0.06));
 }
-.brand img{height:90px;width:auto;display:block;}
-.brand .logo-dark{display:none;}
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]) .brand .logo-light{display:none;}
-  :root:not([data-theme="light"]) .brand .logo-dark{display:block;}
+.brand img {
+  height: 90px;
+  width: auto;
+  display: block;
 }
-:root[data-theme="dark"] .brand .logo-light{display:none;}
-:root[data-theme="dark"] .brand .logo-dark{display:block;}
-.menu-overlay-top .brand img{height:clamp(64px,9vw,110px) !important;}
+.brand .logo-dark {
+  display: none;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .brand .logo-light {
+    display: none;
+  }
+  :root:not([data-theme="light"]) .brand .logo-dark {
+    display: block;
+  }
+}
+:root[data-theme="dark"] .brand .logo-light {
+  display: none;
+}
+:root[data-theme="dark"] .brand .logo-dark {
+  display: block;
+}
+.menu-overlay-top .brand img {
+  height: clamp(64px, 9vw, 110px) !important;
+}
 
 /* menu trigger — a small bordered pill, the tab whose tap opens the full-screen overlay below */
-.menu-trigger{
-  display:inline-flex;align-items:center;gap:9px;
-  font-family:var(--font-mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;
-  border:1px solid var(--border-strong);padding:10px 18px 10px 15px;border-radius:100px;
-  background:none;color:var(--ink);cursor:pointer;
-  transition:background-color .3s ease, color .3s ease, border-color .3s ease;
+.menu-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1px solid var(--border-strong);
+  padding: 10px 18px 10px 15px;
+  border-radius: 100px;
+  background: none;
+  color: var(--ink);
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease;
 }
-.menu-trigger .dots{display:inline-flex;gap:3px;}
-.menu-trigger .dots span{width:4px;height:4px;border-radius:50%;background:var(--red);display:block;transition:background-color .3s ease;}
-.menu-trigger:hover{background:var(--ink);color:var(--bg);border-color:var(--ink);}
-.menu-trigger:hover .dots span{background:var(--bg);}
+.menu-trigger .dots {
+  display: inline-flex;
+  gap: 3px;
+}
+.menu-trigger .dots span {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--red);
+  display: block;
+  transition: background-color 0.3s ease;
+}
+.menu-trigger:hover {
+  background: var(--ink);
+  color: var(--bg);
+  border-color: var(--ink);
+}
+.menu-trigger:hover .dots span {
+  background: var(--bg);
+}
 
 /* the hero is a permanently-dark backdrop, and the nav sits transparent over it until scrolled
    past — so the un-scrolled nav needs light styling regardless of site theme, then hands off
    to the theme-aware light/dark rules once .scrolled puts it over the page's own background */
-header.site-nav:not(.scrolled) .brand .logo-light{display:none;}
-header.site-nav:not(.scrolled) .brand .logo-dark{display:block;}
-header.site-nav:not(.scrolled) .brand{pointer-events:none;}
-header.site-nav:not(.scrolled) .menu-trigger{color:var(--overlay-ink);border-color:var(--overlay-line);}
-header.site-nav:not(.scrolled) .menu-trigger:hover{background:var(--overlay-ink);color:var(--overlay-bg);border-color:var(--overlay-ink);}
-header.site-nav:not(.scrolled) .menu-trigger:hover .dots span{background:var(--overlay-bg);}
+header.site-nav:not(.scrolled) .brand .logo-light {
+  display: none;
+}
+header.site-nav:not(.scrolled) .brand .logo-dark {
+  display: block;
+}
+header.site-nav:not(.scrolled) .brand {
+  pointer-events: none;
+}
+header.site-nav:not(.scrolled) .menu-trigger {
+  color: var(--overlay-ink);
+  border-color: var(--overlay-line);
+}
+header.site-nav:not(.scrolled) .menu-trigger:hover {
+  background: var(--overlay-ink);
+  color: var(--overlay-bg);
+  border-color: var(--overlay-ink);
+}
+header.site-nav:not(.scrolled) .menu-trigger:hover .dots span {
+  background: var(--overlay-bg);
+}
 
 /* ---- full-screen menu overlay: circle-morph reveal from the trigger, à la bdsn.club ---- */
-.menu-overlay{
-  position:fixed;inset:0;z-index:200;
-  background:var(--overlay-bg);color:var(--overlay-ink);
-  clip-path:circle(0% at var(--ox,92%) var(--oy,4%));
-  transition:clip-path .75s cubic-bezier(.16,.8,.24,1);
-  pointer-events:none;
-  display:flex;flex-direction:column;
-  visibility:hidden;
+.menu-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: var(--overlay-bg);
+  color: var(--overlay-ink);
+  clip-path: circle(0% at var(--ox, 92%) var(--oy, 4%));
+  transition: clip-path 0.75s cubic-bezier(0.16, 0.8, 0.24, 1);
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  visibility: hidden;
 }
-.menu-overlay.open{
-  clip-path:circle(150% at var(--ox,92%) var(--oy,4%));
-  pointer-events:auto;visibility:visible;
+.menu-overlay.open {
+  clip-path: circle(150% at var(--ox, 92%) var(--oy, 4%));
+  pointer-events: auto;
+  visibility: visible;
 }
-@media (prefers-reduced-motion:reduce){.menu-overlay{transition:none;}}
-.menu-overlay-top{display:flex;justify-content:space-between;align-items:center;padding:18px clamp(20px,4vw,56px);}
-.menu-close{
-  background:none;border:1px solid var(--overlay-line);color:var(--overlay-ink);border-radius:50%;
-  width:40px;height:40px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;
-  transition:background-color .3s ease, transform .3s ease;
+@media (prefers-reduced-motion: reduce) {
+  .menu-overlay {
+    transition: none;
+  }
 }
-.menu-close:hover{background:var(--red);border-color:var(--red);transform:rotate(90deg);}
-.menu-overlay-body{flex:1;display:flex;flex-direction:column;justify-content:center;padding-inline:clamp(20px,4vw,56px);overflow-y:auto;}
-.menu-list{display:flex;flex-direction:column;list-style:none;margin:0 0 0 auto;padding:0;width:100%;max-width:760px;}
-.menu-list li{display:flex;align-items:center;justify-content:flex-end;gap:14px;border-top:1px solid var(--overlay-line);padding-block:clamp(3px,.9vw,7px);}
-.menu-list li:last-child{border-bottom:1px solid var(--overlay-line);}
-.menu-list .idx{font-family:var(--font-mono);font-size:.68rem;color:var(--red);min-width:2.4ch;text-align:right;}
-.menu-list a{
-  font-family:var(--font-shout);font-weight:800;text-transform:uppercase;
-  font-size:clamp(1.5rem,4.6vw,3.15rem);line-height:1;letter-spacing:.005em;
-  color:var(--overlay-ink);text-decoration:none;display:inline-block;
-  transition:color .3s ease, transform .35s cubic-bezier(.16,.8,.24,1);
+.menu-overlay-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px clamp(20px, 4vw, 56px);
 }
-.menu-list a:hover{color:var(--red);transform:translateX(-14px);}
-.menu-overlay-foot{
-  display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-between;
-  padding:20px clamp(20px,4vw,56px);border-top:1px solid var(--overlay-line);
-  font-family:var(--font-mono);font-size:.7rem;letter-spacing:.05em;
-  color:color-mix(in srgb, var(--overlay-ink) 55%, transparent);
+.menu-close {
+  background: none;
+  border: 1px solid var(--overlay-line);
+  color: var(--overlay-ink);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex: none;
+  transition:
+    background-color 0.3s ease,
+    transform 0.3s ease;
 }
-.menu-overlay-foot a{color:inherit;text-decoration:none;}
-.menu-overlay-foot a:hover{color:var(--overlay-ink);}
+.menu-close:hover {
+  background: var(--red);
+  border-color: var(--red);
+  transform: rotate(90deg);
+}
+.menu-overlay-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-inline: clamp(20px, 4vw, 56px);
+  overflow-y: auto;
+}
+.menu-list {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  margin: 0 0 0 auto;
+  padding: 0;
+  width: 100%;
+  max-width: 760px;
+}
+.menu-list li {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 14px;
+  border-top: 1px solid var(--overlay-line);
+  padding-block: clamp(3px, 0.9vw, 7px);
+}
+.menu-list li:last-child {
+  border-bottom: 1px solid var(--overlay-line);
+}
+.menu-list .idx {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--red);
+  min-width: 2.4ch;
+  text-align: right;
+}
+.menu-list a {
+  font-family: var(--font-shout);
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: clamp(1.5rem, 4.6vw, 3.15rem);
+  line-height: 1;
+  letter-spacing: 0.005em;
+  color: var(--overlay-ink);
+  text-decoration: none;
+  display: inline-block;
+  transition:
+    color 0.3s ease,
+    transform 0.35s cubic-bezier(0.16, 0.8, 0.24, 1);
+}
+.menu-list a:hover {
+  color: var(--red);
+  transform: translateX(-14px);
+}
+.menu-overlay-foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 24px;
+  justify-content: space-between;
+  padding: 20px clamp(20px, 4vw, 56px);
+  border-top: 1px solid var(--overlay-line);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  color: color-mix(in srgb, var(--overlay-ink) 55%, transparent);
+}
+.menu-overlay-foot a {
+  color: inherit;
+  text-decoration: none;
+}
+.menu-overlay-foot a:hover {
+  color: var(--overlay-ink);
+}
 
 /* footer commits to the same dark world as the hero/menu overlay — modeled on monocle.com's
    own footer: big wordmark + tagline + two CTAs on the left, link columns, thin rule, credit line */
-footer{background:linear-gradient(180deg, #02608f 0%, #050b1c 100%);color:var(--overlay-ink);padding-block:clamp(56px,7vw,84px) 0;position:relative;overflow:hidden;}
-footer.footer--sticky{
-  position:fixed;left:0;right:0;bottom:0;width:100%;z-index:-1;
-  transform-origin:bottom center;will-change:opacity,transform;
+footer {
+  /* background: linear-gradient(180deg, #02608f 0%, #050b1c 100%); */
+  background: repeating-linear-gradient(180deg, #2b3b67, #282e3c 100%);
+  color: var(--overlay-ink);
+  padding-block: clamp(56px, 7vw, 84px) 0;
+  position: relative;
+  overflow: hidden;
 }
-@media (prefers-reduced-motion: reduce){footer.footer--sticky{position:static;opacity:1;transform:none;}}
-.footer-grid{display:grid;grid-template-columns:1.3fr repeat(3,1fr);gap:clamp(36px,5vw,56px);}
-.footer-brand img{height:76px;width:auto;display:block;margin-bottom:18px;}
-.footer-tagline{
-  font-family:var(--font-display);font-style:italic;font-weight:400;font-size:1.05rem;
-  color:color-mix(in srgb, var(--overlay-ink) 85%, transparent);margin-bottom:26px;
+footer.footer--sticky {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: -1;
+  transform-origin: bottom center;
+  will-change: opacity, transform;
 }
-.footer-cta-row{display:flex;flex-wrap:wrap;gap:12px;}
-.footer-cta-row .btn{padding:12px 20px;font-size:.7rem;}
-.btn.gold{background:var(--gold);color:#1a1206;border:1px solid var(--gold);}
-.btn.gold:hover{background:transparent;color:var(--overlay-ink);}
-.btn.outline{background:none;color:var(--overlay-ink);border:1px solid var(--overlay-line);}
-.btn.outline:hover{border-color:var(--overlay-ink);}
+@media (prefers-reduced-motion: reduce) {
+  footer.footer--sticky {
+    position: static;
+    opacity: 1;
+    transform: none;
+  }
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.3fr repeat(3, 1fr);
+  gap: clamp(36px, 5vw, 56px);
+}
+.footer-brand img {
+  height: 76px;
+  width: auto;
+  display: block;
+  margin-bottom: 18px;
+}
+.footer-tagline {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.05rem;
+  color: color-mix(in srgb, var(--overlay-ink) 85%, transparent);
+  margin-bottom: 26px;
+}
+.footer-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.footer-cta-row .btn {
+  padding: 12px 20px;
+  font-size: 0.7rem;
+}
+.btn.gold {
+  background: var(--gold);
+  color: #1a1206;
+  border: 1px solid var(--gold);
+}
+.btn.gold:hover {
+  background: transparent;
+  color: var(--overlay-ink);
+}
+.btn.outline {
+  background: none;
+  color: var(--overlay-ink);
+  border: 1px solid var(--overlay-line);
+}
+.btn.outline:hover {
+  border-color: var(--overlay-ink);
+}
 
-.footer-col h4{
-  font-family:var(--font-body);font-weight:800;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;
-  color:var(--overlay-ink);margin-bottom:16px;
+.footer-col h4 {
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--overlay-ink);
+  margin-bottom: 16px;
 }
-.footer-col{display:flex;flex-direction:column;}
-.footer-col a{
-  font-size:.86rem;color:color-mix(in srgb, var(--overlay-ink) 65%, transparent);text-decoration:none;
-  padding-block:5px;transition:color .25s ease;
+.footer-col {
+  display: flex;
+  flex-direction: column;
 }
-.footer-col a:hover{color:var(--overlay-ink);}
+.footer-col a {
+  font-size: 0.86rem;
+  color: color-mix(in srgb, var(--overlay-ink) 65%, transparent);
+  text-decoration: none;
+  padding-block: 5px;
+  transition: color 0.25s ease;
+}
+.footer-col a:hover {
+  color: var(--overlay-ink);
+}
 
-.footer-bottom{
-  display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;
-  margin-top:clamp(44px,6vw,64px);padding-top:22px;border-top:1px solid var(--overlay-line);
+.footer-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: clamp(44px, 6vw, 64px);
+  padding-top: 22px;
+  border-top: 1px solid var(--overlay-line);
 }
-.footer-bottom .footer-legal{font-family:var(--font-mono);font-size:.7rem;color:color-mix(in srgb, var(--overlay-ink) 55%, transparent);}
+.footer-bottom .footer-legal {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: color-mix(in srgb, var(--overlay-ink) 55%, transparent);
+}
 
 /* giant wordmark sinking into the footer's own gradient as it deepens toward near-black —
    à la the client-referenced revuze.it footer: full letterforms (not clipped), low-opacity,
    with a gently drawn accent line tracing through. Purely decorative, so it's hidden from
    assistive tech and never intercepts clicks. */
-.footer-wordmark-band{
-  position:relative;margin-top:clamp(30px,6vw,64px);
-  padding-block:clamp(18px,3vw,32px) clamp(26px,4vw,44px);
-  overflow:hidden;
+.footer-wordmark-band {
+  position: relative;
+  margin-top: clamp(30px, 6vw, 64px);
+  padding-block: clamp(18px, 3vw, 32px) clamp(26px, 4vw, 44px);
+  overflow: hidden;
 }
-.footer-wordmark{
-  position:relative;text-align:center;overflow:hidden;pointer-events:none;line-height:.82;
+.footer-wordmark {
+  position: relative;
+  text-align: center;
+  overflow: hidden;
+  pointer-events: none;
+  line-height: 0.82;
 }
-.footer-wordmark span{
-  display:inline-block;white-space:nowrap;
-  font-family:var(--font-shout);font-weight:800;text-transform:uppercase;
-  font-size:clamp(3.4rem,13vw,10.5rem);letter-spacing:-.01em;
-  color:color-mix(in srgb, #fff 14%, transparent);
+.footer-wordmark span {
+  display: inline-block;
+  white-space: nowrap;
+  font-family: var(--font-shout);
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: clamp(3.4rem, 13vw, 10.5rem);
+  letter-spacing: -0.01em;
+  color: color-mix(in srgb, #fff 14%, transparent);
 }
-.footer-wave{
-  position:absolute;left:0;top:22%;width:220%;height:56%;
-  stroke:var(--gold);opacity:.5;pointer-events:none;
-  animation:footerWaveDrift 20s linear infinite;
+.footer-wave {
+  position: absolute;
+  left: 0;
+  top: 22%;
+  width: 220%;
+  height: 56%;
+  stroke: var(--gold);
+  opacity: 0.5;
+  pointer-events: none;
+  animation: footerWaveDrift 20s linear infinite;
 }
-@keyframes footerWaveDrift{from{transform:translateX(0);}to{transform:translateX(-45%);}}
-@media (prefers-reduced-motion: reduce){.footer-wave{animation:none;}}
+@keyframes footerWaveDrift {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-45%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .footer-wave {
+    animation: none;
+  }
+}
 
-@media (max-width:880px){
-  .footer-grid{grid-template-columns:1fr 1fr;}
-  .footer-brand{grid-column:1 / -1;}
+@media (max-width: 880px) {
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .footer-brand {
+    grid-column: 1 / -1;
+  }
 }
-@media (max-width:520px){.footer-grid{grid-template-columns:1fr;}}
+@media (max-width: 520px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+}
 
 /* the menu overlay sits outside <header>, so it never receives --nav-progress; show its logo fully */
-.menu-overlay-top .brand{opacity:1;transform:none;pointer-events:auto;}
+.menu-overlay-top .brand {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}

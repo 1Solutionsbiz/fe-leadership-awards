@@ -793,9 +793,10 @@
     transform: rotate(180deg);
     padding: 0 7px;
     font-family: var(--font-mono);
-    font-size: .7rem;
+    font-size: 1.1rem;
+    font-weight: 600;
     letter-spacing: .07em;
-    text-transform: uppercase;
+    text-transform: capitalize;
     color: #fff;
     white-space: nowrap;
     opacity: 1;
@@ -842,7 +843,7 @@
     display: block;
     font-family: var(--font-display);
     font-weight: 600;
-    font-size: 1.15rem;
+    font-size: 1.2rem;
     line-height: 1.2;
     color: #fff;
     white-space: nowrap;
@@ -862,7 +863,7 @@
     font-weight: 800;
     font-size: .76rem;
     letter-spacing: .02em;
-    text-transform: uppercase;
+    text-transform: capitalize;
     color: #fff;
     white-space: nowrap;
   }
@@ -914,7 +915,8 @@
      Website link (moved off the card face). */
   .partners {
     padding-block: clamp(90px, 12vw, 140px);
-    background: var(--blue);
+    background: repeating-linear-gradient(180deg, #2b3b67, #282e3c 100%);
+    /* background: var(--blue); */
     color: #fff;
   }
 
@@ -2633,7 +2635,7 @@
           <img class="jury-strip-img" src="jury-images/Kumar Birla.png" alt="Kumar Mangalam Birla" loading="lazy">
           <div class="jury-strip-tint"></div>
           <div class="jury-strip-veil"></div>
-          <div class="jury-strip-label"><span>Kumar Mangalam Birla</span></div>
+          <div class="jury-strip-label"><span>Kumar Mangalam <br>Birla</span></div>
           <div class="jury-strip-caption">
             <span class="jury-strip-badge">Jury Chair</span>
             <span class="jury-strip-name">Kumar Mangalam Birla</span>
@@ -2646,7 +2648,7 @@
           <img class="jury-strip-img" src="jury-images/Arundhati.png" alt="Arundhati" loading="lazy">
           <div class="jury-strip-tint"></div>
           <div class="jury-strip-veil"></div>
-          <div class="jury-strip-label"><span>Arundhati Bhattacharya
+          <div class="jury-strip-label"><span>Arundhati <br>Bhattacharya
             </span></div>
           <div class="jury-strip-caption">
             <!-- <span class="jury-strip-badge">Jury Chair</span> -->
@@ -2661,7 +2663,7 @@
           <img class="jury-strip-img" src="jury-images/Sanjay Nayar.png" alt="Sanjay Nayar" loading="lazy">
           <div class="jury-strip-tint"></div>
           <div class="jury-strip-veil"></div>
-          <div class="jury-strip-label"><span>Sanjay Nayar</span></div>
+          <div class="jury-strip-label"><span>Sanjay <br>Nayar</span></div>
           <div class="jury-strip-caption">
             <!-- <span class="jury-strip-badge">Jury Chair</span> -->
             <span class="jury-strip-name">Sanjay Nayar</span>
@@ -2675,7 +2677,7 @@
           <img class="jury-strip-img" src="jury-images/Cyril.png" alt="Cyril Shroff" loading="lazy">
           <div class="jury-strip-tint"></div>
           <div class="jury-strip-veil"></div>
-          <div class="jury-strip-label"><span>Cyril Shroff</span></div>
+          <div class="jury-strip-label"><span>Cyril <br>Shroff</span></div>
           <div class="jury-strip-caption">
             <!-- <span class="jury-strip-badge">Jury Chair</span> -->
             <span class="jury-strip-name">Cyril Shroff</span>
@@ -2688,7 +2690,7 @@
           <img class="jury-strip-img" src="jury-images/Amit Chandra.png" alt="Amit Chandra" loading="lazy">
           <div class="jury-strip-tint"></div>
           <div class="jury-strip-veil"></div>
-          <div class="jury-strip-label"><span>Amit Chandra</span></div>
+          <div class="jury-strip-label"><span>Amit <br>Chandra</span></div>
           <div class="jury-strip-caption">
             <!-- <span class="jury-strip-badge">Jury Chair</span> -->
             <span class="jury-strip-name">Amit Chandra</span>
@@ -2701,7 +2703,7 @@
           <img class="jury-strip-img" src="jury-images/Rajiv-memani.png" alt="Rajiv Memani" loading="lazy">
           <div class="jury-strip-tint"></div>
           <div class="jury-strip-veil"></div>
-          <div class="jury-strip-label"><span>Rajiv Memani</span></div>
+          <div class="jury-strip-label"><span>Rajiv <br>Memani</span></div>
           <div class="jury-strip-caption">
             <!-- <span class="jury-strip-badge">Jury Chair</span> -->
             <span class="jury-strip-name">Rajiv Memani</span>
@@ -2714,7 +2716,7 @@
           <img class="jury-strip-img" src="jury-images/Manish.png" alt="Manish Kejriwal" loading="lazy">
           <div class="jury-strip-tint"></div>
           <div class="jury-strip-veil"></div>
-          <div class="jury-strip-label"><span>Manish Kejriwal</span></div>
+          <div class="jury-strip-label"><span>Manish <br>Kejriwal</span></div>
           <div class="jury-strip-caption">
             <!-- <span class="jury-strip-badge">Jury Chair</span> -->
             <span class="jury-strip-name">Manish Kejriwal</span>
@@ -3431,7 +3433,7 @@
 
     /* ========== PARTNER STRIP ========== */
     .sp-partner {
-      background: #0d0d0d;
+      background: #182d68;
       border-radius: 1.75rem;
       padding: 2.5rem 3rem;
       display: flex;
@@ -3604,9 +3606,9 @@
 
       <!-- 01 -->
       <div class="sp-flow-step">
-        <div class="sp-flow-num">
+        <!-- <div class="sp-flow-num">
           01
-        </div>
+        </div> -->
         <div class="sp-flow-content">
           <h3 class="sp-flow-title">Leadership &amp; Governance Benchmarking</h3>
           <p class="sp-flow-desc">
@@ -3617,9 +3619,9 @@
 
       <!-- 02 -->
       <div class="sp-flow-step">
-        <div class="sp-flow-num">
+        <!-- <div class="sp-flow-num">
           02
-        </div>
+        </div> -->
         <div class="sp-flow-content">
           <h3 class="sp-flow-title">Innovation &amp; Sustainability Metrics</h3>
           <p class="sp-flow-desc">
@@ -3630,9 +3632,9 @@
 
       <!-- 03 -->
       <div class="sp-flow-step">
-        <div class="sp-flow-num">
+        <!-- <div class="sp-flow-num">
           03
-        </div>
+        </div> -->
         <div class="sp-flow-content">
           <h3 class="sp-flow-title">Business Performance Analysis</h3>
           <p class="sp-flow-desc">
@@ -3643,9 +3645,9 @@
 
       <!-- 04 -->
       <div class="sp-flow-step">
-        <div class="sp-flow-num">
+        <!-- <div class="sp-flow-num">
           04
-        </div>
+        </div> -->
         <div class="sp-flow-content">
           <h3 class="sp-flow-title">Impact Assessment</h3>
           <p class="sp-flow-desc">
@@ -3844,7 +3846,7 @@
       </div>
       <div class="footer-col">
         <h4>Explore</h4>
-        <a href="./#matter">About</a>
+        <a href="#matter">About Us</a>
         <a href="./#categories">Award Categories</a>
         <a href="./#jury">Jury</a>
         <a href="./#criteria">Criteria</a>
