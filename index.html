@@ -712,6 +712,8 @@
     padding-block: clamp(90px, 12vw, 140px);
     background: linear-gradient(160deg, #fedee1, var(--bg) 65%);
     overflow: hidden;
+    padding-right: 10px;
+    padding-left: 10px;
   }
 
   .jury-strip-grid {
@@ -900,6 +902,46 @@
     }
   }
 
+
+  @media (max-width:760px) {
+
+    .jury-strip-img{
+      object-fit: cover;
+    }
+    .jury-strip.pal-1 .jury-strip-tint,
+    .jury-strip.pal-2 .jury-strip-tint,
+    .jury-strip.pal-3 .jury-strip-tint,
+    .jury-strip.pal-4 .jury-strip-tint,
+    .jury-strip.pal-5 .jury-strip-tint{
+      background:none;
+    }
+
+    .jury-strip-grid{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    .jury-strip {
+        height: 400px;
+        flex: none;
+    }
+
+  }
+
+  @media (max-width:480px) {
+
+    .jury-strip-img{
+      object-fit: cover;
+    }
+    .jury-strip-grid{
+      display:flex;
+    }
+    .jury-strip {
+        height: 400px;
+        flex: none;
+    }
+
+  }
+
   .jury-note {
     margin-top: clamp(28px, 3.4vw, 36px);
     font-family: var(--font-mono);
@@ -1025,9 +1067,9 @@
     }
   }
 
-  @media (max-width:400px) {
+  @media (max-width:480px) {
     .partners-grid {
-      grid-template-columns: 1fr;
+      grid-template-columns: 1fr 1fr;
     }
   }
 
@@ -2092,12 +2134,12 @@
         flex: 0 0 260px;
         padding: 1.5rem 1.25rem;
       }
+
+
     }
 
     @media (max-width: 480px) {
-      body {
-        padding: 1rem 0.75rem;
-      }
+     
 
       .categories {
         border-radius: 1.75rem;
@@ -2105,7 +2147,16 @@
       }
 
       .cat-card-new {
-        flex: 0 0 240px;
+        flex: 0 0 300px;
+      }
+
+      .left-title,
+      .right-carousel {
+        width: 100%;
+      }
+
+      .categories-grid {
+          flex-direction: column;
       }
 
       .scroll-btn {
@@ -2692,14 +2743,23 @@
       }
     }
 
-    @media (max-width: 380px) {
+    @media (max-width: 480px) {
       .leader-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr;
       }
 
       .leader-card {
-        min-height: 260px;
+        min-height: 150px;
+        flex-direction: column;
       }
+
+      .icon-circle{
+        width: 60px;
+        height: 60px;
+        margin-right:0px;
+      }
+      
+      
     }
   </style>
 
