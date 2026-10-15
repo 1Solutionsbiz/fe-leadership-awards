@@ -1275,6 +1275,242 @@
     text-align: left;
   }
 
+  .contact-section {
+    position: relative;
+    isolation: isolate;
+    min-height: 640px;
+    padding: clamp(28px, 5vw, 72px);
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background: repeating-linear-gradient(180deg, #2b3b67, #282e3c 100%);
+  }
+
+  .contact-map {
+    position: absolute;
+    z-index: -2;
+    inset: 0;
+    background: #e7e5df;
+  }
+
+  .contact-map iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    pointer-events: none;
+  }
+
+  .contact-panels {
+    display: grid;
+    grid-template-columns: minmax(260px, .8fr) minmax(0, 1.65fr);
+    gap: 16px;
+    width: min(100%, 1440px);
+    margin-inline: auto;
+    box-shadow: 0 18px 44px rgba(19, 19, 21, .2);
+  }
+
+  .contact-address,
+  .contact-form-panel {
+    min-width: 0;
+    padding: clamp(26px, 3vw, 44px);
+  }
+
+  .contact-address {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: #fff;
+    color: #171717;
+  }
+
+  .contact-eyebrow {
+    margin: 0 0 18px;
+    font-family: var(--font-mono);
+    font-size: .72rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+
+  .closing .contact-address h2 {
+    max-width: 15ch;
+    margin: 0 0 24px;
+    color: #d9232a;
+    font-family: var(--font-display);
+    font-size: clamp(1.55rem, 2.4vw, 2.25rem);
+    line-height: 1.08;
+  }
+
+  .contact-details {
+    display: grid;
+    gap: 14px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-family: var(--font-body);
+    font-size: .97rem;
+    line-height: 1.55;
+  }
+
+  .contact-details a {
+    color: inherit;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+  }
+
+  .contact-details svg {
+    width: 17px;
+    height: 17px;
+    margin: 3px 8px 0 0;
+    color: #d9232a;
+    vertical-align: top;
+  }
+
+  .contact-group-logo {
+    width: min(170px, 65%);
+    height: auto;
+    margin: auto 0 0 auto;
+    padding-top: 28px;
+  }
+
+  .contact-form-panel {
+    background: rgba(255, 255, 255, .94);
+    backdrop-filter: blur(5px);
+  }
+
+  .closing .contact-form-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 0 22px;
+    color: #29385f;
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 2.6vw, 2.5rem);
+    line-height: 1.1;
+  }
+
+  .contact-form-title svg {
+    width: 30px;
+    height: 30px;
+    flex: none;
+  }
+
+  .contact-fields {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .contact-form-panel label {
+    display: block;
+    min-width: 0;
+  }
+
+  .contact-form-panel label span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
+
+  .contact-form-panel input,
+  .contact-form-panel textarea {
+    width: 100%;
+    border: 1px solid rgba(19, 19, 21, .1);
+    border-radius: 0;
+    background: rgba(248, 248, 248, .95);
+    color: var(--ink);
+    font: 500 .96rem/1.4 var(--font-body);
+    padding: 14px 15px;
+    outline: none;
+    transition: border-color .2s ease, box-shadow .2s ease;
+  }
+
+  .contact-form-panel input:focus,
+  .contact-form-panel textarea:focus {
+    border-color: #2b3b64;
+    box-shadow: 0 0 0 3px rgb(43 58 99 / 7%);
+  }
+
+  .contact-form-panel textarea {
+    min-height: 190px;
+    margin-top: 12px;
+    resize: vertical;
+  }
+
+  .contact-form-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    margin-top: 18px;
+  }
+
+  .contact-form-note {
+    max-width: 42ch;
+    margin: 0;
+    color: var(--muted);
+    font: .78rem/1.5 var(--font-body);
+  }
+
+  .contact-submit {
+    flex: none;
+    min-width: 156px;
+    border: 0;
+    background: #272d3d;
+    color: #fff;
+    font: 600 1rem/1 var(--font-body);
+    padding: 17px 24px;
+    cursor: pointer;
+    transition: background-color .2s ease, transform .2s ease;
+  }
+
+  .contact-submit:hover {
+    background: #005d8e;
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 760px) {
+    .contact-section {
+      min-height: auto;
+      padding: 26px 18px;
+    }
+
+    .contact-panels {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .contact-address,
+    .contact-form-panel {
+      padding: 26px 22px;
+    }
+
+    .contact-group-logo {
+      width: 130px;
+      margin-top: 20px;
+    }
+
+    .contact-fields {
+      grid-template-columns: 1fr;
+    }
+
+    .contact-form-panel textarea {
+      min-height: 145px;
+    }
+
+    .contact-form-actions {
+      align-items: stretch;
+      flex-direction: column;
+    }
+
+    .contact-submit {
+      width: 100%;
+    }
+  }
+
   .closing h2 {
     font-family: var(--font-display);
     font-weight: 600;
@@ -3767,14 +4003,55 @@
 
 
 
-  <section class="closing" id="contact">
-    <!-- <div class="wrap">
-      <h2 class="balance" data-reveal>Leadership matters.<br>We celebrate <em>the best</em> of it.</h2>
-      <div class="closing-cta" data-reveal>
-        <a class="btn primary" href="mailto:partnerships@feleadershipawards.com">Sponsorship &amp; Partnerships</a>
-        <a class="btn ghost" href="mailto:info@feleadershipawards.com">General Enquiries</a>
-      </div>
+  <section class="closing contact-section" id="contact" aria-label="Contact us">
+    <!-- <div class="contact-map" aria-hidden="true">
+      <iframe
+        src="https://maps.google.com/maps?q=Indian%20Express%20Building%2C%20B-1%2FB%2C%20Sector-10%2C%20Noida%2C%20Uttar%20Pradesh&t=&z=15&ie=UTF8&iwloc=&output=embed"
+        title="Map showing Indian Express Building in Noida"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div> -->
+    <div class="contact-panels" >
+      <aside class="contact-address">
+        <!-- <p class="contact-eyebrow">Get in touch</p> -->
+        <img class="logo-light" src="./assets/logo-light.png" alt="Financial Express Leadership Awards">
+        
+        
+        <!-- <img class="contact-group-logo" src="./assets/group-logo.png" alt="Indian Express Group"> -->
+      </aside>
+      <div class="contact-form-panel">
+        <h2 class="contact-form-title">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M2.2 5.4A2.2 2.2 0 0 1 4.4 3h15.2a2.2 2.2 0 0 1 2.2 2.4L12 12.1 2.2 5.4ZM2 7.8v10.8A2.4 2.4 0 0 0 4.4 21h15.2a2.4 2.4 0 0 0 2.4-2.4V7.8l-9.4 6.4a1 1 0 0 1-1.2 0L2 7.8Z"></path>
+          </svg>
+          Contact Us
+        </h2>
+        <form action="mailto:info@feleadershipawards.com" method="post" enctype="text/plain">
+          <div class="contact-fields">
+            <label>
+              <span>Full name</span>
+              <input type="text" name="Full Name" placeholder="Full Name" autocomplete="name" required>
+            </label>
+            <label>
+              <span>Mobile number</span>
+              <input type="tel" name="Mobile Number" placeholder="Mobile Number" autocomplete="tel">
+            </label>
+            <label>
+              <span>Email</span>
+              <input type="email" name="Email" placeholder="Email" autocomplete="email" required>
+            </label>
+          </div>
+          <label>
+            <span>Your query or feedback</span>
+            <textarea name="Query" placeholder="Please send your query or feedback..." required></textarea>
+          </label>
+          <div class="contact-form-actions">
+            <p class="contact-form-note">Submit opens a new email draft addressed to the awards team.</p>
+            <button class="contact-submit" type="submit">Submit enquiry</button>
+          </div>
+        </form>
+      </div>
+    </div>
   </section>
 
 
