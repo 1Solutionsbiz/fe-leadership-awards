@@ -179,7 +179,7 @@
 
   .section-head {
     margin-bottom: clamp(32px, 6vw, 64px);
-    max-width: 760px;
+    text-align: center;
   }
 
   .section-foot {
@@ -1654,6 +1654,14 @@
       gap: 24px;
     }
   }
+
+  .bluehead{
+    color: #0a285f !important;
+  }
+  .uppercase{
+    text-transform: uppercase;
+  }
+
 </style>
 
 
@@ -2174,8 +2182,8 @@
 
       <!-- LEFT SIDE: title block (30%) -->
       <div class="left-title">
-        <div class="eyebrow">Award Categories</div>
-        <h2>The awards reflect the evolving demands of modern leadership.</h2>
+        <!-- <div class="eyebrow">Award Categories</div> -->
+        <h2 class="bluehead uppercase">Award Categories</h2>
       </div>
 
       <!-- RIGHT SIDE: carousel (70%) -->
@@ -2578,9 +2586,10 @@
       border-radius: 30px;
       display: flex;
       align-items: center;
-      flex-direction: row;
+      flex-direction: column;
       text-align: center;
       transition: transform 0.25s ease, box-shadow 0.25s ease;
+      justify-content: center;
     }
 
     .leader-card:hover {
@@ -2597,7 +2606,7 @@
       justify-content: center;
       align-items: center;
       flex-shrink: 0;
-      margin-right: 20px;
+      margin-right: 0px;
     }
 
     .icon-circle svg {
@@ -2770,7 +2779,7 @@
   <section class="room-section">
 
     <header class="room-header">
-      <h2>The Room That Matters</h2>
+      <h2 class="uppercase">The Room That Matters</h2>
     </header>
 
     <div class="leader-grid">
@@ -2925,8 +2934,8 @@
   <section class="jury" id="jury">
     <div class="wrap">
       <div class="section-head" data-reveal>
-        <div class="eyebrow section-kicker">The Jury</div>
-        <h2 class="section-title balance">A panel with no patience for anything but the real thing.</h2>
+        <!-- <div class="eyebrow section-kicker">The Jury</div> -->
+        <h2 class="section-title balance uppercase">The Jury</h2>
       </div>
     </div>
     <div class="wrap" style="padding:0;">
@@ -3052,7 +3061,7 @@
   <section class="partners" id="partners">
     <div class="wrap">
       <div class="partners-head" data-reveal>
-        <h2 class="section-title">Event Partners</h2>
+        <h2 class="section-title uppercase">Event Partners</h2>
       </div>
 
       <div class="partners-tabs-wrap" data-reveal>
