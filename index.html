@@ -268,6 +268,19 @@
             .subscribe button {
                 width: 100%;
             }
+
+
+        body::before {
+            top: 0px;
+            left: 0px;
+        }
+
+        body::after {
+            bottom: 0px;
+            right: 0px;
+        }
+
+
         }
 
         @media (max-width: 380px) {
@@ -324,18 +337,7 @@
         <div class="progress">
             <div class="progress-bar" id="progressBar"></div>
         </div>
-<!--
-        <form class="subscribe" onsubmit="event.preventDefault(); alert('Thanks for subscribing! 🎉');">
-            <input type="email" placeholder="Enter your email" required>
-            <button type="submit">Notify Me</button>
-        </form>
 
-        <div class="socials">
-            <a href="#" title="Facebook">f</a>
-            <a href="#" title="Twitter">𝕏</a>
-            <a href="#" title="Instagram">📷</a>
-            <a href="#" title="LinkedIn">in</a>
-        </div> -->
     </div>
 
     <script>
