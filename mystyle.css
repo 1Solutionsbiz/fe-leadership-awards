@@ -376,7 +376,7 @@
 
     .leader-card h2 {
       font-size: clamp(17px, 1.4vw, 26px);
-      font-weight: 600;
+      font-weight: 400;
       line-height: 1.4;
       color: #0b285f;
       overflow-wrap: anywhere;
