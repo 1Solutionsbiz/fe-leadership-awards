@@ -966,6 +966,11 @@
 
 
 
+.jury-strip-label{
+      font-size: 24px !important;
+    font-weight: 400 !important;
+}
+
 
 @media screen and (max-width: 481px) {
  

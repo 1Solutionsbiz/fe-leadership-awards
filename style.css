@@ -741,7 +741,7 @@
   }
 
   .jury-strip.pal-2 .jury-strip-tint {
-    background: linear-gradient(175deg, var(--blue), #101114 78%);
+    background: linear-gradient(175deg, var(--blue), #10111400 78%);
   }
 
   .jury-strip.pal-3 .jury-strip-tint {
