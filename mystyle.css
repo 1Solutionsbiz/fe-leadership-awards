@@ -188,11 +188,11 @@
       text-align: center;
     }
 
-    /* teaser / short info */
+    /* teaser / short info */.scroll-dot-label
     .cat-teaser-new {
-      font-size: 0.9rem;
+      font-size: 12px;
       font-weight: 500;
-      color: #6f6a64;
+      color: #005d8e;
       letter-spacing: 0.01em;
       /* border-bottom: 1px solid #ece7e1; */
       /* padding-bottom: 1rem; */
