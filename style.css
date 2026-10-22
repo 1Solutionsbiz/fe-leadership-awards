@@ -832,7 +832,7 @@
   .jury-strip-role {
     display: block;
     font-size: .82rem;
-    color: color-mix(in srgb, #fff 80%, transparent);
+    color: #fff;
     white-space: nowrap;
   }
 
@@ -1629,9 +1629,6 @@
     }
   }
 
-  .bluehead{
-    color: #0a285f !important;
-  }
   .uppercase{
     text-transform: uppercase;
   }

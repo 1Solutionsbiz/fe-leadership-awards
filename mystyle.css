@@ -6,9 +6,7 @@
     .categories {
       max-width: 1440px;
       margin: 0 auto;
-      background: #ffffff;
-      /* background: repeating-linear-gradient(180deg, #2b3b67, #282e3c 100%); */
-      /* box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15); */
+      background: repeating-linear-gradient(180deg, #2b3b67, #282e3c 100%);
       padding: 5rem 2.5rem;
       width: 100%;
     }
@@ -918,7 +916,9 @@
 
 
 
-
+.text-white{
+    color: #fff !important;
+}
 
 
 
@@ -939,6 +939,22 @@
   }
 
 
+
+  .juryinfosec{
+    display: flex;
+    gap: 20px;
+  }
+  
+  .juryinfosec .jury-strip-role,
+  .juryinfosec .jury-strip-company{
+    font-weight: 400 !important;
+    font-size: 18px;
+  }
+  
+
+  .jury-strip-name{
+    font-size: 2rem !important;
+  }
 
 
 
