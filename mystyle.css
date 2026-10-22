@@ -154,8 +154,8 @@
 
     /* icon area */
     .cat-icon-wrap {
-      width: 3.5rem;
-      height: 3.5rem;
+      width: 75px;
+      height: 75px;
       background: #005d8e;
       border-radius: 1.2rem;
       display: flex;
@@ -177,8 +177,8 @@
 
     /* category name */
     .cat-name {
-      font-size: 1.3rem;
-      font-weight: 700;
+      font-size: 25px;
+      font-weight: 400;
       letter-spacing: -0.015em;
       color: #0b0b0b;
       margin-bottom: 0.45rem;
