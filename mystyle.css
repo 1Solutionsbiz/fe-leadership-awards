@@ -1,0 +1,25 @@
+  .hero {
+    min-height: 50svh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--overlay-ink);
+    position: relative;
+    overflow: hidden;
+    /* padding-top: 120px; */
+    padding-bottom: 90px;
+    background: var(--overlay-bg);
+  }
+
+
+
+
+
+@media screen and (max-width: 481px) {
+ 
+    .hero {
+        min-height: 0svh;
+        padding-bottom: 0px;
+    }
+
+}
