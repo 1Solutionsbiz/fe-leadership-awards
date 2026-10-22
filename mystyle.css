@@ -958,6 +958,15 @@
 
 
 
+  header.site-nav:not(.scrolled) .menu-trigger {
+    color: #324980 !important;
+    border-color: rgb(42 56 95) !important;
+    background: #fff !important;
+}
+
+
+
+
 @media screen and (max-width: 481px) {
  
     .hero {
