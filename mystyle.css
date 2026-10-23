@@ -35,15 +35,6 @@
       margin-bottom: 0.75rem;
     }
 
-    .left-title h2 {
-      font-size: 2.25rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      line-height: 1.2;
-      color: #0d0d0d;
-      max-width: 16ch;
-    }
-
     /* RIGHT SIDE — carousel + categories */
     .right-carousel {
       position: relative;
@@ -131,12 +122,12 @@
 
     /* category card */
     .cat-card-new {
-      flex: 0 0 280px;
+      flex: 0 0 300px;
       /* fixed width – each card */
       scroll-snap-align: start;
       background: #ffffff;
       border-radius: 1.75rem;
-      padding: 2rem 1.75rem 1.75rem;
+      padding: 2rem 1.5rem 1.75rem;
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04), 0 0 0 1px #f0ede9 inset;
       transition: all 0.25s ease;
       display: flex;
@@ -153,7 +144,7 @@
     }
 
     /* icon area */
-    .cat-icon-wrap {
+    /* .cat-icon-wrap {
       width: 75px;
       height: 75px;
       background: #005d8e;
@@ -163,7 +154,25 @@
       justify-content: center;
       margin-bottom: 1.75rem;
       color: #fff;
+    } */
+
+
+
+    .cat-icon-wrap {
+      width: 70px;
+      height: 50px;
+      background: #005d8e;
+      border-radius: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      /* margin-bottom: 1.75rem; */
+      color: #fff;
     }
+
+
+
+
 
     .cat-icon-wrap svg {
       width: 1.9rem;
@@ -175,18 +184,40 @@
       stroke-linejoin: round;
     }
 
-    /* category name */
+
+
+
+
+    .awardsecpara{
+      border-top: 1px solid #005d8e; 
+      margin-top: 10px; 
+      padding-top: 10px;
+    }
+
+
+
+    
+    
+    
     .cat-name {
       font-size: 25px;
       font-weight: 400;
       letter-spacing: -0.015em;
       color: #0a285f;
-      margin-bottom: 0.45rem;
       line-height: 1.25;
-      border-top: 1px solid #ece7e1;
-      padding-top: 30px;
       text-align: center;
+      padding-top: 10px;
     }
+    
+
+    .awardcatesec{
+        /* display: flex;
+        align-items: center; */
+        border-bottom: 1px solid #005d8e; 
+    }
+    
+
+
 
     /* teaser / short info */.scroll-dot-label
     .cat-teaser-new {
@@ -229,10 +260,7 @@
         text-align: left;
       }
 
-      .left-title h2 {
-        max-width: 100%;
-        font-size: 2rem;
-      }
+   
 
       .categories {
         padding: 2rem 1.5rem;
@@ -288,7 +316,7 @@
     }
 
     .room-header h2 {
-      font-size: clamp(32px, 3vw, 56px);
+      font-size: clamp(30px, 3vw, 56px);
       line-height: 1.15;
       font-weight: 800;
       letter-spacing: -1.5px;
@@ -443,10 +471,6 @@
         margin-bottom: 38px;
       }
 
-      .room-header h2 {
-        letter-spacing: -0.7px;
-        margin-bottom: 16px;
-      }
 
       .leader-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -876,7 +900,7 @@
       }
 
       .sp-title {
-        font-size: 1.9rem;
+        font-size: 25px;
       }
 
       .sp-partner {
@@ -990,13 +1014,25 @@ a{
   line-height: 1.15;
   font-weight: 800;
   letter-spacing: -1.5px;
-  margin-bottom: 26px
+  margin-bottom: 26px;
 }
 .commonheading-blue{
   color: #0a285f !important;
 }
 .commonheading-white{
   color: #fff !important;
+}
+
+
+.commonpara{
+  font-size: 20px;
+  line-height: 1.4;
+}
+.center{
+  text-align: center;
+}
+.width70{
+  width: 70%;
 }
 
 
@@ -1013,5 +1049,25 @@ a{
     .sponserimg{
         width: 90%;
     }
+
+    .commonheading{
+      font-size: 30px;
+    }
+
+    .commonpara{
+      font-size: 16px;
+    }
+
+    .mwidth90{
+      width: 90%;
+    }
+
+    .mcenter{
+      text-align: center;
+    }
+
+
+
+
 
 }
