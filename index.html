@@ -1172,7 +1172,7 @@
         <div class="sp-header-left">
           <div class="sp-eyebrow commonheading">Criteria</div>
           <h2 class="sp-title">
-            A Rigorous, Credible <em> Selection </em> Process
+            A Rigorous, Credible Selection Process
           </h2>
         </div>
         <!-- <div class="sp-header-right">
@@ -1335,7 +1335,8 @@
 
     <aside class="ftrleftsec">
 
-      <img class="logo-light" src="./assets/logo-dark.png" alt="Financial Express Leadership Awards" style="width: 60%;">
+      <img class="logo-light" src="./assets/logo-dark.png" alt="Financial Express Leadership Awards"
+        style="width: 60%;">
 
       <div class="contact-address">
         <a href="https://maps.app.goo.gl/cSV3RxcyAvmCVHGF8" target="_blank" class="ftraddress"
@@ -1359,32 +1360,196 @@
         </svg>
         Contact Us
       </h2>
-      <form action="mailto:info@feleadershipawards.com" method="post" enctype="text/plain">
+
+      <form id="contactForm" action="mail.php" method="POST">
         <div class="contact-fields">
           <label>
             <span>Full name</span>
-            <input type="text" name="Full Name" placeholder="Full Name" autocomplete="name" required>
+            <input type="text" name="full_name" placeholder="Full Name" autocomplete="name" maxlength="100" required>
           </label>
+
           <label>
             <span>Mobile number</span>
-            <input type="tel" name="Mobile Number" placeholder="Mobile Number" autocomplete="tel">
+            <input type="tel" name="mobile" placeholder="Mobile Number" autocomplete="tel" maxlength="25">
           </label>
+
           <label>
             <span>Email</span>
-            <input type="email" name="Email" placeholder="Email" autocomplete="email" required>
+            <input type="email" name="email" placeholder="Email" autocomplete="email" maxlength="254" required>
           </label>
         </div>
+
         <label>
           <span>Your query or feedback</span>
-          <textarea name="Query" placeholder="Please send your query or feedback..." required></textarea>
+          <textarea name="query" placeholder="Please send your query or feedback..." maxlength="5000"
+            required></textarea>
         </label>
+
+
         <div class="contact-form-actions">
           <button class="contact-submit" type="submit">Submit</button>
         </div>
       </form>
+
+      <!-- Popup message -->
+      <div id="formPopup" class="form-popup" role="dialog" aria-modal="true" aria-labelledby="popupMessage" hidden>
+        <div class="form-popup-content">
+          <p id="popupMessage"></p>
+          <button type="button" id="closePopup">OK</button>
+        </div>
+      </div>
+
+
+      <style>
+        .form-popup[hidden] {
+          display: none !important;
+        }
+
+        .form-popup {
+          position: fixed;
+          inset: 0;
+          z-index: 99999;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 20px;
+          background: rgba(0, 0, 0, 0.6);
+        }
+
+        .form-popup-content {
+          width: 100%;
+          max-width: 400px;
+          padding: 30px 24px;
+          background: #fff;
+          border-radius: 12px;
+          text-align: center;
+          box-shadow: 0 10px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-popup-content p {
+          margin: 0 0 20px;
+          color: #222;
+          font-size: 16px;
+          line-height: 1.6;
+        }
+
+        .form-popup-content button {
+          padding: 10px 28px;
+          border: none;
+          border-radius: 5px;
+          background: #0756b8;
+          color: #fff;
+          cursor: pointer;
+          font-size: 15px;
+        }
+
+        .form-popup-content button:hover {
+          background: #06448f;
+        }
+      </style>
+
     </div>
   </div>
 </section>
+
+
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("contactForm");
+    const popup = document.getElementById("formPopup");
+    const popupMessage = document.getElementById("popupMessage");
+    const closePopup = document.getElementById("closePopup");
+
+    if (!form || !popup || !popupMessage || !closePopup) return;
+
+    const submitButton = form.querySelector('button[type="submit"]');
+    const originalButtonText = submitButton.textContent;
+
+    function showPopup(message) {
+      popupMessage.textContent = message;
+      popup.hidden = false;
+      closePopup.focus();
+    }
+
+    function hidePopup() {
+      popup.hidden = true;
+    }
+
+    closePopup.addEventListener("click", hidePopup);
+
+    popup.addEventListener("click", function (event) {
+      if (event.target === popup) hidePopup();
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && !popup.hidden) hidePopup();
+    });
+
+    form.addEventListener("submit", async function (event) {
+      event.preventDefault();
+
+      if (form.dataset.submitting === "true") return;
+      if (!form.reportValidity()) return;
+
+      form.dataset.submitting = "true";
+      submitButton.disabled = true;
+      submitButton.textContent = "Sending...";
+
+      try {
+        const response = await fetch(form.action, {
+          method: "POST",
+          body: new FormData(form),
+          headers: {
+            "Accept": "application/json"
+          }
+        });
+
+        const result = await response.text();
+
+        if (!response.ok) {
+          throw new Error("Email could not be sent.");
+        }
+
+        // mail.php must return JSON for reliable success detection.
+        let data;
+
+        try {
+          data = JSON.parse(result);
+        } catch {
+          throw new Error("Invalid server response.");
+        }
+
+        if (!data.success) {
+          throw new Error(data.message || "Email could not be sent.");
+        }
+
+        form.reset();
+        showPopup(data.message || "Thank you! Your message has been sent successfully.");
+
+      } catch (error) {
+        showPopup(
+          error.message === "Failed to fetch"
+            ? "Unable to connect to the server. Please try again."
+            : error.message || "Something went wrong. Please try again."
+        );
+      } finally {
+        delete form.dataset.submitting;
+        submitButton.disabled = false;
+        submitButton.textContent = originalButtonText;
+      }
+    });
+  });
+
+</script>
+<style>
+  .contact-submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+</style>
 <!--  Contact Us End -->
 
 
