@@ -1,28 +1,29 @@
-
 <?php
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
-require __DIR__ . '/PHPMailer/src/Exception.php';
-require __DIR__ . '/PHPMailer/src/PHPMailer.php';
-require __DIR__ . '/PHPMailer/src/SMTP.php';
+header('Content-Type: application/json; charset=utf-8');
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
-    exit('Method not allowed.');
+
+    echo json_encode([
+        'success' => false,
+        'message' => 'Invalid request method.'
+    ]);
+    exit;
 }
 
+// Clean input
 function cleanInput(string $value): string
 {
     return trim($value);
 }
 
-$name    = cleanInput($_POST['full_name'] ?? '');
-$mobile  = cleanInput($_POST['mobile'] ?? '');
-$email   = cleanInput($_POST['email'] ?? '');
-$query   = cleanInput($_POST['query'] ?? '');
+$name   = cleanInput($_POST['full_name'] ?? '');
+$mobile = cleanInput($_POST['mobile'] ?? '');
+$email  = cleanInput($_POST['email'] ?? '');
+$query  = cleanInput($_POST['query'] ?? '');
 
+// Validate form fields
 if (
     $name === '' ||
     $email === '' ||
@@ -34,136 +35,105 @@ if (
     strlen($query) > 5000
 ) {
     http_response_code(422);
-    exit('Please enter valid form details.');
+
+    echo json_encode([
+        'success' => false,
+        'message' => 'Please enter valid form details.'
+    ]);
+    exit;
 }
 
-$mail = new PHPMailer(true);
+// Recipients: each will receive a separate email
+$recipients = [
+    'shivam@1solutions.biz'
+];
+
+// Email details
+$subject = 'New Contact Form Enquiry - FE Leadership Awards';
+
+$safeName   = htmlspecialchars($name, ENT_QUOTES, 'UTF-8');
+$safeMobile = htmlspecialchars($mobile, ENT_QUOTES, 'UTF-8');
+$safeEmail  = htmlspecialchars($email, ENT_QUOTES, 'UTF-8');
+$safeQuery  = nl2br(htmlspecialchars($query, ENT_QUOTES, 'UTF-8'));
+
+// HTML email body
+$htmlMessage = '
+<html>
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <h2>New Contact Form Enquiry</h2>
+
+    <p><strong>Name:</strong> ' . $safeName . '</p>
+
+    <p><strong>Mobile:</strong> ' . $safeMobile . '</p>
+
+    <p><strong>Email:</strong> ' . $safeEmail . '</p>
+
+    <p><strong>Query / Feedback:</strong><br>' . $safeQuery . '</p>
+</body>
+</html>
+';
+
+// Email headers
+$headers = [];
+$headers[] = 'MIME-Version: 1.0';
+$headers[] = 'Content-Type: text/html; charset=UTF-8';
+
+// Use an email address on your own domain as the sender.
+// Your hosting provider may require this address to exist.
+$headers[] = 'From: FE Leadership Awards <info@feleadershipawards.com>';
+
+// Set Reply-To to the form submitter's email
+$headers[] = 'Reply-To: ' . $email;
+
+$headersString = implode("\r\n", $headers);
 
 try {
-    // SMTP configuration
-    $mail->isSMTP();
-    $mail->Host       = 'smtp.gmail.com';
-    $mail->SMTPAuth   = true;
+    $allSent = true;
 
-    // Replace these with your actual Gmail credentials.
-    $mail->Username   = 'pythondolphin@gmail.com';
-    $mail->Password   = 'gitg bxgk kxts wghm';
-
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-    $mail->Port       = 465;
-    $mail->CharSet    = 'UTF-8';
-
-    // Sender must match the authenticated Gmail account.
-    $mail->setFrom(
-        'info@feleadershipawards.com',
-        'FE Leadership Awards Website'
-    );
-
-
-
-
-
-    // Recipients - each will receive a separate email
-    $recipients = [
-        'shivam@1solutions.biz'
-    ];
-
-    // Reply directly to the person who submitted the form
-    $mail->addReplyTo($email, $name);
-
-    // Email content
-    $mail->isHTML(true);
-    $mail->Subject = 'New Contact Form Enquiry - FE Leadership Awards';
-
-    $mail->Body = '
-        <h2>New Contact Form Enquiry</h2>
-        <p><strong>Name:</strong> ' .
-        nl2br(htmlspecialchars($name, ENT_QUOTES, 'UTF-8')) . '</p>
-        <p><strong>Mobile:</strong> ' .
-        nl2br(htmlspecialchars($mobile, ENT_QUOTES, 'UTF-8')) . '</p>
-        <p><strong>Email:</strong> ' .
-        htmlspecialchars($email, ENT_QUOTES, 'UTF-8') . '</p>
-        <p><strong>Query / Feedback:</strong><br>' .
-        nl2br(htmlspecialchars($query, ENT_QUOTES, 'UTF-8')) . '</p>
-    ';
-
-    $mail->AltBody =
-        "New Contact Form Enquiry\n\n" .
-        "Name: $name\n" .
-        "Mobile: $mobile\n" .
-        "Email: $email\n\n" .
-        "Query / Feedback:\n$query";
-
-    // Send separate emails to each recipient
+    // Send an individual email to each recipient
     foreach ($recipients as $recipient) {
-        $mail->clearAddresses();
-        $mail->addAddress($recipient);
-        $mail->send();
+        $sent = mail(
+            $recipient,
+            '=?UTF-8?B?' . base64_encode($subject) . '?=',
+            $htmlMessage,
+            $headersString
+        );
+
+        if (!$sent) {
+            $allSent = false;
+            error_log(
+                'Contact form mail() failed for recipient: ' . $recipient
+            );
+        }
     }
 
+    if (!$allSent) {
+        http_response_code(500);
 
+        echo json_encode([
+            'success' => false,
+            'message' => 'Email could not be sent. Please try again later.'
+        ]);
+        exit;
+    }
 
-    /*
-    $mail->addAddress(
-        'shivam@1solutions.biz',
-        'FE Leadership Awards'
-    );
-
-    $mail->addAddress(
-        'sonu@1solutions.biz',
-        'FE Leadership Awards'
-    );
-
-    $mail->addAddress(
-        'pythondolphin@gmail.com',
-        'FE Leadership Awards'
-    );
-
-    // Reply directly to the person who submitted the form.
-    $mail->addReplyTo($email, $name);
-
-    // Email content
-    $mail->isHTML(true);
-    $mail->Subject = 'New Contact Form Enquiry - FE Leadership Awards';
-
-    $mail->Body = '
-        <h2>New Contact Form Enquiry</h2>
-        <p><strong>Name:</strong> ' .
-        nl2br(htmlspecialchars($name, ENT_QUOTES, 'UTF-8')) . '</p>
-        <p><strong>Mobile:</strong> ' .
-        nl2br(htmlspecialchars($mobile, ENT_QUOTES, 'UTF-8')) . '</p>
-        <p><strong>Email:</strong> ' .
-        htmlspecialchars($email, ENT_QUOTES, 'UTF-8') . '</p>
-        <p><strong>Query / Feedback:</strong><br>' .
-        nl2br(htmlspecialchars($query, ENT_QUOTES, 'UTF-8')) . '</p>
-    ';
-
-    $mail->AltBody =
-        "New Contact Form Enquiry\n\n" .
-        "Name: $name\n" .
-        "Mobile: $mobile\n" .
-        "Email: $email\n\n" .
-        "Query / Feedback:\n$query";
-
-    $mail->send();
-    */
-
-    header('Content-Type: application/json; charset=utf-8');
     echo json_encode([
         'success' => true,
         'message' => 'Thank you! Your message has been sent successfully.'
     ]);
     exit;
 
-} catch (Exception $e) {
+} catch (Throwable $e) {
+    error_log('Contact form error: ' . $e->getMessage());
 
     http_response_code(500);
-    header('Content-Type: application/json; charset=utf-8');
 
     echo json_encode([
         'success' => false,
         'message' => 'Sorry, your message could not be sent. Please try again later.'
     ]);
     exit;
-
 }
