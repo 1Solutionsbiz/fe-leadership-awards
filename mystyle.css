@@ -316,7 +316,6 @@
     }
 
     .room-header h2 {
-      font-size: clamp(30px, 3vw, 56px);
       line-height: 1.15;
       font-weight: 800;
       letter-spacing: -1.5px;
