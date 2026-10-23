@@ -9,6 +9,7 @@
       background: repeating-linear-gradient(180deg, #2b3b67, #282e3c 100%);
       padding: 5rem 2.5rem;
       width: 100%;
+      border-radius: 35px;
     }
 
     /* left + right split */
@@ -1271,6 +1272,11 @@ a{
     font-weight: 400 !important;
 }
 
+
+.contact-form-panel,
+.contact-address{
+  border-radius: 20px;
+}
 
 
 .commonheading{
