@@ -304,10 +304,11 @@
 
   .scroll-dot-label {
     font-family: var(--font-mono);
-    font-size: .66rem;
+    font-size: 13px;
+    font-weight: 600;
     letter-spacing: .06em;
     text-transform: uppercase;
-    color: #fff;
+    color: #005d8e;
     white-space: nowrap;
     opacity: 0;
     transform: translateX(6px);
@@ -833,7 +834,7 @@
     display: block;
     font-size: .82rem;
     color: #fff;
-    white-space: nowrap;
+    white-space: normal;
   }
 
   .jury-strip-company {
@@ -1341,6 +1342,7 @@
     justify-content: center;
     background: #fff;
     color: #171717;
+    margin-top: 3rem;
   }
 
   .contact-eyebrow {
@@ -1404,7 +1406,7 @@
     margin: 0 0 22px;
     color: #29385f;
     font-family: var(--font-display);
-    font-size: clamp(1.6rem, 2.6vw, 2.5rem);
+    font-size: clamp(1.6rem, 40px, 2.5rem);
     line-height: 1.1;
   }
 
