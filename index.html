@@ -1,380 +1,1670 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coming Soon</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        body {
-            font-family: 'Baskervillae', serif;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, #035c8e 0%, #e81f25 100%);
-            color: #fff;
-            padding: 20px;
-            overflow: hidden;
-            position: relative;
-        }
+<title>FE Leadership Awards</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+  href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,500;0,600;0,700;0,900;1,400;1,500&family=PT+Serif:wght@400;700&family=Big+Shoulders+Display:wght@700;800;900&family=Archivo:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+  rel="stylesheet">
 
-        /* Animated background circles */
-        body::before,
-        body::after {
-            content: '';
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            animation: float 8s ease-in-out infinite;
-        }
+<link rel="stylesheet" href="./style.css">
 
-        body::before {
-            width: 300px;
-            height: 300px;
-            top: -100px;
-            left: -100px;
-        }
-
-        body::after {
-            width: 200px;
-            height: 200px;
-            bottom: -50px;
-            right: -50px;
-            animation-delay: 2s;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0) scale(1); }
-            50% { transform: translateY(-30px) scale(1.05); }
-        }
-
-        .container {
-            text-align: center;
-            z-index: 1;
-            max-width: 600px;
-            padding: 40px 30px;
-            background: #fff;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-        }
-
-        .icon {
-            font-size: 60px;
-            margin-bottom: 20px;
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
-        }
-
-        h1 {
-            font-size: 3rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            margin-bottom: 15px;
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        h1 span {
-            background: linear-gradient(90deg, #fff, #035c8e, #fff);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: shine 3s linear infinite;
-        }
-
-        @keyframes shine {
-            to { background-position: 200% center; }
-        }
-
-        p {
-            font-size: 2rem;
-            line-height: 1.6;
-            opacity: 0.9;
-            margin-bottom: 30px;
-            color: #035c8e;
-        }
-
-        /* Countdown */
-        .countdown {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 35px;
-            flex-wrap: wrap;
-        }
-
-        .time-box {
-            background: #035c8e;
-            border-radius: 12px;
-            padding: 15px 20px;
-            min-width: 80px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: transform 0.3s ease;
-        }
-
-        .time-box:hover {
-            transform: scale(1.08);
-            background: #035c8e;
-        }
-
-        .time-box .number {
-            font-size: 2rem;
-            font-weight: 700;
-            display: block;
-        }
-
-        .time-box .label {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            opacity: 0.8;
-        }
-
-        /* Progress bar */
-        .progress {
-            width: 100%;
-            height: 8px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            overflow: hidden;
-            margin-bottom: 35px;
-        }
-
-        .progress-bar {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, #ffd700, #ff6b6b);
-            border-radius: 10px;
-            transition: width 1s ease;
-        }
-
-        /* Subscribe form */
-        .subscribe {
-            display: flex;
-            gap: 10px;
-            max-width: 450px;
-            margin: 0 auto 30px;
-            flex-wrap: wrap;
-        }
-
-        .subscribe input {
-            flex: 1;
-            min-width: 200px;
-            padding: 14px 18px;
-            border: none;
-            border-radius: 50px;
-            outline: none;
-            font-size: 1rem;
-            background: rgba(255, 255, 255, 0.9);
-            color: #333;
-        }
-
-        .subscribe input::placeholder {
-            color: #888;
-        }
-
-        .subscribe button {
-            padding: 14px 28px;
-            border: none;
-            border-radius: 50px;
-            background: #ffd700;
-            color: #333;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .subscribe button:hover {
-            background: #ff6b6b;
-            color: #fff;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        /* Social icons */
-        .socials {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-        }
-
-        .socials a {
-            width: 45px;
-            height: 45px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.15);
-            color: #fff;
-            text-decoration: none;
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .socials a:hover {
-            background: #fff;
-            color: #764ba2;
-            transform: translateY(-3px);
-        }
-
-        /* Responsive */
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 2rem;
-            }
-
-            .icon {
-                font-size: 45px;
-            }
-
-            p {
-                font-size: 0.95rem;
-            }
-
-            .container {
-                padding: 30px 20px;
-            }
-
-            .time-box {
-                padding: 10px 14px;
-                min-width: 65px;
-            }
-
-            .time-box .number {
-                font-size: 1.5rem;
-            }
-
-            .subscribe {
-                flex-direction: column;
-            }
-
-            .subscribe input,
-            .subscribe button {
-                width: 100%;
-            }
+<link rel="stylesheet" href="./mystyle.css">
+<link rel="stylesheet" href="./site-chrome.css">
 
 
-        body::before {
-            top: 0px;
-            left: 0px;
-        }
+<!-- chrome:header:start -->
+<header class="site-nav" id="siteNav">
+  <a class="brand" href="./" aria-label="Financial Express Leadership Awards — home">
+    <img class="logo-light" src="./assets/logo-light.png" alt="Financial Express Leadership Awards">
+    <img class="logo-dark" src="./assets/logo-dark.png" alt="Financial Express Leadership Awards">
+  </a>
+  <nav class="nav-links" aria-label="Primary">
+    <a href="./">Home</a>
+    <a href="./#matter">About</a>
+    <a href="./#categories">Award Categories</a>
+    <a href="./#jury">Jury</a>
+    <a href="./#partners">Event Partners</a>
+    <a href="./#criteria">Criteria</a>
+    <a href="./#contact">Contact</a>
+  </nav>
 
-        body::after {
-            bottom: 0px;
-            right: 0px;
-        }
+  <img class="nav-group-logo" src="./assets/group-logo.png" alt="Indian Express Group">
+
+  <button class="menu-trigger" id="menuTrigger" aria-haspopup="true" aria-expanded="false" aria-controls="menuOverlay">
+    <span class="dots"><span></span><span></span></span> Menu
+  </button>
+</header>
+<!-- chrome:header:end -->
+
+<!-- chrome:menu:start -->
+<div class="menu-overlay" id="menuOverlay" role="dialog" aria-modal="true" aria-label="Site menu">
+  <div class="menu-overlay-top">
+    <a class="brand" href="./" tabindex="-1" aria-hidden="true">
+      <img src="./assets/logo-dark.png" alt="" style="height:26px;width:auto;display:block;">
+    </a>
+    <button class="menu-close" id="menuClose" aria-label="Close menu">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6">
+        <line x1="1" y1="1" x2="15" y2="15" />
+        <line x1="15" y1="1" x2="1" y2="15" />
+      </svg>
+    </button>
+  </div>
+  <div class="menu-overlay-body">
+    <ul class="menu-list">
+      <li><span class="idx">01</span><a href="./">Home</a></li>
+      <li><span class="idx">02</span><a href="./#matter">About</a></li>
+      <li><span class="idx">03</span><a href="./#categories">Award Categories</a></li>
+      <li><span class="idx">04</span><a href="./#jury">Jury</a></li>
+      <li><span class="idx">05</span><a href="./#criteria">Criteria</a></li>
+      <li><span class="idx">06</span><a href="./#partners">Event Partners</a></li>
+      <li><span class="idx">07</span><a href="./#contact">Contact</a></li>
+    </ul>
+  </div>
+  <div class="menu-overlay-foot">
+    <span>© 2026 Financial Express</span>
+    <a href="mailto:info@feleadershipawards.com">info@feleadershipawards.com</a>
+    <!-- <span>Mumbai · September 2026</span> -->
+  </div>
+</div>
+<!-- chrome:menu:end -->
+
+<nav class="scroll-dots" aria-label="Page sections">
+  <a href="#hero" data-target="hero"><span class="scroll-dot-label">Home</span><span class="scroll-dot"></span></a>
+  <a href="#matter" data-target="matter"><span class="scroll-dot-label">About</span><span class="scroll-dot"></span></a>
+  <a href="#categories" data-target="categories"><span class="scroll-dot-label">Award Categories</span><span
+      class="scroll-dot"></span></a>
+  <a href="#jury" data-target="jury"><span class="scroll-dot-label">Jury</span><span class="scroll-dot"></span></a>
+  <a href="#partners" data-target="partners"><span class="scroll-dot-label">Event Partners</span><span
+      class="scroll-dot"></span></a>
+  <a href="#criteria" data-target="criteria"><span class="scroll-dot-label">Criteria</span><span
+      class="scroll-dot"></span></a>
+  <a href="#contact" data-target="contact"><span class="scroll-dot-label">Contact</span><span
+      class="scroll-dot"></span></a>
+</nav>
+
+<main id="top">
 
 
-        }
 
-        @media (max-width: 380px) {
-            .countdown {
-                gap: 8px;
-            }
 
-            .time-box {
-                min-width: 55px;
-                padding: 8px 10px;
-            }
 
-            .time-box .number {
-                font-size: 1.2rem;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <!-- <div class="icon">🚀</div> -->
-        <img class="hero-logo"
-        src="assets/logo-light.png"
-        alt="Financial Express Leadership Awards" style="width: 70%;">
 
-        <p>2nd November | Mumbai</p>
+  <!-- Hero Section Start -->
+  <section class="hero" id="hero">
 
-        <center>
-            <hr style="margin-bottom: 2rem; width: 80%;">
-        </center>
+    <img src="img/banner.jpg" alt="">
 
-        <div class="countdown" id="countdown">
-            <div class="time-box">
-                <span class="number" id="days">00</span>
-                <span class="label">Days</span>
-            </div>
-            <div class="time-box">
-                <span class="number" id="hours">00</span>
-                <span class="label">Hours</span>
-            </div>
-            <div class="time-box">
-                <span class="number" id="minutes">00</span>
-                <span class="label">Minutes</span>
-            </div>
-            <div class="time-box">
-                <span class="number" id="seconds">00</span>
-                <span class="label">Seconds</span>
-            </div>
+    <div class="countdown" id="countdown">
+      <div class="unit">
+        <div class="num" id="cd-d">00</div>
+        <div class="u-label">Days</div>
+      </div>
+      <div class="unit">
+        <div class="num" id="cd-h">00</div>
+        <div class="u-label">Hrs</div>
+      </div>
+      <div class="unit">
+        <div class="num" id="cd-m">00</div>
+        <div class="u-label">Min</div>
+      </div>
+      <div class="unit">
+        <div class="num" id="cd-s">00</div>
+        <div class="u-label">Sec</div>
+      </div>
+    </div>
+  </section>
+  <!-- Hero Section End -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- About Seciton Start -->
+  <section class="matter" id="matter" style="    display: flex;
+    flex-direction: column;
+    align-items: center;">
+
+
+    <h2 class="uppercase center commonheading commonheading-blue">Financial Express
+      <br>
+      Leadership Awards
+    </h2>
+
+    <div class="commonpara width70 center mwidth90">
+      <p>
+        The Financial Express Leadership Awards honour India’s most dynamic business leaders, transformative
+        organisations and groundbreaking ideas shaping the future of business.
+        <br><br>
+        At a time when industries are being disrupted, markets are being redefined and leadership demands are higher
+        than ever, the FE Leadership Awards aim to recognise those who are not just navigating change — but driving
+        it. These awards celebrate individuals and institutions whose bold decisions, strategic clarity and unwavering
+        commitment to excellence are setting new benchmarks for Indian enterprise.
+        <br><br>
+        In an era marked by intense competition and rapid technological shifts, businesses need leaders who can
+        inspire teams, build resilient organisations and create meaningful impact on society and the economy. The FE
+        Leadership Awards honour precisely this calibre of leadership — the ones rewriting rules, redefining
+        possibilities and delivering performance with purpose.
+      </p>
+    </div>
+
+
+    <!-- <div class="wrap">
+      <div class="about-layout">
+        
+        <div class="about-copy" data-reveal>
+          <p>
+            The FE India Leadership Awards honour India’s most dynamic business leaders, transformative organisations
+            and groundbreaking ideas shaping the future of business.
+            <br>
+            At a time when industries are being disrupted, markets are being redefined and leadership demands are higher
+            than ever, the FE India Leadership Awards aim to recognise those who are not just navigating change — but
+            driving it. These awards celebrate individuals and institutions whose bold decisions, strategic clarity and
+            unwavering commitment to excellence are setting new benchmarks for Indian enterprise.
+          </p>
+
+
+
+          <p>
+            <strong> Why these Awards matter </strong><br>
+
+            In an era marked by intense competition and rapid technological shifts, businesses need leaders who can
+            inspire teams, build resilient organisations and create meaningful impact on society and the economy. The FE
+            India Leadership Awards honour precisely this calibre of leadership — the ones rewriting rules, redefining
+            possibilities and delivering performance with purpose.
+          </p>
+        </div>
+        <div class="about-visual" data-reveal>
+          <div class="about-visual-grid">
+            <div class="about-tile pal-2"><span class="about-tile-label">FELA · 2026</span></div>
+            <div class="about-tile pal-3"><span class="about-tile-label">10 Categories</span></div>
+            <div class="about-tile pal-4"><span class="about-tile-label">15 Sep · Mumbai</span></div>
+          </div>
+          <div class="about-visual-trophy">
+            <div class="about-visual-trophy-img"></div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+
+
+
+  </section>
+  <!-- About Section End -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- Award Cateogries Start -->
+  <section class="categories" id="categories">
+    <div class="categories-grid">
+
+      <!-- LEFT SIDE: title block (30%) -->
+      <div class="left-title">
+        <!-- <div class="eyebrow">Award Categories</div> -->
+        <h2 class="uppercase mcenter commonheading-white commonheading">Award <br>Categories</h2>
+      </div>
+
+      <!-- RIGHT SIDE: carousel (70%) -->
+      <div class="right-carousel">
+        <!-- scroll left/right controls -->
+        <div class="scroll-controls">
+          <button class="scroll-btn" id="scrollLeftBtn" aria-label="Scroll left">
+            <svg viewBox="0 0 24 24">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+          </button>
+          <button class="scroll-btn" id="scrollRightBtn" aria-label="Scroll right">
+            <svg viewBox="0 0 24 24">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
         </div>
 
+        <div class="cat-scroll-container" id="catScrollContainer">
 
-        <h1><span>COMING SOON</span></h1>
+          <div class="cat-card-new">
 
-        <div class="progress">
-            <div class="progress-bar" id="progressBar"></div>
+            <div class="cat-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M3 9l1.5-5h15L21 9" />
+                <path d="M4 9v11h16V9" />
+                <path d="M9 20v-6h6v6" />
+              </svg>
+            </div>
+            <h3 class="cat-name">Emerging Entrepreneurs</h3>
+            <p class="awardsecpara center">Recognising bold entrepreneurial talent building promising businesses with
+              the potential to transform industries.</p>
+
+          </div>
+
+          <div class="cat-card-new">
+
+            <div class="cat-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
+                <polyline points="17 6 23 6 23 12" />
+              </svg>
+            </div>
+            <h3 class="cat-name">Standout Innovator</h3>
+            <p class="awardsecpara center">Honouring trailblazers whose breakthrough ideas and innovations are
+              redefining business possibilities</p>
+
+          </div>
+
+          <div class="cat-card-new">
+
+            <div class="cat-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="2" y1="12" x2="22" y2="12" />
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+              </svg>
+            </div>
+            <h3 class="cat-name">MSME</h3>
+            <p class="awardsecpara center">Honouring small and medium enterprises demonstrating exceptional enterprise,
+              resilience, innovation and growth</p>
+
+          </div>
+
+          <div class="cat-card-new">
+
+            <div class="cat-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M12 21v-8" />
+                <path d="M12 13C4 13 3 7 3 4c6 0 9 3 9 9z" />
+                <path d="M12 16c0-6 4-10 9-10 0 5-2 10-9 10z" />
+                <path d="M5 21h14" />
+              </svg>
+            </div>
+            <h3 class="cat-name">Sustainability Leader</h3>
+            <p class="awardsecpara center">Recognising businesses that are setting benchmarks in environmental
+              responsibility and sustainable growth.</p>
+
+          </div>
+
+          <div class="cat-card-new">
+
+            <div class="cat-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <rect x="4" y="3" width="16" height="18" />
+                <line x1="9" y1="8" x2="9" y2="8" />
+                <line x1="15" y1="8" x2="15" y2="8" />
+                <line x1="9" y1="13" x2="9" y2="13" />
+                <line x1="15" y1="13" x2="15" y2="13" />
+                <line x1="9" y1="18" x2="15" y2="18" />
+              </svg>
+            </div>
+            <h3 class="cat-name">MNC of the Year</h3>
+            <p class="awardsecpara center">Celebrating multinational enterprises making an exceptional contribution to
+              India's economic growth and business landscape</p>
+
+          </div>
+
+          <div class="cat-card-new">
+
+            <div class="cat-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M12 2c2 2 3 5 3 8 0 2-1 4-3 6-2-2-3-4-3-6 0-3 1-6 3-8z" />
+                <path d="M9 13c-2 1-3 3-3 6 3 0 5-1 6-3" />
+                <path d="M15 13c2 1 3 3 3 6-3 0-5-1-6-3" />
+                <circle cx="12" cy="9" r="1.4" />
+              </svg>
+            </div>
+            <h3 class="cat-name">Young Turks</h3>
+            <p class="awardsecpara center">Celebrating dynamic young leaders who are challenging conventions and shaping
+              the future of business.</p>
+
+          </div>
+
+          <div class="cat-card-new">
+
+            <div class="cat-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+              </svg>
+            </div>
+            <h3 class="cat-name">Standout Unicorn of the Year</h3>
+            <p class="awardsecpara center">Honouring a billion-dollar startup that exemplifies disruptive innovation,
+              rapid growth and entrepreneurial ambition</p>
+
+          </div>
+
+          <div class="cat-card-new">
+
+            <div class="cat-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"
+                stroke-linejoin="round">
+                <ellipse cx="6" cy="17" rx="3.5" ry="2" />
+                <path d="M2.5 17v3c0 1.1 1.6 2 3.5 2s3.5-.9 3.5-2v-3" />
+                <ellipse cx="17" cy="12" rx="4" ry="2" />
+                <path d="M13 12v7c0 1.1 1.8 2 4 2s4-.9 4-2v-7" />
+                <path d="M13 15c0 1.1 1.8 2 4 2s4-.9 4-2" />
+                <path d="M3 12l5-4 4 1 7-6" />
+                <path d="M14 3h5v5" />
+              </svg>
+            </div>
+            <h3 class="cat-name">CFO of the Year</h3>
+            <p class="awardsecpara center">Recognising financial leadership that combines strategic foresight, fiscal
+              discipline and value creation</p>
+
+          </div>
+
+          <div class="cat-card-new">
+
+            <div class="cat-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"
+                stroke-linejoin="round">
+                <circle cx="10" cy="6" r="3.5" />
+                <path d="M3 21v-2a7 7 0 0 1 14 0v2z" />
+                <path d="M19 8l1.2 2.4 2.6.4-1.9 1.8.5 2.6-2.4-1.3-2.3 1.3.4-2.6-1.9-1.8 2.6-.4z" />
+              </svg>
+            </div>
+            <h3 class="cat-name">CEO of the Year</h3>
+            <p class="awardsecpara center">Honouring visionary leadership that drives exceptional business performance
+              and lasting impact</p>
+
+          </div>
+
+          <div class="cat-card-new">
+
+            <div class="cat-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"
+                stroke-linejoin="round">
+                <rect x="3" y="7" width="11" height="14" rx="1" />
+                <path d="M14 12h7v9h-7" />
+                <path d="M7 11h.01M10 11h.01M7 15h.01M10 15h.01M7 19h.01M17 16h.01M17 19h.01" />
+                <path d="M6 7V4h5v3" />
+              </svg>
+            </div>
+            <h3 class="cat-name">Company of the Year</h3>
+            <p class="awardsecpara center">Celebrating outstanding corporate performance, visionary strategy and
+              sustained business excellence</p>
+
+          </div>
         </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- auto-scroll & button logic -->
+  <script>
+    (function () {
+      const container = document.getElementById('catScrollContainer');
+      const leftBtn = document.getElementById('scrollLeftBtn');
+      const rightBtn = document.getElementById('scrollRightBtn');
+
+      // card width + gap (approx 280px + 1.5rem gap = 280 + 24 = 304)
+      const CARD_SCROLL_AMOUNT = 304;
+
+      // Scroll left
+      leftBtn.addEventListener('click', () => {
+        container.scrollBy({ left: -CARD_SCROLL_AMOUNT, behavior: 'smooth' });
+      });
+
+      // Scroll right
+      rightBtn.addEventListener('click', () => {
+        container.scrollBy({ left: CARD_SCROLL_AMOUNT, behavior: 'smooth' });
+      });
+
+      // --- AUTO SCROLL (gentle continuous movement) ---
+      let autoScrollInterval = null;
+      let isHovering = false;
+      let isUserInteracting = false;
+      let userInteractionTimer = null;
+
+      function startAutoScroll() {
+        if (autoScrollInterval) clearInterval(autoScrollInterval);
+        autoScrollInterval = setInterval(() => {
+          // Don't auto-scroll if user is hovering or interacting
+          if (isHovering || isUserInteracting) return;
+
+          const maxScroll = container.scrollWidth - container.clientWidth;
+          // if already at (or near) the end, jump back to start smoothly
+          if (container.scrollLeft >= maxScroll - 2) {
+            container.scrollTo({ left: 0, behavior: 'smooth' });
+          } else {
+            container.scrollBy({ left: 1, behavior: 'auto' }); // smooth small steps
+          }
+        }, 40); // ~25fps, smooth enough
+      }
+
+      // stop auto-scroll on hover
+      container.addEventListener('mouseenter', () => {
+        isHovering = true;
+      });
+      container.addEventListener('mouseleave', () => {
+        isHovering = false;
+      });
+
+      // also pause on touch / manual scroll for a moment
+      container.addEventListener('scroll', () => {
+        // if it's a user scroll (not our auto step), mark interaction
+        if (!isUserInteracting) {
+          isUserInteracting = true;
+          if (userInteractionTimer) clearTimeout(userInteractionTimer);
+          userInteractionTimer = setTimeout(() => {
+            isUserInteracting = false;
+          }, 20000); // resume auto after 2s of no manual scroll
+        }
+      });
+
+      // Also mark interaction when buttons are used
+      leftBtn.addEventListener('click', () => {
+        isUserInteracting = true;
+        if (userInteractionTimer) clearTimeout(userInteractionTimer);
+        userInteractionTimer = setTimeout(() => {
+          isUserInteracting = false;
+        }, 2500);
+      });
+
+      rightBtn.addEventListener('click', () => {
+        isUserInteracting = true;
+        if (userInteractionTimer) clearTimeout(userInteractionTimer);
+        userInteractionTimer = setTimeout(() => {
+          isUserInteracting = false;
+        }, 2500);
+      });
+
+      // start auto-scroll after small delay to let layout settle
+      setTimeout(() => {
+        startAutoScroll();
+      }, 800);
+
+      // cleanup on page unload (optional)
+      window.addEventListener('beforeunload', () => {
+        if (autoScrollInterval) clearInterval(autoScrollInterval);
+      });
+    })();
+  </script>
+  <!-- Award Cateogries End -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- The Room Matter Section Start -->
+  <section class="room-section">
+
+    <header class="room-header">
+      <h2 class="uppercase commonheading-blue commonheading">The Room That Matters</h2>
+    </header>
+
+    <div class="leader-grid">
+
+      <!-- Card 1: Policy Makers -->
+      <article class="leader-card">
+        <div class="icon-circle purple">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="7" r="3" />
+            <path d="M12 10v4" />
+            <path d="M9 14h6" />
+            <path d="M10 20h4" />
+            <path d="M12 14v6" />
+            <path d="M8 20h8" />
+          </svg>
+        </div>
+        <h2>Policy Makers</h2>
+      </article>
+
+      <!-- Card 2: Industry Bodies -->
+      <article class="leader-card">
+        <div class="icon-circle blue">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M2 20h20" />
+            <path d="M4 20V8l4-2 4 2 4-2 4 2v12" />
+            <rect x="8" y="12" width="2" height="2" />
+            <rect x="14" y="12" width="2" height="2" />
+            <rect x="8" y="16" width="2" height="2" />
+            <rect x="14" y="16" width="2" height="2" />
+          </svg>
+        </div>
+        <h2>Industry Bodies</h2>
+      </article>
+
+      <!-- Card 3: Government Representatives -->
+      <article class="leader-card">
+        <div class="icon-circle teal">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="8" cy="8" r="3" />
+            <circle cx="16" cy="8" r="3" />
+            <path d="M2 20v-2c0-2 2-4 4-4h4c2 0 4 2 4 4v2" />
+            <path d="M14 20v-2c0-2 2-4 4-4h2c2 0 4 2 4 4v2" />
+          </svg>
+        </div>
+        <h2>Government Representatives</h2>
+      </article>
+
+      <!-- Card 4: Founders -->
+      <article class="leader-card">
+        <div class="icon-circle orange">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="3" />
+            <path d="M12 2v2M12 20v2M4 12H2M22 12h-2M6 6L4 4M18 18l2 2M6 18l-2 2M18 6l2-2" />
+            <circle cx="12" cy="12" r="8" stroke-dasharray="4 4" />
+          </svg>
+        </div>
+        <h2>Founders</h2>
+      </article>
+
+      <!-- Card 5: Entrepreneurs -->
+      <article class="leader-card">
+        <div class="icon-circle pink">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 2l1.5 3 3.5.5-2.5 2.5.5 3.5-3-1.5-3 1.5.5-3.5L8 6l3.5-.5L12 2z" />
+            <circle cx="12" cy="15" r="3" />
+            <path d="M8 22v-2c0-2 2-3 4-3s4 1 4 3v2" />
+          </svg>
+        </div>
+        <h2>Entrepreneurs</h2>
+      </article>
+
+      <!-- Card 6: CEO's/ CXO's -->
+      <article class="leader-card">
+        <div class="icon-circle purple">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="4" y="4" width="12" height="16" rx="1" />
+            <path d="M8 8h4M8 12h4M8 16h4" />
+            <path d="M18 12l2-2 2 2-2 2-2-2z" />
+            <path d="M16 16l-2 2" />
+          </svg>
+        </div>
+        <h2>CEO's/ CXO's</h2>
+      </article>
+
+      <!-- Card 7: Bureaucrats -->
+      <article class="leader-card">
+        <div class="icon-circle blue">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M2 20h20" />
+            <path d="M4 20V8l8-4 8 4v12" />
+            <rect x="8" y="12" width="2" height="2" />
+            <rect x="14" y="12" width="2" height="2" />
+            <rect x="8" y="16" width="2" height="2" />
+            <rect x="14" y="16" width="2" height="2" />
+            <path d="M12 4v2" />
+          </svg>
+        </div>
+        <h2>Bureaucrats</h2>
+      </article>
+
+
+      <!-- Card 9: HNI's -->
+      <article class="leader-card">
+        <div class="icon-circle orange">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="8" r="4" />
+            <path d="M6 20v-2c0-3 3-5 6-5s6 2 6 5v2" />
+            <path d="M18 10h4M20 8v4" />
+          </svg>
+        </div>
+        <h2>HNI's</h2>
+      </article>
 
     </div>
 
-    <script>
-        // Set your launch date here
-        const launchDate = new Date('2026-11-02T00:00:00'); // Set your exact date
-        // launchDate.setDate(launchDate.getDate() + 30); // 30 days from now
+  </section>
+  <!-- The Room Matter Section End -->
 
-        const startDate = new Date();
 
-        function updateCountdown() {
-            const now = new Date().getTime();
-            const distance = launchDate.getTime() - now;
 
-            if (distance < 0) {
-                document.getElementById('countdown').innerHTML = '<h2>We are Live! 🎉</h2>';
-                return;
-            }
 
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            document.getElementById('days').textContent = String(days).padStart(2, '0');
-            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
-            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
-            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
 
-            // Progress bar
-            const total = launchDate.getTime() - startDate.getTime();
-            const elapsed = now - startDate.getTime();
-            const percent = Math.min((elapsed / total) * 100, 100);
-            document.getElementById('progressBar').style.width = percent + '%';
+
+
+
+
+
+
+
+
+
+
+  <!-- Jury Section Start -->
+
+  <section class="jury" id="jury">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <h2 class="uppercase commonheading-blue commonheading">The Jury</h2>
+      </div>
+    </div>
+    <div class="wrap" style="padding:0;">
+
+      <div class="jury-strip-grid" id="juryStripGrid" data-reveal-group>
+
+        <div class="jury-strip pal-1">
+          <img class="jury-strip-img" src="jury-images/Kumar Birla.png" alt="Kumar Mangalam Birla" loading="lazy">
+          <div class="jury-strip-tint"></div>
+          <div class="jury-strip-veil"></div>
+          <div class="jury-strip-label"><span>Kumar <br>Mangalam <br>Birla</span></div>
+          <div class="jury-strip-caption">
+            <span class="jury-strip-badge">Jury Chair</span>
+            <span class="jury-strip-name">Kumar Mangalam Birla</span>
+
+            <div class="juryinfosec">
+              <span class="jury-strip-role">Chairman, Aditya Birla Group</span>
+              <!-- <span class="jury-strip-company">Aditya Birla Group</span> -->
+            </div>
+
+          </div>
+        </div>
+
+        <div class="jury-strip pal-2">
+          <img class="jury-strip-img" src="jury-images/Arundhati.png" alt="Arundhati" loading="lazy">
+          <div class="jury-strip-tint"></div>
+          <div class="jury-strip-veil"></div>
+          <div class="jury-strip-label"><span>Arundhati <br>Bhattacharya
+            </span></div>
+          <div class="jury-strip-caption">
+            <!-- <span class="jury-strip-badge">Jury Chair</span> -->
+            <span class="jury-strip-name">Arundhati Bhattacharya</span>
+
+            <div class="juryinfosec">
+              <span class="jury-strip-role">President & CEO, Salesforce South Asia and Former Chairman, State Bank of
+                India</span>
+              <!-- <span class="jury-strip-company">Salesforce, South Asia</span> -->
+            </div>
+
+          </div>
+        </div>
+
+        <div class="jury-strip pal-4">
+          <img class="jury-strip-img" src="jury-images/Sanjay Nayar.png" alt="Sanjay Nayar" loading="lazy">
+          <div class="jury-strip-tint"></div>
+          <div class="jury-strip-veil"></div>
+          <div class="jury-strip-label"><span>Sanjay <br>Nayar</span></div>
+          <div class="jury-strip-caption">
+            <!-- <span class="jury-strip-badge">Jury Chair</span> -->
+            <span class="jury-strip-name">Sanjay Nayar</span>
+
+            <div class="juryinfosec">
+              <span class="jury-strip-role">Former CEO, Citigroup India and South Asia and Ex-CEO, KKR India</span>
+              <!-- <span class="jury-strip-company">Sorin Investments</span> -->
+            </div>
+          </div>
+        </div>
+
+        <div class="jury-strip pal-3">
+          <img class="jury-strip-img" src="jury-images/Cyril.png" alt="Cyril Shroff" loading="lazy">
+          <div class="jury-strip-tint"></div>
+          <div class="jury-strip-veil"></div>
+          <div class="jury-strip-label"><span>Cyril <br>Shroff</span></div>
+          <div class="jury-strip-caption">
+            <!-- <span class="jury-strip-badge">Jury Chair</span> -->
+            <span class="jury-strip-name">Cyril Shroff</span>
+
+            <div class="juryinfosec">
+              <span class="jury-strip-role">Managing Partner, Cyril Amarchand Mangaldas</span>
+              <!-- <span class="jury-strip-company">Cyril Amarchand Mangaldas</span> -->
+            </div>
+
+          </div>
+        </div>
+
+        <div class="jury-strip pal-5 ">
+          <img class="jury-strip-img" src="jury-images/Amit Chandra.png" alt="Amit Chandra" loading="lazy">
+          <div class="jury-strip-tint"></div>
+          <div class="jury-strip-veil"></div>
+          <div class="jury-strip-label"><span>Amit <br>Chandra</span></div>
+          <div class="jury-strip-caption">
+            <!-- <span class="jury-strip-badge">Jury Chair</span> -->
+            <span class="jury-strip-name">Amit Chandra</span>
+
+            <div class="juryinfosec">
+              <span class="jury-strip-role">Chairperson, Bain Capital</span>
+              <!-- <span class="jury-strip-company">Bain Capital</span> -->
+            </div>
+
+          </div>
+        </div>
+
+        <div class="jury-strip pal-1">
+          <img class="jury-strip-img" src="jury-images/Rajiv-memani.png" alt="Rajiv Memani" loading="lazy">
+          <div class="jury-strip-tint"></div>
+          <div class="jury-strip-veil"></div>
+          <div class="jury-strip-label"><span>Rajiv <br>Memani</span></div>
+          <div class="jury-strip-caption">
+            <!-- <span class="jury-strip-badge">Jury Chair</span> -->
+            <span class="jury-strip-name">Rajiv Memani</span>
+
+            <div class="juryinfosec">
+              <span class="jury-strip-role">Chairman & CEO, EY India</span>
+              <!-- <span class="jury-strip-company">EY India</span> -->
+            </div>
+
+          </div>
+        </div>
+
+        <div class="jury-strip pal-2">
+          <img class="jury-strip-img" src="jury-images/Manish.png" alt="Manish Kejriwal" loading="lazy">
+          <div class="jury-strip-tint"></div>
+          <div class="jury-strip-veil"></div>
+          <div class="jury-strip-label"><span>Manish <br>Kejriwal</span></div>
+          <div class="jury-strip-caption">
+            <!-- <span class="jury-strip-badge">Jury Chair</span> -->
+            <span class="jury-strip-name">Manish Kejriwal</span>
+
+            <div class="juryinfosec">
+              <span class="jury-strip-role">Founder and Managing Partner, Kedaara Capital</span>
+              <!-- <span class="jury-strip-company">Kedaara Capital</span> -->
+            </div>
+
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Jury Section End -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- Event Partner Section Start -->
+  <section class="partners" id="partners">
+
+
+    <div class="wrap">
+      <div class="partners-head" data-reveal>
+        <h2 class="uppercase commonheading-white commonheading">Event Partners</h2>
+      </div>
+
+      <div class="partners-tabs-wrap" data-reveal>
+        <div class="partners-tabs" id="partnerFilters">
+          <span class="partners-tabs-indicator" id="partnerTabsIndicator"></span>
+          <button class="tab-btn active" data-type="all">All Partners</button>
+          <button class="tab-btn" data-type="co-presenting-partner">Co-Presenting Partner</button>
+          <button class="tab-btn" data-type="corporate-partner">Corporate Partner</button>
+          <button class="tab-btn" data-type="associate-partner">Associate Partner</button>
+          <button class="tab-btn" data-type="knowledge-partner">Knowledge Partner</button>
+        </div>
+      </div>
+
+      <div class="partners-grid" id="partnersGrid" data-reveal-group>
+
+        <div class="partner-card" data-type="co-presenting-partner" data-url="https://groww.in/">
+          <div class="partner-card-inner">
+            <div class="partner-card-front">
+              <img src="img/partners/groww.png" alt="Groww" loading="lazy">
+            </div>
+            <div class="partner-card-back">
+              <div class="partner-card-meta">
+                <span class="partner-card-type">Co-Presenting Partner</span>
+                <span class="partner-card-name">Groww</span>
+              </div>
+              <p class="partner-card-desc"></p>
+              <button class="partner-card-readmore" type="button">
+                Read More
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                  <polyline points="12 5 19 12 12 19" />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="partner-full" hidden>
+            <p></p>
+          </div>
+        </div>
+
+        <div class="partner-card" data-type="corporate-partner" data-url="https://skfelixer.com/">
+          <div class="partner-card-inner">
+            <div class="partner-card-front">
+              <img src="img/partners/elixer.png" alt="SKF Elixer" loading="lazy">
+            </div>
+            <div class="partner-card-back">
+              <div class="partner-card-meta">
+                <span class="partner-card-type">Corporate Partner</span>
+                <span class="partner-card-name">SKF Elixer</span>
+              </div>
+              <p class="partner-card-desc"></p>
+              <button class="partner-card-readmore" type="button">
+                Read More
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                  <polyline points="12 5 19 12 12 19" />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="partner-full" hidden>
+            <p></p>
+          </div>
+        </div>
+
+        <div class="partner-card" data-type="associate-partner" data-url="https://www.gmdcltd.com/">
+          <div class="partner-card-inner">
+            <div class="partner-card-front">
+              <img src="img/partners/gmdc.png" alt="GMDC Ltd" loading="lazy">
+            </div>
+            <div class="partner-card-back">
+              <div class="partner-card-meta">
+                <span class="partner-card-type">Associate Partners</span>
+                <span class="partner-card-name">GMDC</span>
+              </div>
+              <p class="partner-card-desc"></p>
+              <button class="partner-card-readmore" type="button">
+                Read More
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                  <polyline points="12 5 19 12 12 19" />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="partner-full" hidden>
+            <p></p>
+          </div>
+        </div>
+
+        <div class="partner-card" data-type="associate-partner" data-url="https://snu.edu.in/home/">
+          <div class="partner-card-inner">
+            <div class="partner-card-front">
+              <img src="img/partners/shiv-nadar.png" alt="Shiv Nadar University" loading="lazy">
+            </div>
+            <div class="partner-card-back">
+              <div class="partner-card-meta">
+                <span class="partner-card-type">Associate Partners</span>
+                <span class="partner-card-name">Shiv Nadar University</span>
+              </div>
+              <p class="partner-card-desc"></p>
+              <button class="partner-card-readmore" type="button">
+                Read More
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                  <polyline points="12 5 19 12 12 19" />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="partner-full" hidden>
+            <p></p>
+          </div>
+        </div>
+
+        <div class="partner-card" data-type="associate-partner" data-url="https://uk.gov.in/">
+          <div class="partner-card-inner">
+            <div class="partner-card-front">
+              <img src="img/partners/govt-uttakhand.png" alt="Government of Uttarakhand" loading="lazy">
+            </div>
+            <div class="partner-card-back">
+              <div class="partner-card-meta">
+                <span class="partner-card-type">Associate Partners</span>
+                <span class="partner-card-name">Government of Uttarakhand</span>
+              </div>
+              <p class="partner-card-desc"></p>
+              <button class="partner-card-readmore" type="button">
+                Read More
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                  <polyline points="12 5 19 12 12 19" />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="partner-full" hidden>
+            <p></p>
+          </div>
+        </div>
+
+        <div class="partner-card" data-type="associate-partner" data-url="https://upsida.in/">
+          <div class="partner-card-inner">
+            <div class="partner-card-front">
+              <img src="img/partners/upsida.png" alt="UPSIDA" loading="lazy">
+            </div>
+            <div class="partner-card-back">
+              <div class="partner-card-meta">
+                <span class="partner-card-type">Associate Partners</span>
+                <span class="partner-card-name">UPSIDA</span>
+              </div>
+              <p class="partner-card-desc"></p>
+              <button class="partner-card-readmore" type="button">
+                Read More
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                  <polyline points="12 5 19 12 12 19" />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="partner-full" hidden>
+            <p></p>
+          </div>
+        </div>
+
+        <div class="partner-card" data-type="associate-partner" data-url="https://www.aspect.global/">
+          <div class="partner-card-inner">
+            <div class="partner-card-front">
+              <img src="img/partners/aspect.png" alt="Aspect Global" loading="lazy">
+            </div>
+            <div class="partner-card-back">
+              <div class="partner-card-meta">
+                <span class="partner-card-type">Associate Partners</span>
+                <span class="partner-card-name">Aspect Global</span>
+              </div>
+              <p class="partner-card-desc">
+                <b>Bridging Traditions, Building Tomorrow</b>
+                Aspect Global is a Mumbai-headquartered diversified business group with an entrepreneurial...
+              </p>
+              <button class="partner-card-readmore" type="button">
+                Read More
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                  <polyline points="12 5 19 12 12 19" />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="partner-full" hidden>
+            <p>
+              Aspect Global is a Mumbai-headquartered diversified business group with an entrepreneurial legacy dating
+              back to 1956. From its roots as a family enterprise, the group has evolved into a business organisation
+              with an international presence, guided by integrity, innovation and a commitment to long-term value
+              creation.
+            </p>
+            <p>
+              Under the leadership of Aksha Kamboj, Group Chairperson & Managing Director, and Mohit Kamboj Bharatiya,
+              Group Chief Executive Officer & Managing Director – Aspect Realty, Aspect continues to expand its
+              portfolio through strategic investments, professional management and disciplined execution.
+            </p>
+            <p>
+              The group’s interests span bullion and refinery, real estate, infrastructure, industries, hospitality,
+              quick-service restaurants, energy, sports and entertainment. Its businesses bring together consumer
+              brands, development expertise and industrial capabilities, while Aspect Foundation supports community
+              initiatives across education, healthcare, sustainability and social development.
+            </p>
+            <p>
+              With operations spanning India and international markets, Aspect combines the strengths of its individual
+              businesses with a shared focus on quality, customer trust and responsible growth. Its approach centres on
+              identifying opportunities, building capable teams and strengthening execution across the portfolio.
+            </p>
+            <p>
+              Guided by its philosophy, “Bridging Traditions, Building Tomorrow,” Aspect Global builds on its legacy
+              while investing in businesses and opportunities that support sustained growth and meaningful impact.
+
+            </p>
+          </div>
+        </div>
+
+        <div class="partner-card" data-type="associate-partner" data-url="https://www.kesari.in/">
+          <div class="partner-card-inner">
+            <div class="partner-card-front">
+              <img src="img/partners/kesari.png" alt="Kesari" loading="lazy">
+            </div>
+            <div class="partner-card-back">
+              <div class="partner-card-meta">
+                <span class="partner-card-type">Associate Partners</span>
+                <span class="partner-card-name">Kesari</span>
+              </div>
+              <p class="partner-card-desc"></p>
+              <button class="partner-card-readmore" type="button">
+                Read More
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                  <polyline points="12 5 19 12 12 19" />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="partner-full" hidden>
+            <p></p>
+          </div>
+        </div>
+
+        <div class="partner-card" data-type="knowledge-partner" data-url="https://www.ey.com/en_in">
+          <div class="partner-card-inner">
+            <div class="partner-card-front">
+              <img src="img/partners/ey-shape-new-logo.png" alt="EY" loading="lazy">
+            </div>
+            <div class="partner-card-back">
+              <div class="partner-card-meta">
+                <span class="partner-card-type">Knowledge Partner</span>
+                <span class="partner-card-name">EY</span>
+              </div>
+              <p class="partner-card-desc"></p>
+              <button class="partner-card-readmore" type="button">
+                Read More
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                  <polyline points="12 5 19 12 12 19" />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="partner-full" hidden>
+            <p></p>
+          </div>
+        </div>
+
+        <p class="partners-empty" id="partnersEmpty" hidden>No partners announced in this category yet — check back
+          soon.</p>
+      </div>
+    </div>
+
+
+
+
+
+  </section>
+
+  <div class="partner-modal-backdrop" id="partnerModal" role="dialog" aria-modal="true" aria-label="Partner details">
+    <div class="partner-modal">
+      <button class="partner-modal-close" id="partnerModalClose" aria-label="Close">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6">
+          <line x1="1" y1="1" x2="15" y2="15" />
+          <line x1="15" y1="1" x2="1" y2="15" />
+        </svg>
+      </button>
+      <div class="partner-modal-logo" id="partnerModalLogo"></div>
+      <h3 class="partner-modal-name" id="partnerModalName"></h3>
+      <span class="partner-modal-type" id="partnerModalType"></span>
+      <div class="partner-modal-desc" id="partnerModalDesc"></div>
+      <a class="partner-modal-link" id="partnerModalLink" href="#" target="_blank" rel="noopener">
+        Visit Website
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="7" y1="17" x2="17" y2="7" />
+          <polyline points="7 7 17 7 17 17" />
+        </svg>
+      </a>
+    </div>
+  </div>
+  <!-- Event Partner Section End -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- Selection Process Start -->
+  <section class="" id="criteria">
+    <section class="selection-process" id="selection-process">
+
+      <!-- HEADER -->
+      <div class="sp-header">
+        <div class="sp-header-left">
+          <div class="sp-eyebrow commonheading">Criteria</div>
+          <h2 class="sp-title">
+            A Rigorous, Credible <em> Selection </em> Process
+          </h2>
+        </div>
+        <!-- <div class="sp-header-right">
+          <strong>4</strong>
+          Evaluation pillars applied to every entry.
+        </div> -->
+      </div>
+
+      <!-- PROCESS FLOW -->
+      <div class="sp-flow">
+
+        <!-- 01 -->
+        <div class="sp-flow-step">
+          <!-- <div class="sp-flow-num">
+            01
+          </div> -->
+          <div class="sp-flow-content">
+            <h3 class="sp-flow-title">Leadership &amp; Governance Benchmarking</h3>
+            <p class="sp-flow-desc">
+              Evaluating decision-making quality, ethical conduct and organisational governance standards.
+            </p>
+          </div>
+        </div>
+
+        <!-- 02 -->
+        <div class="sp-flow-step">
+          <!-- <div class="sp-flow-num">
+            02
+          </div> -->
+          <div class="sp-flow-content">
+            <h3 class="sp-flow-title">Innovation &amp; Sustainability Metrics</h3>
+            <p class="sp-flow-desc">
+              Assessing forward-looking practices and long-term value creation.
+            </p>
+          </div>
+        </div>
+
+        <!-- 03 -->
+        <div class="sp-flow-step">
+          <!-- <div class="sp-flow-num">
+            03
+          </div> -->
+          <div class="sp-flow-content">
+            <h3 class="sp-flow-title">Business Performance Analysis</h3>
+            <p class="sp-flow-desc">
+              Detailed financials and operating metrics — shortlisted by Knowledge Partner EY.
+            </p>
+          </div>
+        </div>
+
+        <!-- 04 -->
+        <div class="sp-flow-step">
+          <!-- <div class="sp-flow-num">
+            04
+          </div> -->
+          <div class="sp-flow-content">
+            <h3 class="sp-flow-title">Impact Assessment</h3>
+            <p class="sp-flow-desc">
+              Measuring tangible impact on employees, customers and communities.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- PARTNER STRIP -->
+      <div class="sp-partner">
+        <div class="sp-partner-left">
+          <span class="sp-partner-label">Knowledge Partner</span>
+          <span class="sp-partner-name">Ernst &amp; Young</span>
+          <!-- <span class="sp-partner-note">Independent validation of financial and operating metrics across all
+            entries.</span> -->
+        </div>
+        <div class="sp-partner-logo">
+          <img src="img/partners/ey-shape-new-logo.png" alt="EY" loading="lazy">
+          <span style="display:none;">EY</span>
+        </div>
+      </div>
+
+    </section>
+  </section>
+  <!-- Selection Process End -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- Established Info Start -->
+  <section class="fe-about" id="fe-about">
+    <div class="wrap">
+      <div class="fe-about-grid">
+        <div class="fe-about-brand" data-reveal>
+          <img class="fe-about-logo"
+            src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHhtbG5zOnhsaW5rPSdodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rJyB4bWw6c3BhY2U9J3ByZXNlcnZlJyB3aWR0aD0nMy40NTE4N2luJyBoZWlnaHQ9JzAuNDAyNTJpbicgdmVyc2lvbj0nMS4xJyBzdHlsZT0nc2hhcGUtcmVuZGVyaW5nOmdlb21ldHJpY1ByZWNpc2lvbjsgdGV4dC1yZW5kZXJpbmc6Z2VvbWV0cmljUHJlY2lzaW9uOyBpbWFnZS1yZW5kZXJpbmc6b3B0aW1pemVRdWFsaXR5OyBmaWxsLXJ1bGU6ZXZlbm9kZDsgY2xpcC1ydWxlOmV2ZW5vZGQnIHZpZXdCb3g9JzAgMCAyMDYyLjIxIDI0MC40Nyc+PGRlZnM+PHN0eWxlIHR5cGU9J3RleHQvY3NzJz48IVtDREFUQVsgLmZpbDAge2ZpbGw6IzAwNUU4RTtmaWxsLXJ1bGU6bm9uemVyb30gLmZpbDEge2ZpbGw6I0MyMDQxMDtmaWxsLXJ1bGU6bm9uemVyb30gLmZpbDIge2ZpbGw6I0ZGMTIwNDtmaWxsLXJ1bGU6bm9uemVyb30gXV0+PC9zdHlsZT48L2RlZnM+PGcgaWQ9J0xheWVyX3gwMDIwXzEnPjxtZXRhZGF0YSBpZD0nQ29yZWxDb3JwSURfMENvcmVsLUxheWVyJy8+PHBhdGggY2xhc3M9J2ZpbDAnIGQ9J00yNjMuNjUgOS4zM2wtODcuODcgMCAwIDEzMy42MyAyNy4zMyAwIDAgLTUwLjgyIDQ5LjYxIDAgMCAtMjQuNyAtNDkuNjEgMCAwIC0zMy40MSA2MC41NCAwIDAgLTI0Ljd6bTQ3Ljc4IDBsLTI3LjMzIDAgMCAxMzMuNjMgMjcuMzMgMCAwIC0xMzMuNjN6bTExNy4wMyAwbDAgNzkuNzcgLTc3LjU1IC04Mi4yIC04LjkxIDAgMCAxMzYuMDYgMjcuMzMgMCAwIC04MC4xOCA3Ny4zNCA4Mi42MSA5LjExIDAgMCAtMTM2LjA2IC0yNy4zMyAwem0xNDQuMTYgMTMzLjYzbDI5LjM2IDAgLTU5LjUzIC0xMzYuMDYgLTkuMTEgMCAtNTkuNzMgMTM2LjA2IDI5LjM2IDAgNy40OSAtMTcuNDEgNTQuNjcgMCA3LjQ5IDE3LjQxem0tMTcuMDEgLTM5Ljg5bC0zNS42NCAwIDE3LjgyIC00NS4xNSAxNy44MiA0NS4xNXptMTUxLjA1IC05My43NWwwIDc5Ljc3IC03Ny41NSAtODIuMiAtOC45MSAwIDAgMTM2LjA2IDI3LjMzIDAgMCAtODAuMTggNzcuMzUgODIuNjEgOS4xMSAwIDAgLTEzNi4wNiAtMjcuMzMgMHptMTIxLjQ4IC0yLjQzYy0zOS44OSwwIC03MS4yNywyOS45NyAtNzEuMjcsNjkuMjUgMCwzOS4yOCAzMS4zOCw2OS4yNCA3MS4wNyw2OS4yNCAyNS45MiwwIDQ3LjU4LC0xMi43NiA1OS4xMiwtMzMuMmwtMjAuNjUgLTE0LjU4Yy04LjkxLDE0LjE3IC0yMS40NiwyMi40NyAtMzguMjcsMjIuNDcgLTI0LjksMCAtNDMuMTMsLTE4LjAyIC00My4xMywtNDMuNzMgMCwtMjUuOTIgMTguMjIsLTQ0LjE0IDQzLjEzLC00NC4xNCAxNi44MSwwIDI5LjM2LDguMyAzOC4yNywyMi40N2wyMC42NSAtMTQuNThjLTExLjc0LC0yMC40NSAtMzMuMjEsLTMzLjIxIC01OC45MiwtMzMuMjF6bTEwOS41NCAyLjQzbC0yNy4zMyAwIDAgMTMzLjYzIDI3LjMzIDAgMCAtMTMzLjYzem0xMTYuODMgMTMzLjYzbDI5LjM2IDAgLTU5LjUzIC0xMzYuMDYgLTkuMTEgMCAtNTkuNzMgMTM2LjA2IDI5LjM2IDAgNy40OSAtMTcuNDEgNTQuNjcgMCA3LjQ5IDE3LjQxem0tMTcuMDEgLTM5Ljg5bC0zNS42NCAwIDE3LjgyIC00NS4xNSAxNy44MiA0NS4xNXptOTEuOTIgLTkzLjc1bC0yNy4zMyAwIDAgMTMzLjYzIDg1Ljg1IDAgMCAtMjQuNyAtNTguNTIgMCAwIC0xMDguOTN6bTIxNS4yMyAwbC04OS45IDAgMCAxMzMuNjMgOTIuMzMgMCAwIC0yNC43IC02NC45OSAwIDAgLTMzLjgxIDQ1Ljk2IDAgMCAtMjMuMjggLTQ1Ljk2IDAgMCAtMjcuMTMgNjIuNTYgMCAwIC0yNC43em0xMzIuMjIgMTMzLjYzbC00My45NCAtNjguMDMgNDEuMSAtNjUuNiAtMzAuOTggMCAtMjUuNTEgNDIuMTEgLTI1LjcxIC00Mi4xMSAtMzEuMTggMCA0MS43MSA2NS42IC00NC4zNCA2OC4wMyAzMS4xOCAwIDI4LjM0IC00NC4zNCAyOC4zNSA0NC4zNCAzMC45OCAwem02OC40NCAtMTMzLjYzbC01MC4yMSAwIDAgMTMzLjYzIDI3LjMzIDAgMCAtNDcuMTcgMjIuODggMGMyOC4xNCwwIDQ4LjE5LC0xNy42MSA0OC4xOSwtNDMuMzMgMCwtMjYuMTIgLTIwLjA1LC00My4xMyAtNDguMTksLTQzLjEzem0wIDI0LjA5YzEyLjc2LDAgMjAuMjUsNy45IDIwLjI1LDE5LjAzIDAsMTEuNTQgLTcuNDksMTkuNDQgLTIwLjI1LDE5LjQ0bC0yMi44OCAwIDAgLTM4LjQ3IDIyLjg4IDB6bTE4Mi44MyAxMDkuNTRsLTM3Ljg2IC01Mi40NGMxNC4zOCwtNy4wOSAyMy40OSwtMjAuODYgMjMuNDksLTM4LjA3IDAsLTI2LjEyIC0yMC4wNCwtNDMuMTMgLTQ4LjE5LC00My4xM2wtNTAuMjEgMCAwIDEzMy42MyAyNy4zMyAwIDAgLTQ3LjE3IDIwLjA1IDAgMzQuNjIgNDcuMTcgMzAuNzggMHptLTg1LjQ1IC0xMDkuNTRsMjIuODggMGMxMi43NiwwIDIwLjI1LDcuOSAyMC4yNSwxOS4wMyAwLDExLjU0IC03LjQ5LDE5LjI0IC0yMC4yNSwxOS4yNGwtMjIuODggMCAwIC0zOC4yN3ptMTkyLjE1IC0yNC4wOWwtODkuOSAwIDAgMTMzLjYzIDkyLjMzIDAgMCAtMjQuNyAtNjQuOTkgMCAwIC0zMy44MSA0NS45NiAwIDAgLTIzLjI4IC00NS45NiAwIDAgLTI3LjEzIDYyLjU2IDAgMCAtMjQuN3ptNjguMDMgLTIuNDNjLTI1LjExLDAgLTQ0LjM0LDE0Ljc4IC00NC4zNCwzNy44NiAwLDE4LjgzIDEzLjM2LDI5Ljc2IDMyLjM5LDM4LjQ3bDE0LjM4IDYuNDhjMTAuNTMsNC44NiAxNy4wMSw3LjkgMTcuMDEsMTYuNiAwLDkuMzEgLTcuMjksMTQuNzggLTE5LjAzLDE0Ljc4IC0xNS45OSwwIC0yNS41MSwtOS4zMSAtMzIuOCwtMTkuNDRsLTE4LjgzIDE0LjE3YzkuOTIsMTcuODIgMjguNTUsMjkuNTYgNTEuNjMsMjkuNTYgMjYuNTIsMCA0Ni43NywtMTUuMTggNDYuNzcsLTQwLjA5IDAsLTE5LjAzIC0xMS45NSwtMjkuNzYgLTMzLC0zOS4wOGwtMTUuMTggLTYuNjhjLTkuNzIsLTQuNDUgLTE1LjU5LC03LjY5IC0xNS41OSwtMTUuMzkgMCwtOC45MSA3LjY5LC0xMi45NiAxNi42LC0xMi45NiAxMC45MywwIDE5LjAzLDUuNjcgMjUuNTEsMTUuMzlsMTguNjMgLTE0LjM3Yy03LjksLTE0LjU4IC0yMi44OCwtMjUuMzEgLTQ0LjE0LC0yNS4zMXptMTEyLjE3IDBjLTI1LjExLDAgLTQ0LjM0LDE0Ljc4IC00NC4zNCwzNy44NiAwLDE4LjgzIDEzLjM2LDI5Ljc2IDMyLjM5LDM4LjQ3bDE0LjM4IDYuNDhjMTAuNTMsNC44NiAxNy4wMSw3LjkgMTcuMDEsMTYuNiAwLDkuMzEgLTcuMjksMTQuNzggLTE5LjAzLDE0Ljc4IC0xNiwwIC0yNS41MSwtOS4zMSAtMzIuOCwtMTkuNDRsLTE4LjgzIDE0LjE3YzkuOTIsMTcuODIgMjguNTUsMjkuNTYgNTEuNjMsMjkuNTYgMjYuNTIsMCA0Ni43NywtMTUuMTggNDYuNzcsLTQwLjA5IDAsLTE5LjAzIC0xMS45NSwtMjkuNzYgLTMzLC0zOS4wOGwtMTUuMTkgLTYuNjhjLTkuNzIsLTQuNDUgLTE1LjU5LC03LjY5IC0xNS41OSwtMTUuMzkgMCwtOC45MSA3LjY5LC0xMi45NiAxNi42LC0xMi45NiAxMC45MywwIDE5LjAzLDUuNjcgMjUuNTEsMTUuMzlsMTguNjMgLTE0LjM3Yy03LjksLTE0LjU4IC0yMi44OCwtMjUuMzEgLTQ0LjE0LC0yNS4zMXonLz48cGF0aCBjbGFzcz0nZmlsMScgZD0nTTE2MTEuNTMgMjM5LjI1bC0xMy4zNiAtMjIuMjJjNS4xMywtMS4yOSAxMS40LC01LjYxIDExLjQsLTE1LjQ2IDAsLTkuNyAtNi40MiwtMTUuODkgLTIwLjY5LC0xNS44OWwtMjAuMjMgMCAwIDUzLjU3IDkuMjkgMCAwIC0yMSAxMC4yNyAwIDEyLjUzIDIxIDEwLjggMHptLTEyLjM4IC0zNi45NmMwLDYuMjUgLTQuMDgsOS41NiAtMTEuNCw5LjU2bC05LjgyIDAgMCAtMTkuNyA5LjY2IDBjOC44MywwIDExLjU1LDQuMSAxMS41NSwxMC4xM3ptNTYuOTMgMTUuNTNjMCwtMTIuNjUgLTYuOCwtMjEuNzggLTE5LjMzLC0yMS43OCAtMTIuMjMsMCAtMjAuMjQsOC41NSAtMjAuMjQsMjEuMjEgMCwxMi4yMiA2LjY1LDIzLjIzIDIyLjQzLDIzLjIzIDUuMjksMCAxMS41NSwtMS45NSAxNi4zOCwtNi41NWwtMi43OSAtNC4xN2MtNC45OCwzLjc0IC04Ljc2LDQuODkgLTEzLjI5LDQuODkgLTguNzYsMCAtMTMuMjksLTUuOTcgLTEzLjg5LC0xNC41MmwzMC41OCAwYzAuMTUsLTAuNjUgMC4xNSwtMS4zNyAwLjE1LC0yLjN6bS05LjA2IC0yLjM3bC0yMS42NyAwYzEuMjEsLTguNyA0LjYxLC0xMy43MyAxMC45NSwtMTMuNzMgNy40LDAgMTAuMDQsNS4yNSAxMC43MiwxMy43M3ptNTkuNjUgMTcuNTRjLTEuMDYsMC4yMSAtMS44OSwwLjI5IC0yLjc5LDAuMjkgLTIuNjQsMCAtNC4wOCwtMC44NiAtNC4wOCwtNS4xbDAgLTE4LjYyYzAsLTcuOTEgLTQuNjEsLTEzLjE1IC0xNi40NiwtMTMuMTUgLTcuMzIsMCAtMTIuOTksMi4zIC0xNy44OSw1LjMybDIuNzIgNS44OWM0LjA4LC0yLjU5IDguNTMsLTQuNDYgMTMuNzQsLTQuNDYgNy4yNSwwIDkuNTksMi45NSA5LjU5LDUuNDZsMCAyLjY2Yy0yMC4xNiwxIC0yOC4zMSw2LjU0IC0yOC4zMSwxNS42NyAwLDguMiA2LjE5LDEyLjk1IDE0LjE5LDEyLjk1IDUuNjYsMCAxMC45NSwtMS4zMSAxNC41NywtNi41NiAwLjYsMy42NyAxLjg5LDYuNjMgNi45NSw2LjYzIDMuMDIsMCA1Ljg5LC0wLjg3IDcuNywtMS45NWwwLjA4IC01LjAzem0tMTUuMTggLTQuMDNjLTIuOTQsMy4yNCAtNy4xNyw0LjgyIC0xMS45Myw0LjgyIC01Ljk2LDAgLTguMzEsLTMuMDIgLTguMzEsLTcuMzMgMCwtNC4zOSAzLjMyLC05LjM1IDIwLjIzLC0xMC42NGwwIDEzLjE1em02MC40IDEwLjI5bDAgLTU3LjUyIC04LjQ2IDAgMCAxOC44NCAwIDIuNDRjLTMuNjIsLTQuNzQgLTguMzEsLTYuNDcgLTEzLjQ0LC02LjQ3IC0xMS41NSwwIC0xOC4wNCw3Ljk4IC0xOC4wNCwyMS40MiAwLDE3LjkgMTAuMDQsMjEuOTQgMTcuNTIsMjEuOTQgNi4xMiwwIDkuMzYsLTEuMzEgMTQuMjcsLTUuOThsMC42IDUuMzMgNy41NSAwem0tOC42OCAtMTAuNTFjLTIuNTcsMy4wMiAtNy4wMiw1LjAzIC0xMS4xLDUuMDMgLTYuNDIsMCAtMTEuMjUsLTQuMTcgLTExLjI1LC0xNS44MiAwLC0xMC41NyA0LjA4LC0xNS41MyAxMS4xLC0xNS41MyA2Ljk1LDAgMTAuMTIsNC42IDExLjI1LDcuOThsMCAxOC4zM3ptNjYuMTQgLTI0LjIybDAgLTUuOTcgLTEyLjg0IDAgMCAtMTIuODcgLTcuMDIgMCAtMS41OSAxMi44NyAtNy4xIDAgMCA1Ljk3IDcuMTcgMCAwIDIzLjU4YzAsOC4wNSAzLjc4LDExLjczIDEyLjc2LDExLjczIDMuNjIsMCA2LjI3LC0wLjUgOC4yMywtMS43NGwwIC01LjI1Yy0xLjc0LDAuNTcgLTMuMzIsMC41NyAtNC45OCwwLjU3IC01Ljk2LDAgLTcuNDcsLTIuMjMgLTcuNDcsLTYuODNsMCAtMjIuMDcgMTIuODQgMHptNDcuMTkgMTMuNjZjMCwtMTIuOTQgLTguMjMsLTIyLjE0IC0yMC43NywtMjIuMTQgLTEyLjMxLDAgLTIwLjU0LDkuMiAtMjAuNTQsMjIuMjEgMCwxMi45NCA4LjIzLDIyLjIyIDIwLjU0LDIyLjIyIDEyLjM4LDAgMjAuNzcsLTkuMjggMjAuNzcsLTIyLjN6bS04LjUzIDAuMjFjMCw5LjQ5IC00LjUzLDE2Ljc1IC0xMi4yMywxNi43NSAtNy44NSwwIC0xMiwtNy40OCAtMTIsLTE2LjgyIDAsLTkuNTYgNC4yMywtMTYuNjggMTIsLTE2LjY4IDcuOTMsMCAxMi4yMyw3LjE5IDEyLjIzLDE2Ljc1em03NC4yMiAyMC44NmwwIC03LjM1IC0yNC45MiAwIDAgLTQ2LjIyIC05LjI5IDAgMCA1My41NyAzNC4yIDB6bTQ0LjE3IC0yMS40M2MwLC0xMi42NSAtNi44LC0yMS43OCAtMTkuMzMsLTIxLjc4IC0xMi4yMywwIC0yMC4yMyw4LjU1IC0yMC4yMywyMS4yMSAwLDEyLjIyIDYuNjQsMjMuMjMgMjIuNDIsMjMuMjMgNS4yOSwwIDExLjU1LC0xLjk1IDE2LjM4LC02LjU1bC0yLjc5IC00LjE3Yy00Ljk4LDMuNzQgLTguNzYsNC44OSAtMTMuMjksNC44OSAtOC43NiwwIC0xMy4yOSwtNS45NyAtMTMuODksLTE0LjUybDMwLjU4IDBjMC4xNSwtMC42NSAwLjE1LC0xLjM3IDAuMTUsLTIuM3ptLTkuMDYgLTIuMzdsLTIxLjY3IDBjMS4yMSwtOC43IDQuNjEsLTEzLjczIDEwLjk1LC0xMy43MyA3LjQsMCAxMC4wNCw1LjI1IDEwLjcyLDEzLjczem01OS42NSAxNy41NGMtMS4wNiwwLjIxIC0xLjg5LDAuMjkgLTIuNzksMC4yOSAtMi42NCwwIC00LjA4LC0wLjg2IC00LjA4LC01LjFsMCAtMTguNjJjMCwtNy45MSAtNC42MSwtMTMuMTUgLTE2LjQ2LC0xMy4xNSAtNy4zMiwwIC0xMi45OSwyLjMgLTE3Ljg5LDUuMzJsMi43MiA1Ljg5YzQuMDgsLTIuNTkgOC41MywtNC40NiAxMy43NCwtNC40NiA3LjI1LDAgOS41OSwyLjk1IDkuNTksNS40NmwwIDIuNjZjLTIwLjE2LDEgLTI4LjMxLDYuNTQgLTI4LjMxLDE1LjY3IDAsOC4yIDYuMTksMTIuOTUgMTQuMTksMTIuOTUgNS42NiwwIDEwLjk1LC0xLjMxIDE0LjU3LC02LjU2IDAuNiwzLjY3IDEuODksNi42MyA2Ljk1LDYuNjMgMy4wMiwwIDUuODksLTAuODcgNy43LC0xLjk1bDAuMDggLTUuMDN6bS0xNS4xOCAtNC4wM2MtMi45NCwzLjI0IC03LjE3LDQuODIgLTExLjkzLDQuODIgLTUuOTYsMCAtOC4zMSwtMy4wMiAtOC4zMSwtNy4zMyAwLC00LjM5IDMuMzIsLTkuMzUgMjAuMjMsLTEwLjY0bDAgMTMuMTV6bTYwLjQgMTAuMjlsMCAtNTcuNTIgLTguNDYgMCAwIDE4Ljg0IDAgMi40NGMtMy42MiwtNC43NCAtOC4zMSwtNi40NyAtMTMuNDQsLTYuNDcgLTExLjU1LDAgLTE4LjA0LDcuOTggLTE4LjA0LDIxLjQyIDAsMTcuOSAxMC4wNCwyMS45NCAxNy41MiwyMS45NCA2LjEyLDAgOS4zNiwtMS4zMSAxNC4yNywtNS45OGwwLjYgNS4zMyA3LjU1IDB6bS04LjY4IC0xMC41MWMtMi41NywzLjAyIC03LjAyLDUuMDMgLTExLjEsNS4wMyAtNi40MiwwIC0xMS4yNSwtNC4xNyAtMTEuMjUsLTE1LjgyIDAsLTEwLjU3IDQuMDgsLTE1LjUzIDExLjEsLTE1LjUzIDYuOTQsMCAxMC4xMiw0LjYgMTEuMjUsNy45OGwwIDE4LjMzeicvPjxnIGlkPSdfMjI1MjA4ODM4OTEyMCc+PHBhdGggY2xhc3M9J2ZpbDInIGQ9J001My44OSAxNC4wNWMtNi4zNSw3Ljc1IC01LjI0LDE5LjQzIDIuMzUsMjYuMDVsMCAwIDUzLjk3IDQ4LjQxYzcuMDcsNi4xNiAyLjQyLDE2LjM3IDIuNDIsMTYuMzdsMCAwIDEuMTEgMC45NyAxMS4yOSAtMTQuMDNjMi43NiwtMy4zOSA0LjExLC03LjUxIDQuMTMsLTExLjYxbDAgMCAwIC0wLjIxYy0wLjAyLC01LjI5IC0yLjI0LC0xMC41NiAtNi40NiwtMTQuMjRsMCAwIC01My45OSAtNDguNGMtNy4wNywtNi4xOSAtMi40MSwtMTYuMzkgLTIuNDEsLTE2LjM5bDAgMCAtMS4xMSAtMC45OCAtMTEuMjkgMTQuMDV6Jy8+PHBhdGggY2xhc3M9J2ZpbDInIGQ9J00yOS4wMSA0NS4wNWMtNi4zNSw3Ljc3IC01LjI0LDE5LjQ1IDIuMzQsMjYuMDZsMCAwIDUzLjk4IDQ4LjRjNy4wNyw2LjE4IDIuNDEsMTYuMzggMi40MSwxNi4zOGwwIDAgMS4xMSAwLjk5IDExLjI5IC0xNC4wNWM2LjM0LC03Ljc1IDUuMjQsLTE5LjQ0IC0yLjM0LC0yNi4wNWwwIDAgLTUzLjk4IC00OC40MWMtNy4wOCwtNi4xOCAtMi40MiwtMTYuMzcgLTIuNDIsLTE2LjM3bDAgMCAtMS4xMSAtMC45NyAtMTEuMjkgMTQuMDN6Jy8+PHBhdGggY2xhc3M9J2ZpbDInIGQ9J000LjEyIDc2LjA3Yy0yLjc0LDMuMzUgLTQuMDksNy40NiAtNC4xMiwxMS41NmwwIDAgMCAwLjNjMC4wMyw1LjI3IDIuMjUsMTAuNTIgNi40NywxNC4xOWwwIDAgNTMuOTggNDguNDFjNy4wOCw2LjE5IDIuNDIsMTYuMzkgMi40MiwxNi4zOWwwIDAgMS4xMSAwLjk4IDExLjI5IC0xNC4wNWM2LjM0LC03Ljc4IDUuMjMsLTE5LjQ1IC0yLjM0LC0yNi4wNGwwIDAgLTUzLjk4IC00OC40MmMtNy4wOCwtNi4xOCAtMi40MiwtMTYuMzcgLTIuNDIsLTE2LjM3bDAgMCAtMS4xMSAtMC45OSAtMTEuMjkgMTQuMDV6Jy8+PC9nPjwvZz48L3N2Zz4="
+            alt="The Financial Express">
+        </div>
+        <p class="fe-about-copy" data-reveal>Established in 1961, Financial Express is the business daily from the
+          Indian Express Group. In the business media space, the publication stands for credibility and insightful
+          coverage of both national and international economic issues. In short, if you have read it in Financial
+          Express, it is factual. The publication doesn’t just disseminate information, it goes much beyond to explain
+          how it impacts you. The information, analysis and knowledge that Financial Express unfolds in its pages
+          empower the reader with informative reading that makes for leading-edge financial decisions. Explains why, it
+          is a preferred choice of thinkers and business leaders. Thought leadership is what Financial Express is all
+          about.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Established Info End -->
+
+
+
+
+
+
+</main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--  Contact Us Start -->
+<section class="closing contact-section" id="contact" aria-label="Contact us">
+  <div class="contact-panels">
+
+    <aside class="ftrleftsec">
+
+      <img class="logo-light" src="./assets/logo-dark.png" alt="Financial Express Leadership Awards" style="width: 60%;">
+
+      <div class="contact-address">
+        <a href="https://maps.app.goo.gl/cSV3RxcyAvmCVHGF8" target="_blank" class="ftraddress"
+          rel="noopener noreferrer">
+          <span style="font-size: 18px;">&#128205;</span>&nbsp;
+          The Indian Express (P) Ltd<br>
+          B-1/B, Sector-10, Ramnath Goenka Marg,<br>
+          Noida-201 301, Uttar Pradesh
+        </a>
+      </div>
+
+
+    </aside>
+
+    <div class="contact-form-panel">
+      <h2 class="contact-form-title commonheading-blue commonheading">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path
+            d="M2.2 5.4A2.2 2.2 0 0 1 4.4 3h15.2a2.2 2.2 0 0 1 2.2 2.4L12 12.1 2.2 5.4ZM2 7.8v10.8A2.4 2.4 0 0 0 4.4 21h15.2a2.4 2.4 0 0 0 2.4-2.4V7.8l-9.4 6.4a1 1 0 0 1-1.2 0L2 7.8Z">
+          </path>
+        </svg>
+        Contact Us
+      </h2>
+      <form action="mailto:info@feleadershipawards.com" method="post" enctype="text/plain">
+        <div class="contact-fields">
+          <label>
+            <span>Full name</span>
+            <input type="text" name="Full Name" placeholder="Full Name" autocomplete="name" required>
+          </label>
+          <label>
+            <span>Mobile number</span>
+            <input type="tel" name="Mobile Number" placeholder="Mobile Number" autocomplete="tel">
+          </label>
+          <label>
+            <span>Email</span>
+            <input type="email" name="Email" placeholder="Email" autocomplete="email" required>
+          </label>
+        </div>
+        <label>
+          <span>Your query or feedback</span>
+          <textarea name="Query" placeholder="Please send your query or feedback..." required></textarea>
+        </label>
+        <div class="contact-form-actions">
+          <button class="contact-submit" type="submit">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+<!--  Contact Us End -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- chrome:footer:start -->
+<div class="footer-spacer" id="footerSpacer"></div>
+
+<script src="./site-chrome.js"></script>
+<script>
+  (function () {
+    // award categories: expand-in-place, one card open at a time
+    var catGrid = document.getElementById('categories');
+    if (catGrid) {
+      catGrid.querySelectorAll('.cat-card-head').forEach(function (head) {
+        head.addEventListener('click', function () {
+          var card = head.closest('.cat-card');
+          var willOpen = !card.classList.contains('open');
+          catGrid.querySelectorAll('.cat-card.open').forEach(function (open) {
+            open.classList.remove('open');
+            open.querySelector('.cat-card-head').setAttribute('aria-expanded', 'false');
+          });
+          if (willOpen) {
+            card.classList.add('open');
+            head.setAttribute('aria-expanded', 'true');
+          }
+        });
+      });
+    }
+
+    // jury: strip gallery expands on hover; touch devices (no hover) tap to expand instead
+    var juryStripGrid = document.getElementById('juryStripGrid');
+    if (juryStripGrid) {
+      var juryStrips = juryStripGrid.querySelectorAll('.jury-strip');
+      juryStrips.forEach(function (strip) {
+        strip.addEventListener('click', function () {
+          if (window.matchMedia('(max-width:760px)').matches) return;
+          var wasExpanded = strip.classList.contains('expanded');
+          juryStrips.forEach(function (s) { s.classList.remove('expanded'); });
+          if (!wasExpanded) { strip.classList.add('expanded'); }
+        });
+      });
+    }
+
+    // partners: sliding-pill type filter, flip-card grid (hover on desktop, tap on touch),
+    // and a Read More modal with the fuller detail (.partner-full) + the Visit Website link
+    var partnerFilters = document.getElementById('partnerFilters');
+    var partnersGrid = document.getElementById('partnersGrid');
+    var partnerIndicator = document.getElementById('partnerTabsIndicator');
+    var partnersEmpty = document.getElementById('partnersEmpty');
+    if (partnersGrid) {
+      var activeType = 'all';
+      function applyPartnerFilter() {
+        var visibleCount = 0;
+        partnersGrid.querySelectorAll('.partner-card').forEach(function (card) {
+          var show = activeType === 'all' || card.getAttribute('data-type') === activeType;
+          card.style.display = show ? '' : 'none';
+          if (show) visibleCount++;
+        });
+        if (partnersEmpty) { partnersEmpty.hidden = visibleCount !== 0; }
+      }
+      function moveIndicator(btn) {
+        if (!partnerIndicator || window.matchMedia('(max-width:760px)').matches) return;
+        partnerIndicator.style.width = btn.offsetWidth + 'px';
+        partnerIndicator.style.transform = 'translateX(' + btn.offsetLeft + 'px)';
+      }
+      var tabBtns = partnerFilters.querySelectorAll('.tab-btn');
+      tabBtns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          tabBtns.forEach(function (b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+          activeType = btn.getAttribute('data-type');
+          applyPartnerFilter();
+          moveIndicator(btn);
+        });
+      });
+      var activeBtn = partnerFilters.querySelector('.tab-btn.active');
+      if (activeBtn) { moveIndicator(activeBtn); }
+      window.addEventListener('resize', function () {
+        var current = partnerFilters.querySelector('.tab-btn.active');
+        if (current) { moveIndicator(current); }
+      });
+
+      // touch devices have no hover — tap the front face to flip
+      partnersGrid.querySelectorAll('.partner-card').forEach(function (card) {
+        var front = card.querySelector('.partner-card-front');
+        front.addEventListener('click', function () {
+          card.classList.toggle('flipped');
+        });
+      });
+
+      // Read More -> partner detail modal
+      var partnerModal = document.getElementById('partnerModal');
+      var partnerModalClose = document.getElementById('partnerModalClose');
+      var partnerModalLogo = document.getElementById('partnerModalLogo');
+      var partnerModalName = document.getElementById('partnerModalName');
+      var partnerModalType = document.getElementById('partnerModalType');
+      var partnerModalDesc = document.getElementById('partnerModalDesc');
+      var partnerModalLink = document.getElementById('partnerModalLink');
+
+      function openPartnerModal(card) {
+        var img = card.querySelector('.partner-card-front img');
+        partnerModalLogo.innerHTML = '';
+        if (img) { partnerModalLogo.appendChild(img.cloneNode(true)); }
+        partnerModalName.textContent = card.querySelector('.partner-card-name').textContent;
+        partnerModalType.textContent = card.querySelector('.partner-card-type').textContent;
+        var full = card.querySelector('.partner-full');
+        partnerModalDesc.innerHTML = full ? full.innerHTML : '';
+        partnerModalLink.href = card.getAttribute('data-url') || '#';
+        partnerModal.classList.add('open');
+        partnerModal.querySelector('.partner-modal').scrollTop = 0;
+        document.body.style.overflow = 'hidden';
+      }
+      function closePartnerModal() {
+        partnerModal.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+      partnersGrid.querySelectorAll('.partner-card-readmore').forEach(function (btn) {
+        btn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          openPartnerModal(btn.closest('.partner-card'));
+        });
+      });
+      partnerModalClose.addEventListener('click', closePartnerModal);
+      partnerModal.addEventListener('click', function (e) {
+        if (e.target === partnerModal) { closePartnerModal(); }
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && partnerModal.classList.contains('open')) { closePartnerModal(); }
+      });
+    }
+
+
+
+
+
+
+
+    // countdown — 15 Sep 2026 00:00 IST
+    var target = new Date('2026-11-02T17:00:00+05:30').getTime();
+    var elD = document.getElementById('cd-d'), elH = document.getElementById('cd-h'), elM = document.getElementById('cd-m'), elS = document.getElementById('cd-s');
+    function pad(n) { return String(n).padStart(2, '0'); }
+    function tick() {
+      var diff = Math.max(0, target - Date.now());
+      var d = Math.floor(diff / 86400000);
+      var h = Math.floor(diff % 86400000 / 3600000);
+      var m = Math.floor(diff % 3600000 / 60000);
+      var s = Math.floor(diff % 60000 / 1000);
+      elD.textContent = pad(d); elH.textContent = pad(h); elM.textContent = pad(m); elS.textContent = pad(s);
+    }
+    tick();
+    setInterval(tick, 1000);
+
+    // hero cursor spotlight
+    var hero = document.getElementById('hero');
+    var atmos = document.getElementById('heroAtmos');
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!reduceMotion && window.matchMedia('(hover:hover)').matches) {
+      hero.addEventListener('pointermove', function (e) {
+        var r = hero.getBoundingClientRect();
+        var x = ((e.clientX - r.left) / r.width * 100).toFixed(1) + '%';
+        var y = ((e.clientY - r.top) / r.height * 100).toFixed(1) + '%';
+        atmos.style.setProperty('--mx', x);
+        atmos.style.setProperty('--my', y);
+      });
+    }
+
+    // hero pixel-reveal grid — splits the trophy photo into a tile grid that fades in from
+    // grayscale, in shuffled order, on load (Magic UI's PixelImage effect, reimplemented since
+    // this is a static build). Reduced motion just shows the tiles instantly, no shuffle/fade.
+    var pixelGrid = document.getElementById('heroPixelGrid');
+    if (pixelGrid) {
+      var PG_ROWS = 5, PG_COLS = 9;
+      var PG_POS_X = 0.78, PG_POS_Y = 0.5; // matches the hero's original background-position: 78% center
+      var pgSrcRaw = getComputedStyle(document.documentElement).getPropertyValue('--hero-banner-img').trim();
+      var pgMatch = pgSrcRaw.match(/^url\((.*)\)$/);
+      var pgSrc = (pgMatch ? pgMatch[1] : pgSrcRaw).replace(/^["']|["']$/g, '');
+
+      var pgCells = [];
+      pixelGrid.style.gridTemplateColumns = 'repeat(' + PG_COLS + ', 1fr)';
+      pixelGrid.style.gridTemplateRows = 'repeat(' + PG_ROWS + ', 1fr)';
+      for (var pgI = 0; pgI < PG_ROWS * PG_COLS; pgI++) {
+        var pgCell = document.createElement('div');
+        pgCell.className = 'hero-pixel-cell';
+        pgCell.style.backgroundImage = 'url(' + pgSrc + ')';
+        pixelGrid.appendChild(pgCell);
+        pgCells.push(pgCell);
+      }
+
+      function pgLayout(naturalW, naturalH) {
+        var rect = pixelGrid.getBoundingClientRect();
+        var W = rect.width, H = rect.height;
+        if (!W || !H) return;
+        var scale = Math.max(W / naturalW, H / naturalH);
+        var scaledW = naturalW * scale, scaledH = naturalH * scale;
+        var offsetX = (W - scaledW) * PG_POS_X;
+        var offsetY = (H - scaledH) * PG_POS_Y;
+        var cw = W / PG_COLS, ch = H / PG_ROWS;
+        var i = 0;
+        for (var r = 0; r < PG_ROWS; r++) {
+          for (var c = 0; c < PG_COLS; c++) {
+            var cell = pgCells[i++];
+            cell.style.backgroundSize = scaledW + 'px ' + scaledH + 'px';
+            cell.style.backgroundPosition = (offsetX - c * cw) + 'px ' + (offsetY - r * ch) + 'px';
+          }
         }
+      }
 
-        updateCountdown();
-        setInterval(updateCountdown, 1000);
-    </script>
-</body>
-</html>
+      var pgProbe = new Image();
+      pgProbe.onload = function () {
+        var naturalW = pgProbe.naturalWidth, naturalH = pgProbe.naturalHeight;
+        pgLayout(naturalW, naturalH);
+        if (reduceMotion) {
+          pgCells.forEach(function (cell) { cell.classList.add('revealed'); });
+        } else {
+          var order = pgCells.map(function (_, idx) { return idx; });
+          for (var s = order.length - 1; s > 0; s--) {
+            var j = Math.floor(Math.random() * (s + 1));
+            var tmp = order[s]; order[s] = order[j]; order[j] = tmp;
+          }
+          order.forEach(function (cellIdx, seq) {
+            setTimeout(function () { pgCells[cellIdx].classList.add('revealed'); }, seq * (900 / pgCells.length) + 80);
+          });
+        }
+        var pgResizeTimer;
+        window.addEventListener('resize', function () {
+          clearTimeout(pgResizeTimer);
+          pgResizeTimer = setTimeout(function () { pgLayout(naturalW, naturalH); }, 150);
+        });
+      };
+      pgProbe.src = pgSrc;
+    }
+
+    // reveal on scroll
+    var revealEls = document.querySelectorAll('[data-reveal], [data-reveal-group]');
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add('is-visible'); io.unobserve(en.target); }
+      });
+    }, { threshold: .15, rootMargin: '0px 0px -8% 0px' });
+    revealEls.forEach(function (el) { io.observe(el); });
+
+    // scroll section indicator
+    var scrollDots = document.querySelectorAll('.scroll-dots a');
+    if (scrollDots.length) {
+      var dotTargets = Array.prototype.map.call(scrollDots, function (a) {
+        return { link: a, el: document.getElementById(a.dataset.target) };
+      }).filter(function (t) { return t.el; });
+
+      var setActiveDot = function () {
+        var probe = window.scrollY + window.innerHeight * 0.3;
+        var current = dotTargets[0];
+        dotTargets.forEach(function (t) {
+          if (t.el.offsetTop <= probe) { current = t; }
+        });
+        dotTargets.forEach(function (t) { t.link.classList.toggle('active', t === current); });
+      };
+      setActiveDot();
+      var dotTicking = false;
+      window.addEventListener('scroll', function () {
+        if (!dotTicking) {
+          window.requestAnimationFrame(function () { setActiveDot(); dotTicking = false; });
+          dotTicking = true;
+        }
+      });
+    }
+
+  })();
+</script>

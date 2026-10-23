@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coming Soon</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Baskervillae', serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #035c8e 0%, #e81f25 100%);
+            color: #fff;
+            padding: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Animated background circles */
+        body::before,
+        body::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            animation: float 8s ease-in-out infinite;
+        }
+
+        body::before {
+            width: 300px;
+            height: 300px;
+            top: -100px;
+            left: -100px;
+        }
+
+        body::after {
+            width: 200px;
+            height: 200px;
+            bottom: -50px;
+            right: -50px;
+            animation-delay: 2s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-30px) scale(1.05); }
+        }
+
+        .container {
+            text-align: center;
+            z-index: 1;
+            max-width: 600px;
+            padding: 40px 30px;
+            background: #fff;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 span {
+            background: linear-gradient(90deg, #fff, #035c8e, #fff);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shine 3s linear infinite;
+        }
+
+        @keyframes shine {
+            to { background-position: 200% center; }
+        }
+
+        p {
+            font-size: 2rem;
+            line-height: 1.6;
+            opacity: 0.9;
+            margin-bottom: 30px;
+            color: #035c8e;
+        }
+
+        /* Countdown */
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 35px;
+            flex-wrap: wrap;
+        }
+
+        .time-box {
+            background: #035c8e;
+            border-radius: 12px;
+            padding: 15px 20px;
+            min-width: 80px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .time-box:hover {
+            transform: scale(1.08);
+            background: #035c8e;
+        }
+
+        .time-box .number {
+            font-size: 2rem;
+            font-weight: 700;
+            display: block;
+        }
+
+        .time-box .label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.8;
+        }
+
+        /* Progress bar */
+        .progress {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 35px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #ffd700, #ff6b6b);
+            border-radius: 10px;
+            transition: width 1s ease;
+        }
+
+        /* Subscribe form */
+        .subscribe {
+            display: flex;
+            gap: 10px;
+            max-width: 450px;
+            margin: 0 auto 30px;
+            flex-wrap: wrap;
+        }
+
+        .subscribe input {
+            flex: 1;
+            min-width: 200px;
+            padding: 14px 18px;
+            border: none;
+            border-radius: 50px;
+            outline: none;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+        }
+
+        .subscribe input::placeholder {
+            color: #888;
+        }
+
+        .subscribe button {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 50px;
+            background: #ffd700;
+            color: #333;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .subscribe button:hover {
+            background: #ff6b6b;
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Social icons */
+        .socials {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .socials a {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .socials a:hover {
+            background: #fff;
+            color: #764ba2;
+            transform: translateY(-3px);
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .icon {
+                font-size: 45px;
+            }
+
+            p {
+                font-size: 0.95rem;
+            }
+
+            .container {
+                padding: 30px 20px;
+            }
+
+            .time-box {
+                padding: 10px 14px;
+                min-width: 65px;
+            }
+
+            .time-box .number {
+                font-size: 1.5rem;
+            }
+
+            .subscribe {
+                flex-direction: column;
+            }
+
+            .subscribe input,
+            .subscribe button {
+                width: 100%;
+            }
+
+
+        body::before {
+            top: 0px;
+            left: 0px;
+        }
+
+        body::after {
+            bottom: 0px;
+            right: 0px;
+        }
+
+
+        }
+
+        @media (max-width: 380px) {
+            .countdown {
+                gap: 8px;
+            }
+
+            .time-box {
+                min-width: 55px;
+                padding: 8px 10px;
+            }
+
+            .time-box .number {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- <div class="icon">🚀</div> -->
+        <img class="hero-logo"
+        src="assets/logo-light.png"
+        alt="Financial Express Leadership Awards" style="width: 70%;">
+
+        <p>2nd November | Mumbai</p>
+
+        <center>
+            <hr style="margin-bottom: 2rem; width: 80%;">
+        </center>
+
+        <div class="countdown" id="countdown">
+            <div class="time-box">
+                <span class="number" id="days">00</span>
+                <span class="label">Days</span>
+            </div>
+            <div class="time-box">
+                <span class="number" id="hours">00</span>
+                <span class="label">Hours</span>
+            </div>
+            <div class="time-box">
+                <span class="number" id="minutes">00</span>
+                <span class="label">Minutes</span>
+            </div>
+            <div class="time-box">
+                <span class="number" id="seconds">00</span>
+                <span class="label">Seconds</span>
+            </div>
+        </div>
+
+
+        <h1><span>COMING SOON</span></h1>
+
+        <div class="progress">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+    </div>
+
+    <script>
+        // Set your launch date here
+        const launchDate = new Date('2026-11-02T00:00:00'); // Set your exact date
+        // launchDate.setDate(launchDate.getDate() + 30); // 30 days from now
+
+        const startDate = new Date();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = launchDate.getTime() - now;
+
+            if (distance < 0) {
+                document.getElementById('countdown').innerHTML = '<h2>We are Live! 🎉</h2>';
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = String(days).padStart(2, '0');
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+
+            // Progress bar
+            const total = launchDate.getTime() - startDate.getTime();
+            const elapsed = now - startDate.getTime();
+            const percent = Math.min((elapsed / total) * 100, 100);
+            document.getElementById('progressBar').style.width = percent + '%';
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>
