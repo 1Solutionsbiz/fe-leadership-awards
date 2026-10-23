@@ -1323,7 +1323,7 @@
     gap: 16px;
     width: min(100%, 1440px);
     margin-inline: auto;
-    box-shadow: 0 18px 44px rgba(19, 19, 21, .2);
+    /* box-shadow: 0 18px 44px rgba(19, 19, 21, .2); */
   }
 
   .contact-address,
