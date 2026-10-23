@@ -1055,7 +1055,7 @@
 
   .partner-card-inner {
     position: relative;
-    height: 190px;
+    height: 210px;
     transition: transform .6s cubic-bezier(.16, .8, .24, 1);
     transform-style: preserve-3d;
   }
@@ -1078,16 +1078,12 @@
     flex-direction: column;
   }
 
-  .partner-card-front {
-    align-items: center;
-    justify-content: center;
-    padding: 28px;
-  }
 
   .partner-card-front img {
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
+    border-radius: 10px;
   }
 
   .partner-card-back {
