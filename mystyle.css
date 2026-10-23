@@ -666,8 +666,8 @@
       right: -7px;
       width: 1.5rem;
       height: 1.5rem;
-      border-top: 1.5px solid #d6cec3;
-      border-right: 1.5px solid #d6cec3;
+      border-top: 1.5px solid #082455;
+      border-right: 1.5px solid #082455;
       transform: rotate(45deg);
       z-index: 1;
     }
@@ -727,8 +727,8 @@
 
     /* step content */
     .sp-flow-content {
-      background: #faf8f5;
-      border: 1px solid #efeae3;
+      background: #cbe1f6;
+      border: 1px solid #2b3a64;
       border-radius: 1.25rem;
       padding: 1.5rem 1.4rem 1.6rem;
       flex: 1;
@@ -739,7 +739,7 @@
 
     .sp-flow-step:hover .sp-flow-content {
       background: #ffffff;
-      border-color: #e0d8ce;
+      border-color: #2b3a64;
       box-shadow: 0 12px 28px -12px rgba(0, 0, 0, 0.08);
       transform: translateY(-3px);
     }
@@ -754,9 +754,14 @@
       margin-bottom: 0.75rem;
     }
 
+
+    .sp-flow-step:hover .sp-flow-content .sp-flow-title{
+      color: #082455;  
+    }
+
     .sp-flow-desc {
       font-size: 0.85rem;
-      color: #6f6a64;
+      color: #000;
       line-height: 1.6;
       flex: 1;
     }
