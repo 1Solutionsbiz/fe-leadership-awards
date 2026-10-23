@@ -59,11 +59,7 @@ try {
         'FE Leadership Awards Website'
     );
 
-    // Recipient who will receive contact form enquiries.
-    // $mail->addAddress(
-    //     'info@feleadershipawards.com',
-    //     'FE Leadership Awards'
-    // );
+
 
 
 

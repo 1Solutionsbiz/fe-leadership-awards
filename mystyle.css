@@ -560,7 +560,7 @@
       display: grid;
       grid-template-columns: 1fr auto;
       align-items: end;
-      gap: 2rem;
+      /* gap: 2rem; */
       margin-bottom: 3.5rem;
       position: relative;
       z-index: 1;
