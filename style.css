@@ -1181,7 +1181,7 @@
   .partner-modal {
     background: var(--bg);
     border-radius: 12px;
-    max-width: 460px;
+    max-width: 60%;
     width: 100%;
     padding: 32px;
     max-height: 85vh;
@@ -1190,6 +1190,17 @@
     transform: scale(.94);
     transition: transform .3s cubic-bezier(.16, .8, .24, 1);
   }
+
+  
+
+@media screen and (max-width: 767px) {
+ 
+  .partner-modal {
+    max-width: 90%;
+  }
+
+}
+
 
   .partner-modal-backdrop.open .partner-modal {
     transform: scale(1);
