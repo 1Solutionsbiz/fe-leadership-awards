@@ -1218,10 +1218,10 @@
   }
 
   .partner-modal-logo {
-    height: 52px;
+    height: 70px;
     display: flex;
     align-items: center;
-    margin-bottom: 22px;
+    /* margin-bottom: 22px; */
     clear: both;
   }
 
