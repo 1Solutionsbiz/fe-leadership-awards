@@ -541,8 +541,61 @@
 
   /* ================= ABOUT (matter) ================= */
   .matter {
+    position: relative;
     padding-block: clamp(50px, 12vw, 140px);
     background: linear-gradient(160deg, #fedee1, var(--bg) 65%);
+  }
+
+  .matter-icon {
+    position: absolute;
+    top: 24px;
+    right: clamp(20px, 5vw, 72px);
+    width: auto;
+    height: 80%;
+    object-fit: contain;
+    pointer-events: none;
+    margin-right: -25%;
+  }
+
+  .section-bg-decoration {
+    isolation: isolate;
+  }
+
+  .section-bg-decoration::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    width: clamp(72px, 10vw, 150px);
+    aspect-ratio: 1;
+    background: url("img/icons/11.png") center / contain no-repeat;
+    opacity: .14;
+    pointer-events: none;
+  }
+
+  .section-bg-decoration--hero::after {
+    top: clamp(16px, 3vw, 36px);
+    right: clamp(16px, 4vw, 48px);
+    z-index: 1;
+  }
+
+  .section-bg-decoration--top-left::after {
+    top: clamp(16px, 3vw, 36px);
+    left: clamp(16px, 4vw, 48px);
+  }
+
+  .section-bg-decoration--top-right::after {
+    top: clamp(16px, 3vw, 36px);
+    right: clamp(16px, 4vw, 48px);
+  }
+
+  .section-bg-decoration--bottom-left::after {
+    bottom: clamp(16px, 3vw, 36px);
+    left: clamp(16px, 4vw, 48px);
+  }
+
+  .section-bg-decoration--bottom-right::after {
+    bottom: clamp(16px, 3vw, 36px);
+    right: clamp(16px, 4vw, 48px);
   }
 
   .about-layout {

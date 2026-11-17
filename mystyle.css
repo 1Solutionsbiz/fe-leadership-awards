@@ -1356,3 +1356,180 @@ a{
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  .matter-icon-right {
+    position: absolute;
+    top: 24px;
+    right: clamp(20px, 5vw, 72px);
+    width: auto;
+    height: 80%;
+    object-fit: contain;
+    pointer-events: none;
+    margin-right: -25%;
+  }
+
+  .matter-icon-left {
+    position: absolute;
+    top: 24px;
+    left: clamp(20px, 5vw, 72px);
+    width: auto;
+    height: 80%;
+    object-fit: contain;
+    pointer-events: none;
+    margin-left: -25%;
+  }
+  .matter-icon-left-trtm-r {
+    position: absolute;
+    top: 60px;
+    right: clamp(20px, 5vw, 72px);
+    width: auto;
+    height: 80%;
+    object-fit: contain;
+    pointer-events: none;
+    margin-right: -25%;
+  }
+  .matter-icon-left-trtm-l {
+    position: absolute;
+    top: 60px;
+    left: clamp(20px, 5vw, 72px);
+    width: auto;
+    height: 80%;
+    object-fit: contain;
+    pointer-events: none;
+    margin-left: -25%;
+  }
+
+  .matter-icon-center {
+    position: absolute;
+    top: 24px;
+    left: 35%;
+    width: auto;
+    height: 80%;
+    object-fit: contain;
+    pointer-events: none;
+  }
+  .matter-icon-center-info-r{
+    position: absolute;
+    top: 24px;
+    right: clamp(20px, 5vw, 72px);
+    width: auto;
+    height: 80%;
+    object-fit: contain;
+    pointer-events: none;
+    margin-right: -20%;
+  }
+  .matter-icon-center-info-l{
+    position: absolute;
+    top: 24px;
+    left: clamp(20px, 5vw, 72px);
+    width: auto;
+    height: 80%;
+    object-fit: contain;
+    pointer-events: none;
+    margin-left: -20%;
+  }
+
+  .matter-icon-center-center {
+    position: absolute;
+    top: 24px;
+    left: 30%;
+    width: auto;
+    height: 80%;
+    object-fit: contain;
+    pointer-events: none;
+  }
+  
+  .matter-icon-center-center-about{
+    position: absolute;
+    top: -1px;
+    left: 24%;
+    width: auto;
+    height: 100%;
+    object-fit: contain;
+    pointer-events: none;
+  }
+
+  .matter-icon-center-center-jury {
+    position: absolute;
+    top: 0px;
+    left: 17%;
+    width: auto;
+    height: 100%;
+    object-fit: contain;
+    pointer-events: none;
+  }
+
+
+
+
+  .matter-icon-eventptnr-l {
+    position: absolute;
+    top: 24px;
+    left: clamp(20px, 5vw, 72px);
+    width: auto;
+    height: 90%;
+    object-fit: contain;
+    pointer-events: none;
+    margin-left: -15%;
+  }
+  .matter-icon-eventptnr-r {
+    position: absolute;
+    top: 24px;
+    right: clamp(20px, 5vw, 72px);
+    width: auto;
+    height: 90%;
+    object-fit: contain;
+    pointer-events: none;
+    margin-right: -15%;
+  }
+
+
+  .matter-icon-criteria {
+    position: absolute;
+    top: -60%;
+    left: clamp(20px, 5vw, 72px);
+    width: auto;
+    height: 80%;
+    object-fit: contain;
+    pointer-events: none;
+    margin-left: -15%;
+  }
+  .matter-icon-contatus{
+    position: absolute;
+    top: -60%;
+    right: clamp(20px, 5vw, 72px);
+    width: auto;
+    height: 80%;
+    object-fit: contain;
+    pointer-events: none;
+    margin-right: -20%;
+  }
+
+
+  .matter-icon-award {
+    position: absolute;
+    top: 0%;
+    left: clamp(20px, 5vw, 72px);
+    width: auto;
+    height: 80%;
+    object-fit: contain;
+    pointer-events: none;
+    margin-left: -15%;
+  }
