@@ -543,7 +543,7 @@
   .matter {
     position: relative;
     padding-block: clamp(50px, 12vw, 140px);
-    background: linear-gradient(160deg, #fedee1, var(--bg) 65%);
+    background: linear-gradient(160deg, #CBE1F6, #ffffff 65%);
   }
 
   .matter-icon {
